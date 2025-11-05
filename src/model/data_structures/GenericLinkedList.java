@@ -1,11 +1,8 @@
 package model.data_structures;
-import java.util.Comparator;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
-import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.Spliterators;
 
 public class GenericLinkedList<T> implements Iterable<T> {
     private Node<T> head;
@@ -36,7 +33,7 @@ public class GenericLinkedList<T> implements Iterable<T> {
         if (head.getData().equals(data)) {
             head = head.getNext();
             if (head == null) {
-                tail = null; // List became empty
+                tail = null;
             }
             size--;
             return true;
@@ -187,5 +184,14 @@ public class GenericLinkedList<T> implements Iterable<T> {
         }
 
         return array;
+    }
+    public List<T> toList() {
+        List<T> list = new ArrayList<>();
+        Node<T> current = head;
+        while (current != null) {
+            list.add(((Node<T>) current).getData());
+            current = ((Node<T>) current).getNext();
+        }
+        return list;
     }
 }
