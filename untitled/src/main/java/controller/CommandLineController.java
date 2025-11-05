@@ -1,7 +1,7 @@
 package controller;
-import model.data_structures.*;
 import model.Book;
 import model.Library;
+import model.data_structures.GenericLinkedList;
 import model.enums.BookStatus;
 
 import java.time.LocalDate;
@@ -14,6 +14,10 @@ public class CommandLineController {
 
     public CommandLineController() {
         this.library = new Library();
+        this.scanner = new Scanner(System.in);
+    }
+    public CommandLineController(Library library) {
+        this.library = library;
         this.scanner = new Scanner(System.in);
     }
 

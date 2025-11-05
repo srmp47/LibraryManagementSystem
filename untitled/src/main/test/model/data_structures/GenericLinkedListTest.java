@@ -1,4 +1,4 @@
-package test.model;
+package test.model.data_structures;
 
 import model.data_structures.GenericLinkedList;
 import org.junit.jupiter.api.BeforeEach;
