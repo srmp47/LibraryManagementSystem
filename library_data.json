@@ -1,1 +1,11 @@
-[ ]
+[ {
+  "id" : 3,
+  "title" : "book1",
+  "author" : "reza",
+  "status" : "EXIST",
+  "publishDate" : [ 2019, 9, 8 ],
+  "isbn" : "dassa",
+  "genre" : "fun",
+  "pageCount" : 34,
+  "type" : "BOOK"
+} ]
