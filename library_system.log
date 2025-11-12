@@ -14,3 +14,12 @@
 2025-11-12 10:53:13 [main] INFO  l.controllers.CommandLineController - User selected menu option: 4
 2025-11-12 10:53:13 [main] INFO  l.controllers.CommandLineController - Listing all library items
 2025-11-12 10:53:13 [main] INFO  l.controllers.CommandLineController - Displaying all 4 library items
+2025-11-12 12:28:35 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with new Library
+2025-11-12 12:28:40 [main] INFO  l.controllers.CommandLineController - User selected menu option: 3
+2025-11-12 12:28:40 [main] INFO  l.controllers.CommandLineController - Starting searchLibraryItems process
+2025-11-12 12:28:43 [main] INFO  l.controllers.CommandLineController - User searching with keyword: ''
+2025-11-12 12:28:43 [main] WARN  l.controllers.CommandLineController - Search failed: Empty keyword provided
+2025-11-12 12:28:47 [main] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-12 12:28:47 [main] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-12 12:28:47 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-12 12:28:47 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
