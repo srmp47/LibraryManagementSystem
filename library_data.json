@@ -8,4 +8,34 @@
   "genre" : "fun",
   "pageCount" : 34,
   "type" : "BOOK"
+}, {
+  "id" : 5,
+  "title" : "asd",
+  "author" : "dasd",
+  "status" : "BANNED",
+  "publishDate" : [ 2015, 9, 1 ],
+  "issueNumber" : "12",
+  "publisher" : "wqe",
+  "category" : "sad",
+  "type" : "MAGAZINE"
+}, {
+  "id" : 4,
+  "title" : "asd",
+  "author" : "asd",
+  "status" : "BANNED",
+  "publishDate" : [ 1990, 9, 12 ],
+  "university" : "ssa",
+  "department" : "sa",
+  "advisor" : "das",
+  "type" : "THESIS"
+}, {
+  "id" : 6,
+  "title" : "2",
+  "author" : "e",
+  "status" : "EXIST",
+  "publishDate" : [ 2019, 9, 12 ],
+  "issueNumber" : "sw",
+  "publisher" : "qw",
+  "category" : "wq",
+  "type" : "MAGAZINE"
 } ]

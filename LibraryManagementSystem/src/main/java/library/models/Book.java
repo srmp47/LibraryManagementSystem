@@ -1,8 +1,8 @@
 package library.models;
 
-import library.models.enums.LibraryItemStatus;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import library.models.enums.LibraryItemStatus;
 import library.models.enums.LibraryItemType;
 
 import java.time.LocalDate;

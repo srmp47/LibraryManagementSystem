@@ -1,4 +1,5 @@
 package library;
+
 import library.controllers.CommandLineController;
 
 public class Main {

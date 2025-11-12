@@ -66,67 +66,79 @@ public class GenericLinkedList<T> implements Iterable<T> {
         return size == 0;
     }
 
-    public void sort(Comparator<T> comparator) {
-        if (size <= 1) return;
-
-        @SuppressWarnings("unchecked")
-        T[] array = (T[]) new Object[size];
+    private void updateTail() {
+        if (head == null) {
+            tail = null;
+            return;
+        }
 
         Node<T> current = head;
-        for (int i = 0; i < size; i++) {
-            array[i] = current.getData();
+        while (current.getNext() != null) {
             current = current.getNext();
         }
-
-        mergeSort(array, 0, size - 1, comparator);
-
-        current = head;
-        for (int i = 0; i < size; i++) {
-            current.setData(array[i]);
-            current = current.getNext();
-        }
+        tail = current;
     }
 
-    private void mergeSort(T[] array, int left, int right, Comparator<T> comparator) {
-        if (left < right) {
-            int mid = left + (right - left) / 2;
-
-            mergeSort(array, left, mid, comparator);
-            mergeSort(array, mid + 1, right, comparator);
-
-            merge(array, left, mid, right, comparator);
-        }
+    public void sort(Comparator<T> comparator) {
+        if (size <= 1) return;
+        head = mergeSort(head, comparator);
+        updateTail();
     }
 
-    private void merge(T[] array, int left, int mid, int right, Comparator<T> comparator) {
-        int leftSize = mid - left + 1;
-        int rightSize = right - mid;
 
-        @SuppressWarnings("unchecked")
-        T[] leftArray = (T[]) new Object[leftSize];
-        @SuppressWarnings("unchecked")
-        T[] rightArray = (T[]) new Object[rightSize];
+    private Node<T> mergeSort(Node<T> head, Comparator<T> comparator) {
+        if (head == null || head.getNext() == null) {
+            return head;
+        }
 
-        System.arraycopy(array, left, leftArray, 0, leftSize);
-        System.arraycopy(array, mid + 1, rightArray, 0, rightSize);
+        Node<T> middle = getMiddle(head);
+        Node<T> nextOfMiddle = middle.getNext();
+        middle.setNext(null);
 
-        int i = 0, j = 0, k = left;
+        Node<T> left = mergeSort(head, comparator);
+        Node<T> right = mergeSort(nextOfMiddle, comparator);
 
-        while (i < leftSize && j < rightSize) {
-            if (comparator.compare(leftArray[i], rightArray[j]) <= 0) {
-                array[k++] = leftArray[i++];
+        return merge(left, right, comparator);
+    }
+
+    private Node<T> getMiddle(Node<T> head) {
+        if (head == null) return null;
+
+        Node<T> slow = head;
+        Node<T> fast = head;
+
+        while (fast.getNext() != null && fast.getNext().getNext() != null) {
+            slow = slow.getNext();
+            fast = fast.getNext().getNext();
+        }
+
+        return slow;
+    }
+
+    private Node<T> merge(Node<T> left, Node<T> right, Comparator<T> comparator) {
+        Node<T> dummy = new Node<>(null);
+        Node<T> current = dummy;
+
+
+        while (left != null && right != null) {
+            if (comparator.compare(left.getData(), right.getData()) <= 0) {
+                current.setNext(left);
+                left = left.getNext();
             } else {
-                array[k++] = rightArray[j++];
+                current.setNext(right);
+                right = right.getNext();
             }
+            current = current.getNext();
         }
 
-        while (i < leftSize) {
-            array[k++] = leftArray[i++];
+
+        if (left != null) {
+            current.setNext(left);
+        } else {
+            current.setNext(right);
         }
 
-        while (j < rightSize) {
-            array[k++] = rightArray[j++];
-        }
+        return dummy.getNext();
     }
 
     public GenericLinkedList<T> filter(Predicate<T> predicate) {
@@ -190,8 +202,8 @@ public class GenericLinkedList<T> implements Iterable<T> {
         List<T> list = new ArrayList<>();
         Node<T> current = head;
         while (current != null) {
-            list.add(((Node<T>) current).getData());
-            current = ((Node<T>) current).getNext();
+            list.add(current.getData());
+            current = (current).getNext();
         }
         return list;
     }

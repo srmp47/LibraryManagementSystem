@@ -1,0 +1,14 @@
+2025-11-12 10:47:42 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-12 10:47:42 [main] INFO  l.controllers.CommandLineController - User selected menu option: 1
+2025-11-12 10:47:42 [main] INFO  l.controllers.CommandLineController - Starting addLibraryItem process
+2025-11-12 10:48:32 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-12 10:49:18 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-12 10:50:33 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-12 10:50:33 [main] INFO  l.controllers.CommandLineController - User selected menu option: 1
+2025-11-12 10:50:33 [main] INFO  l.controllers.CommandLineController - Starting addLibraryItem process
+2025-11-12 10:56:02 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-12 10:56:02 [main] INFO  l.controllers.CommandLineController - User selected menu option: 1
+2025-11-12 10:56:02 [main] INFO  l.controllers.CommandLineController - Starting addLibraryItem process
+2025-11-12 11:02:05 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-12 11:02:05 [main] INFO  l.controllers.CommandLineController - User selected menu option: 6
+2025-11-12 11:02:05 [main] INFO  l.controllers.CommandLineController - Starting updateLibraryItemStatus process

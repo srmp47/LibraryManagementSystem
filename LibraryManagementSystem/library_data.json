@@ -1,0 +1,21 @@
+[ {
+  "id" : 1,
+  "title" : "Test Book 1",
+  "author" : "Author 1",
+  "status" : "EXIST",
+  "publishDate" : [ 2024, 11, 9 ],
+  "isbn" : "ISBN-1",
+  "genre" : "Genre 1",
+  "pageCount" : 101,
+  "type" : "BOOK"
+}, {
+  "id" : 2,
+  "title" : "National Geographic",
+  "author" : "Editor in Chief",
+  "status" : "BORROWED",
+  "publishDate" : [ 2023, 1, 15 ],
+  "issueNumber" : "Vol. 245 No. 1",
+  "publisher" : "National Geographic Society",
+  "category" : "Science & Nature",
+  "type" : "MAGAZINE"
+} ]

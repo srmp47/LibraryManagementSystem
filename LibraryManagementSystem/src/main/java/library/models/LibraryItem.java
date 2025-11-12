@@ -2,12 +2,14 @@ package library.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import library.models.enums.LibraryItemStatus;
-import java.time.LocalDate;
-import java.util.concurrent.atomic.AtomicInteger;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import library.models.enums.LibraryItemStatus;
 import library.models.enums.LibraryItemType;
+
+import java.time.LocalDate;
+import java.util.concurrent.atomic.AtomicInteger;
+
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,

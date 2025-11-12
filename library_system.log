@@ -1,0 +1,16 @@
+2025-11-12 10:50:59 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with new Library
+2025-11-12 10:51:03 [main] INFO  l.controllers.CommandLineController - User selected menu option: 1
+2025-11-12 10:51:03 [main] INFO  l.controllers.CommandLineController - Starting addLibraryItem process
+2025-11-12 10:51:19 [main] INFO  l.controllers.CommandLineController - User selected item type: 2
+2025-11-12 10:51:19 [main] INFO  l.controllers.CommandLineController - Starting addMagazine process
+2025-11-12 10:51:53 [main] DEBUG l.controllers.CommandLineController - Parsed publish date for magazine '2': 2019-09-12
+2025-11-12 10:52:00 [main] DEBUG l.controllers.CommandLineController - Set status for magazine '2': EXIST
+2025-11-12 10:52:09 [main] INFO  l.controllers.CommandLineController - Successfully added new magazine - Title: '2', Editor: 'e', Issue: 'sw', Status: EXIST
+2025-11-12 10:52:24 [main] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-12 10:52:24 [main] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-12 10:52:24 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-12 10:52:24 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-12 10:53:11 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with new Library
+2025-11-12 10:53:13 [main] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-12 10:53:13 [main] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-12 10:53:13 [main] INFO  l.controllers.CommandLineController - Displaying all 4 library items
