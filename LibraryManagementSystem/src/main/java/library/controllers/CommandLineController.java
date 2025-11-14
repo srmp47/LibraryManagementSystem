@@ -5,6 +5,7 @@ import library.models.data_structures.GenericLinkedList;
 import library.models.enums.LibraryItemStatus;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +39,10 @@ public class CommandLineController {
         System.out.println("4. 📖 List All Library Items");
         System.out.println("5. 📅 Sort Library Items by Publication Date");
         System.out.println("6. ✏️ Update Library Item Status");
-        System.out.println("7. 📊 Display Statistics");
+        System.out.println("7. 📥 Borrow Library Item");
+        System.out.println("8. 📤 Return Library Item");
+        System.out.println("9. 📋 List Borrowed Items");
+        System.out.println("10. 📊 Display Statistics");
         System.out.println("0. 🚪 Exit");
         System.out.print("Enter your choice: ");
     }
@@ -69,6 +73,15 @@ public class CommandLineController {
                 updateLibraryItemStatus();
                 return false;
             case "7":
+                borrowLibraryItem();
+                return false;
+            case "8":
+                returnLibraryItem();
+                return false;
+            case "9":
+                listBorrowedItems();
+                return false;
+            case "10":
                 displayStatistics();
                 return false;
             case "0":
@@ -148,18 +161,7 @@ public class CommandLineController {
             }
         }
 
-        LibraryItemStatus status = null;
-        while (status == null) {
-            System.out.print("Enter status (EXIST/BORROWED/BANNED): ");
-            String statusInput = scanner.nextLine().trim().toUpperCase();
-            try {
-                status = LibraryItemStatus.valueOf(statusInput);
-                logger.debug("Set status for book '{}': {}", title, status);
-            } catch (IllegalArgumentException e) {
-                logger.warn("Invalid status provided for book '{}': {}", title, statusInput);
-                System.out.println("❌ Invalid status! Please choose from EXIST, BORROWED, or BANNED");
-            }
-        }
+        LibraryItemStatus status = LibraryItemStatus.EXIST;
 
         System.out.print("Enter ISBN: ");
         String isbn = scanner.nextLine().trim();
@@ -182,7 +184,7 @@ public class CommandLineController {
             }
         }
 
-        Book book = new Book(null ,title, author, status, publishDate, isbn, genre, pageCount);
+        Book book = new Book(null ,title, author, status, publishDate, isbn, genre, pageCount, null);
         library.addLibraryItem(book);
         logger.info("Successfully added new book - Title: '{}', Author: '{}', ISBN: '{}', Status: {}",
                 title, author, isbn, status);
@@ -222,18 +224,7 @@ public class CommandLineController {
             }
         }
 
-        LibraryItemStatus status = null;
-        while (status == null) {
-            System.out.print("Enter status (EXIST/BORROWED/BANNED): ");
-            String statusInput = scanner.nextLine().trim().toUpperCase();
-            try {
-                status = LibraryItemStatus.valueOf(statusInput);
-                logger.debug("Set status for magazine '{}': {}", title, status);
-            } catch (IllegalArgumentException e) {
-                logger.warn("Invalid status provided for magazine '{}': {}", title, statusInput);
-                System.out.println("❌ Invalid status! Please choose from EXIST, BORROWED, or BANNED");
-            }
-        }
+        LibraryItemStatus status = LibraryItemStatus.EXIST;
 
         System.out.print("Enter issue number: ");
         String issueNumber = scanner.nextLine().trim();
@@ -244,7 +235,7 @@ public class CommandLineController {
         System.out.print("Enter category: ");
         String category = scanner.nextLine().trim();
 
-        Magazine magazine = new Magazine(null ,title, editor, status, publishDate, issueNumber, publisher, category);
+        Magazine magazine = new Magazine(null ,title, editor, status, publishDate, issueNumber, publisher, category, null);
         library.addLibraryItem(magazine);
         logger.info("Successfully added new magazine - Title: '{}', Editor: '{}', Issue: '{}', Status: {}",
                 title, editor, issueNumber, status);
@@ -284,18 +275,7 @@ public class CommandLineController {
             }
         }
 
-        LibraryItemStatus status = null;
-        while (status == null) {
-            System.out.print("Enter status (EXIST/BORROWED/BANNED): ");
-            String statusInput = scanner.nextLine().trim().toUpperCase();
-            try {
-                status = LibraryItemStatus.valueOf(statusInput);
-                logger.debug("Set status for reference '{}': {}", title, status);
-            } catch (IllegalArgumentException e) {
-                logger.warn("Invalid status provided for reference '{}': {}", title, statusInput);
-                System.out.println("❌ Invalid status! Please choose from EXIST, BORROWED, or BANNED");
-            }
-        }
+        LibraryItemStatus status = LibraryItemStatus.EXIST;
 
         System.out.print("Enter reference type (e.g., Dictionary, Encyclopedia): ");
         String referenceType = scanner.nextLine().trim();
@@ -306,7 +286,7 @@ public class CommandLineController {
         System.out.print("Enter subject: ");
         String subject = scanner.nextLine().trim();
 
-        Reference reference = new Reference(null ,title, author, status, publishDate, referenceType, edition, subject);
+        Reference reference = new Reference(null ,title, author, status, publishDate, referenceType, edition, subject, null);
         library.addLibraryItem(reference);
         logger.info("Successfully added new reference - Title: '{}', Author: '{}', Type: '{}', Status: {}",
                 title, author, referenceType, status);
@@ -346,18 +326,7 @@ public class CommandLineController {
             }
         }
 
-        LibraryItemStatus status = null;
-        while (status == null) {
-            System.out.print("Enter status (EXIST/BORROWED/BANNED): ");
-            String statusInput = scanner.nextLine().trim().toUpperCase();
-            try {
-                status = LibraryItemStatus.valueOf(statusInput);
-                logger.debug("Set status for thesis '{}': {}", title, status);
-            } catch (IllegalArgumentException e) {
-                logger.warn("Invalid status provided for thesis '{}': {}", title, statusInput);
-                System.out.println("❌ Invalid status! Please choose from EXIST, BORROWED, or BANNED");
-            }
-        }
+        LibraryItemStatus status = LibraryItemStatus.EXIST;
 
         System.out.print("Enter university: ");
         String university = scanner.nextLine().trim();
@@ -368,7 +337,7 @@ public class CommandLineController {
         System.out.print("Enter advisor: ");
         String advisor = scanner.nextLine().trim();
 
-        Thesis thesis = new Thesis(null, title, author, status, publishDate, university, department, advisor);
+        Thesis thesis = new Thesis(null, title, author, status, publishDate, university, department, advisor, null);
         library.addLibraryItem(thesis);
         logger.info("Successfully added new thesis - Title: '{}', Author: '{}', University: '{}', Status: {}",
                 title, author, university, status);
@@ -398,8 +367,10 @@ public class CommandLineController {
 
         logger.info("Found {} items matching title '{}'", foundItems.getSize(), title);
         System.out.println("\n📚 Found Items:");
+        HashMap<Integer, Integer> idByIndex = new HashMap<>();
         int index = 1;
         for (LibraryItem item : foundItems) {
+            idByIndex.put(index, item.getId());
             System.out.printf("%d. ", index++);
             item.display();
         }
@@ -419,20 +390,30 @@ public class CommandLineController {
                 return;
             }
 
-            LibraryItem itemToRemove = null;
-            int currentIndex = 1;
-            for (LibraryItem item : foundItems) {
-                if (currentIndex == choice) {
-                    itemToRemove = item;
-                    break;
-                }
-                currentIndex++;
-            }
+            int itemId = idByIndex.get(choice);
+            LibraryItem itemToRemove = library.getLibraryItemById(itemId);
 
             if (itemToRemove != null) {
+                if (itemToRemove.getStatus() == LibraryItemStatus.BORROWED) {
+                    logger.warn("Attempt to remove borrowed item - Type: {}, Title: '{}', ID: {}",
+                            itemToRemove.getClass().getSimpleName(), itemToRemove.getTitle(), itemToRemove.getId());
+                    System.out.println("❌ Cannot remove borrowed item!");
+                    System.out.println("📖 Item is currently borrowed. Please ensure it's returned first.");
+                    return;
+                }
+
+                System.out.print("Are you sure you want to remove this item? (y/n): ");
+                String confirmation = scanner.nextLine().trim().toLowerCase();
+                if (!confirmation.equals("y") && !confirmation.equals("yes")) {
+                    logger.info("User cancelled removal after confirmation");
+                    System.out.println("❌ Removal cancelled.");
+                    return;
+                }
+
                 library.removeLibraryItem(itemToRemove);
-                logger.info("Successfully removed library item - Type: {}, Title: '{}', ID: {}",
-                        itemToRemove.getClass().getSimpleName(), itemToRemove.getTitle(), itemToRemove.getId());
+                logger.info("Successfully removed library item - Type: {}, Title: '{}', ID: {}, Status: {}",
+                        itemToRemove.getClass().getSimpleName(), itemToRemove.getTitle(),
+                        itemToRemove.getId(), itemToRemove.getStatus());
                 System.out.println("✅ Item removed successfully!");
             }
         } catch (NumberFormatException e) {
@@ -499,8 +480,10 @@ public class CommandLineController {
 
         logger.info("Found {} items for status update matching title '{}'", foundItems.getSize(), title);
         System.out.println("\n📚 Found Items:");
+        HashMap<Integer, Integer> idByIndex = new HashMap<>();
         int index = 1;
         for (LibraryItem item : foundItems) {
+            idByIndex.put(index, item.getId());
             System.out.printf("%d. ", index++);
             item.display();
         }
@@ -519,16 +502,8 @@ public class CommandLineController {
                 System.out.println("❌ Invalid choice!");
                 return;
             }
-
-            LibraryItem itemToUpdate = null;
-            int currentIndex = 1;
-            for (LibraryItem item : foundItems) {
-                if (currentIndex == choice) {
-                    itemToUpdate = item;
-                    break;
-                }
-                currentIndex++;
-            }
+            int itemId = idByIndex.get(choice);
+            LibraryItem itemToUpdate = library.getLibraryItemById(itemId);
 
             if (itemToUpdate != null) {
                 LibraryItemStatus oldStatus = itemToUpdate.getStatus();
@@ -555,6 +530,175 @@ public class CommandLineController {
         }
     }
 
+    private void borrowLibraryItem() {
+        logger.info("Starting borrowLibraryItem process");
+        System.out.println("\n📥 === BORROW LIBRARY ITEM ===");
+
+        if (library.getLibraryItems().isEmpty()) {
+            logger.warn("Borrow operation failed: No items in library");
+            System.out.println("❌ No items in library!");
+            return;
+        }
+
+        System.out.print("Enter item title to borrow: ");
+        String title = scanner.nextLine().trim();
+        logger.info("User searching for item to borrow with title: '{}'", title);
+
+        GenericLinkedList<LibraryItem> foundItems = library.search(title);
+        if (foundItems.isEmpty()) {
+            logger.warn("No items found for borrowing with title containing: '{}'", title);
+            System.out.println("❌ No items found with title containing: " + title);
+            return;
+        }
+
+        GenericLinkedList<LibraryItem> availableItems = new GenericLinkedList<>();
+        for (LibraryItem item : foundItems) {
+            if (item.getStatus() == LibraryItemStatus.EXIST) {
+                availableItems.add(item);
+            }
+        }
+
+        if (availableItems.isEmpty()) {
+            logger.warn("No available items found for borrowing with title: '{}'", title);
+            System.out.println("❌ No available items found with title: " + title);
+            System.out.println("All matching items are either borrowed or banned.");
+            return;
+        }
+
+        logger.info("Found {} available items matching title '{}'", availableItems.getSize(), title);
+        System.out.println("\n📚 Available Items for Borrowing:");
+        HashMap<Integer, Integer> idByIndex = new HashMap<>();
+        int index = 1;
+        for (LibraryItem item : availableItems) {
+            idByIndex.put(index, item.getId());
+            System.out.printf("%d. ", index++);
+            item.display();
+        }
+
+        System.out.print("Enter the number of item to borrow (0 to cancel): ");
+        try {
+            int choice = Integer.parseInt(scanner.nextLine().trim());
+            if (choice == 0) {
+                logger.info("User cancelled borrow operation");
+                System.out.println("❌ Operation cancelled.");
+                return;
+            }
+
+            if (choice < 1 || choice > availableItems.getSize()) {
+                logger.warn("Invalid choice for borrowing: {} (valid range: 1-{})", choice, availableItems.getSize());
+                System.out.println("❌ Invalid choice!");
+                return;
+            }
+
+            int itemId = idByIndex.get(choice);
+            LibraryItem itemToBorrow = library.getLibraryItemById(itemId);
+            LocalDate returnDate = LocalDate.now().plusDays(14);
+            boolean success = library.borrowItem(itemToBorrow.getId(), returnDate);
+            if (success) {
+                logger.info("Successfully borrowed item - Title: '{}', ID: {}, Expected Return: {}",
+                        itemToBorrow.getTitle(), itemToBorrow.getId(), returnDate);
+                System.out.println("✅ Item borrowed successfully!");
+                System.out.println("📅 Expected return date: " + returnDate);
+            } else {
+                logger.error("Failed to borrow item - Title: '{}', ID: {}", itemToBorrow.getTitle(), itemToBorrow.getId());
+                System.out.println("❌ Failed to borrow item!");
+            }
+        } catch (NumberFormatException e) {
+            logger.error("Number format exception during borrow operation", e);
+            System.out.println("❌ Please enter a valid number!");
+        }
+    }
+
+    private void returnLibraryItem() {
+        logger.info("Starting returnLibraryItem process");
+        System.out.println("\n📤 === RETURN LIBRARY ITEM ===");
+        GenericLinkedList<LibraryItem> borrowedItems = library.getBorrowedItems();
+        if (borrowedItems.isEmpty()) {
+            logger.warn("Return operation failed: No borrowed items");
+            System.out.println("❌ No borrowed items to return!");
+            return;
+        }
+
+        System.out.println("\n📚 Borrowed Items:");
+        HashMap<Integer, Integer> idByIndex = new HashMap<>();
+        int index = 1;
+        for (LibraryItem item : borrowedItems) {
+            idByIndex.put(index, item.getId());
+            System.out.printf("%d. ", index++);
+            item.display();
+            LocalDate expectedReturn = item.getReturnDate();
+            if (expectedReturn != null) {
+                System.out.println("   Expected Return: " + expectedReturn);
+                if (expectedReturn.isBefore(LocalDate.now())) {
+                    System.out.println("   ⚠️  OVERDUE!");
+                }
+            }
+        }
+
+        System.out.print("Enter the number of item to return (0 to cancel): ");
+        try {
+            int choice = Integer.parseInt(scanner.nextLine().trim());
+            if (choice == 0) {
+                logger.info("User cancelled return operation");
+                System.out.println("❌ Operation cancelled.");
+                return;
+            }
+
+            if (choice < 1 || choice > borrowedItems.getSize()) {
+                logger.warn("Invalid choice for return: {} (valid range: 1-{})", choice, borrowedItems.getSize());
+                System.out.println("❌ Invalid choice!");
+                return;
+            }
+
+            int itemId = idByIndex.get(choice);
+            LibraryItem libraryItem = library.getLibraryItemById(itemId);
+            LocalDate expectedReturn = libraryItem.getReturnDate();
+            boolean success = library.returnItem(itemId);
+            if (success) {
+                LibraryItem returnedItem = library.getLibraryItemById(itemId);
+                logger.info("Successfully returned item - Title: '{}', ID: {}",
+                        returnedItem.getTitle(), returnedItem.getId());
+                System.out.println("✅ Item returned successfully!");
+                if (expectedReturn != null && expectedReturn.isBefore(LocalDate.now())) {
+                    System.out.println("⚠️  Note: This item was returned late.");
+                }
+            } else {
+                logger.error("Failed to return item - ID: {}", itemId);
+                System.out.println("❌ Failed to return item!");
+            }
+        } catch (NumberFormatException e) {
+            logger.error("Number format exception during return operation", e);
+            System.out.println("❌ Please enter a valid number!");
+        }
+    }
+    private void listBorrowedItems() {
+        logger.info("Listing borrowed items");
+        System.out.println("\n📋 === BORROWED LIBRARY ITEMS ===");
+
+        GenericLinkedList<LibraryItem> borrowedItems = library.getBorrowedItems();
+        if (borrowedItems.isEmpty()) {
+            System.out.println("No borrowed items found.");
+            return;
+        }
+
+        int count = 0;
+        for (LibraryItem item : borrowedItems) {
+            System.out.print((++count) + ". ");
+            item.display();
+            LocalDate expectedReturn = item.getReturnDate();
+            if (expectedReturn != null) {
+                System.out.println("   Expected Return: " + expectedReturn);
+                if (expectedReturn.isBefore(LocalDate.now())) {
+                    System.out.println("   ⚠️  STATUS: OVERDUE");
+                } else {
+                    System.out.println("   ✅ STATUS: On Time");
+                }
+            }
+            System.out.println("------------------------");
+        }
+        System.out.println("--- Total: " + count + " borrowed items ---");
+    }
+
     private void displayStatistics() {
         logger.info("Displaying library statistics");
         System.out.println("\n📊 === LIBRARY STATISTICS ===");
@@ -563,22 +707,42 @@ public class CommandLineController {
         int existCount = 0;
         int borrowedCount = 0;
         int bannedCount = 0;
+        int overdueCount = 0;
 
         for (LibraryItem item : library.getLibraryItems()) {
             switch (item.getStatus()) {
                 case EXIST: existCount++; break;
-                case BORROWED: borrowedCount++; break;
+                case BORROWED:
+                    borrowedCount++;
+                    LocalDate expectedReturn = item.getReturnDate();
+                    if (expectedReturn != null && expectedReturn.isBefore(LocalDate.now())) {
+                        overdueCount++;
+                    }
+                    break;
                 case BANNED: bannedCount++; break;
             }
         }
 
-        logger.info("Statistics - Total: {}, Available: {}, Borrowed: {}, Banned: {}",
-                totalItems, existCount, borrowedCount, bannedCount);
+        logger.info("Statistics - Total: {}, Available: {}, Borrowed: {}, Banned: {}, Overdue: {}",
+                totalItems, existCount, borrowedCount, bannedCount, overdueCount);
 
         System.out.println("Total Items: " + totalItems);
         System.out.println("Available (EXIST): " + existCount);
         System.out.println("Borrowed: " + borrowedCount);
+        System.out.println("  ├─ On Time: " + (borrowedCount - overdueCount));
+        System.out.println("  └─ Overdue: " + overdueCount);
         System.out.println("Banned: " + bannedCount);
+
+        if (totalItems > 0) {
+            double availablePercentage = (existCount * 100.0) / totalItems;
+            double borrowedPercentage = (borrowedCount * 100.0) / totalItems;
+            double bannedPercentage = (bannedCount * 100.0) / totalItems;
+
+            System.out.println("\n📈 Percentages:");
+            System.out.printf("Available: %.1f%%\n", availablePercentage);
+            System.out.printf("Borrowed: %.1f%%\n", borrowedPercentage);
+            System.out.printf("Banned: %.1f%%\n", bannedPercentage);
+        }
     }
 
     private void displayLibraryItems(Iterable<LibraryItem> items, String title) {

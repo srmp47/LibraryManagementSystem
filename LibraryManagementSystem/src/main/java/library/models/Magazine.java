@@ -20,8 +20,9 @@ public class Magazine extends LibraryItem {
                     @JsonProperty("publishDate") LocalDate publishDate,
                     @JsonProperty("issueNumber") String issueNumber,
                     @JsonProperty("publisher") String publisher,
-                    @JsonProperty("category") String category) {
-        super(id, title, author, status, publishDate, LibraryItemType.MAGAZINE);
+                    @JsonProperty("category") String category,
+                    @JsonProperty("returnDate")LocalDate returnDate) {
+        super(id, title, author, status, publishDate, LibraryItemType.MAGAZINE, returnDate);
         this.issueNumber = issueNumber;
         this.publisher = publisher;
         this.category = category;

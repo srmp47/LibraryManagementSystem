@@ -20,8 +20,9 @@ public class Book extends LibraryItem {
                 @JsonProperty("publishDate") LocalDate publishDate,
                 @JsonProperty("isbn") String isbn,
                 @JsonProperty("genre") String genre,
-                @JsonProperty("pageCount") int pageCount) {
-        super(id, title, author, status, publishDate, LibraryItemType.BOOK);
+                @JsonProperty("pageCount") int pageCount,
+                @JsonProperty("returnDate")LocalDate returnDate) {
+        super(id, title, author, status, publishDate, LibraryItemType.BOOK, returnDate);
         this.isbn = isbn;
         this.genre = genre;
         this.pageCount = pageCount;

@@ -20,8 +20,9 @@ public class Reference extends LibraryItem {
                      @JsonProperty("publishDate") LocalDate publishDate,
                      @JsonProperty("referenceType") String referenceType,
                      @JsonProperty("edition") String edition,
-                     @JsonProperty("subject") String subject) {
-        super(id, title, author, status, publishDate, LibraryItemType.REFERENCE);
+                     @JsonProperty("subject") String subject,
+                     @JsonProperty("returnDate")LocalDate returnDate) {
+        super(id, title, author, status, publishDate, LibraryItemType.REFERENCE, returnDate);
         this.referenceType = referenceType;
         this.edition = edition;
         this.subject = subject;

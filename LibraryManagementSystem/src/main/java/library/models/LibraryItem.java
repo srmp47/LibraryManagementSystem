@@ -29,6 +29,15 @@ public abstract class LibraryItem {
     protected final LocalDate publishDate;
     protected LibraryItemStatus status;
     protected final LibraryItemType type;
+    protected LocalDate returnDate;
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    public LocalDate getReturnDate() {
+        return returnDate;
+    }
 
     public LibraryItemType getType() {
         return type;
@@ -36,16 +45,18 @@ public abstract class LibraryItem {
 
     @JsonCreator
     public LibraryItem(@JsonProperty("id") Integer id,
-                          @JsonProperty("title") String title,
-                          @JsonProperty("author") String author,
-                          @JsonProperty("status") LibraryItemStatus status,
-                          @JsonProperty("publishDate") LocalDate publishDate,
-                          @JsonProperty("type") LibraryItemType type) {
+                       @JsonProperty("title") String title,
+                       @JsonProperty("author") String author,
+                       @JsonProperty("status") LibraryItemStatus status,
+                       @JsonProperty("publishDate") LocalDate publishDate,
+                       @JsonProperty("type") LibraryItemType type,
+                       @JsonProperty("returnDate")LocalDate returnDate) {
         this.title = title;
         this.author = author;
         this.status = status;
         this.publishDate = publishDate;
         this.type = type;
+        this.returnDate = returnDate;
         if (id != null) {
             this.id = id;
             numberOfItems.updateAndGet(current -> Math.max(current, id));
@@ -54,9 +65,10 @@ public abstract class LibraryItem {
         }
     }
 
+    public void setStatus(LibraryItemStatus status) {
+        this.status = status;
+    }
 
-
-    public void setStatus(LibraryItemStatus status) { this.status = status; }
     public abstract void display();
     public String getTitle() { return title; }
     public String getAuthor() { return author; }
@@ -64,4 +76,5 @@ public abstract class LibraryItem {
     public LibraryItemStatus getStatus(){ return status; }
     public int getId() { return id; }
     public static void setCounter(int value) {numberOfItems.set(value);}
+
 }
