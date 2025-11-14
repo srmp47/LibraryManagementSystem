@@ -153,13 +153,6 @@ public class GenericLinkedList<T> implements Iterable<T> {
         return result;
     }
 
-    public Stream<T> stream() {
-        return StreamSupport.stream(
-                Spliterators.spliteratorUnknownSize(iterator(), Spliterator.ORDERED),
-                false
-        );
-    }
-
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {

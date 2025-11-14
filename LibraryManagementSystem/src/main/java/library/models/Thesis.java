@@ -20,8 +20,9 @@ public class Thesis extends LibraryItem {
                   @JsonProperty("publishDate") LocalDate publishDate,
                   @JsonProperty("university") String university,
                   @JsonProperty("department") String department,
-                  @JsonProperty("advisor") String advisor) {
-        super(id, title, author, status, publishDate, LibraryItemType.THESIS);
+                  @JsonProperty("advisor") String advisor,
+                  @JsonProperty("returnDate")LocalDate returnDate) {
+        super(id, title, author, status, publishDate, LibraryItemType.THESIS, returnDate);
         this.university = university;
         this.department = department;
         this.advisor = advisor;
