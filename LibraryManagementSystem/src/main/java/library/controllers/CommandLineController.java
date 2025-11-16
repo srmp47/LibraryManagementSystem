@@ -509,10 +509,15 @@ public class CommandLineController {
                 LibraryItemStatus oldStatus = itemToUpdate.getStatus();
                 LibraryItemStatus newStatus = null;
                 while (newStatus == null) {
-                    System.out.print("Enter new status (EXIST/BORROWED/BANNED): ");
+                    System.out.print("Enter new status (EXIST/BANNED): ");
                     String statusInput = scanner.nextLine().trim().toUpperCase();
                     try {
                         newStatus = LibraryItemStatus.valueOf(statusInput);
+                        if(newStatus == LibraryItemStatus.BORROWED){
+                            newStatus = null;
+                            System.out.println("You can not change status to BORROWED!\nPlease select menu option 7");
+                            logger.warn("User can not change status of library item to BORROWED directly");
+                        }
                     } catch (IllegalArgumentException e) {
                         logger.warn("Invalid status provided for update: {}", statusInput);
                         System.out.println("❌ Invalid status! Please choose from EXIST, BORROWED, or BANNED");
