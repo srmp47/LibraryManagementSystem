@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CommandLineController {
-    public Library getLibrary() {
+    private Library getLibrary() {
         return library;
     }
 

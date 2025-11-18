@@ -69,10 +69,6 @@ public class Library {
         return libraryItemHashMap.get(id);
     }
 
-    public boolean isThereLibraryItemWithId(int id){
-        return libraryItemHashMap.containsKey(id);
-    }
-
     public boolean borrowItem(int itemId, LocalDate expectedReturnDate) {
         LibraryItem item = libraryItemHashMap.get(itemId);
         if (item == null) {
