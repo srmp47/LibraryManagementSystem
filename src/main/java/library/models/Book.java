@@ -21,7 +21,7 @@ public class Book extends LibraryItem {
                 @JsonProperty("isbn") String isbn,
                 @JsonProperty("genre") String genre,
                 @JsonProperty("pageCount") int pageCount,
-                @JsonProperty("returnDate")LocalDate returnDate) {
+                @JsonProperty("returnDate") LocalDate returnDate) {
         super(id, title, author, status, publishDate, LibraryItemType.BOOK, returnDate);
         this.isbn = isbn;
         this.genre = genre;
@@ -40,7 +40,16 @@ public class Book extends LibraryItem {
         System.out.println("Published: " + getPublishDate());
         System.out.println("------------------------");
     }
-    public String getIsbn() { return isbn; }
-    public String getGenre() { return genre; }
-    public int getPageCount() { return pageCount; }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public int getPageCount() {
+        return pageCount;
+    }
 }

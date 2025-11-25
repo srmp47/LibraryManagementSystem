@@ -1,0 +1,20 @@
+[33m4d4d14b[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m HEAD@{0}: commit (amend): feat(v1.3): Add logging
+[33m03965b6[m HEAD@{1}: reset: moving to HEAD~1
+[33m82bc14e[m HEAD@{2}: commit (amend): test(v1.4): Add command controller tests
+[33m546f6c0[m HEAD@{3}: reset: moving to HEAD~1
+[33m7c6fab2[m HEAD@{4}: commit (amend): feat(v2.3): Add borrowing system
+[33m9417227[m HEAD@{5}: commit: feat(v2.3): Add borrowing system
+[33m546f6c0[m HEAD@{6}: reset: moving to HEAD~1
+[33m7623b88[m[33m ([m[1;31mmain/main[m[33m)[m HEAD@{7}: commit: feat(v2.3): Add borrowing system
+[33m546f6c0[m HEAD@{8}: commit: test(v1.4): Add command controller tests
+[33m03965b6[m HEAD@{9}: commit: feat(v1.3): Add logging
+[33mcce6ed7[m HEAD@{10}: commit: refactor(v1): reorganize project architecture
+[33m7e3b046[m HEAD@{11}: commit: feat(v1.4): Add unit and integration tests
+[33m92a5388[m HEAD@{12}: commit: feat(v1.4): Add unit and integration tests
+[33m30e8bec[m HEAD@{13}: commit: feat(v1.4): Add unit and integration tests
+[33m8ec5a8c[m HEAD@{14}: reset: moving to HEAD
+[33m8ec5a8c[m HEAD@{15}: commit: feat(v1.3): Add maven module, CLI, MVC architecture and Json file ad database
+[33m6be4ba9[m HEAD@{16}: commit: refactor(v1.2): change books data type from ArrayList to a generic LinkedList
+[33m6e1d2f5[m HEAD@{17}: commit: feat(v1.1): Create Book and Library classes and a few methods
+[33mfee751d[m HEAD@{18}: Branch: renamed refs/heads/master to refs/heads/main
+[33mfee751d[m HEAD@{20}: commit (initial): Create raw project

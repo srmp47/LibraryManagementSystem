@@ -3,10 +3,12 @@ package library.controllers;
 import library.models.*;
 import library.models.data_structures.GenericLinkedList;
 import library.models.enums.LibraryItemStatus;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Scanner;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +27,7 @@ public class CommandLineController {
         this.scanner = new Scanner(System.in);
     }
 
-    public CommandLineController(Library library){
+    public CommandLineController(Library library) {
         logger.info("Initializing CommandLineController with provided Library");
         this.scanner = new Scanner(System.in);
         this.library = library;
@@ -184,10 +186,9 @@ public class CommandLineController {
             }
         }
 
-        Book book = new Book(null ,title, author, status, publishDate, isbn, genre, pageCount, null);
+        Book book = new Book(null, title, author, status, publishDate, isbn, genre, pageCount, null);
         library.addLibraryItem(book);
-        logger.info("Successfully added new book - Title: '{}', Author: '{}', ISBN: '{}', Status: {}",
-                title, author, isbn, status);
+        logger.info("Successfully added new book - Title: '{}', Author: '{}', ISBN: '{}', Status: {}", title, author, isbn, status);
         System.out.println("✅ Book added successfully!");
     }
 
@@ -235,10 +236,9 @@ public class CommandLineController {
         System.out.print("Enter category: ");
         String category = scanner.nextLine().trim();
 
-        Magazine magazine = new Magazine(null ,title, editor, status, publishDate, issueNumber, publisher, category, null);
+        Magazine magazine = new Magazine(null, title, editor, status, publishDate, issueNumber, publisher, category, null);
         library.addLibraryItem(magazine);
-        logger.info("Successfully added new magazine - Title: '{}', Editor: '{}', Issue: '{}', Status: {}",
-                title, editor, issueNumber, status);
+        logger.info("Successfully added new magazine - Title: '{}', Editor: '{}', Issue: '{}', Status: {}", title, editor, issueNumber, status);
         System.out.println("✅ Magazine added successfully!");
     }
 
@@ -286,10 +286,9 @@ public class CommandLineController {
         System.out.print("Enter subject: ");
         String subject = scanner.nextLine().trim();
 
-        Reference reference = new Reference(null ,title, author, status, publishDate, referenceType, edition, subject, null);
+        Reference reference = new Reference(null, title, author, status, publishDate, referenceType, edition, subject, null);
         library.addLibraryItem(reference);
-        logger.info("Successfully added new reference - Title: '{}', Author: '{}', Type: '{}', Status: {}",
-                title, author, referenceType, status);
+        logger.info("Successfully added new reference - Title: '{}', Author: '{}', Type: '{}', Status: {}", title, author, referenceType, status);
         System.out.println("✅ Reference added successfully!");
     }
 
@@ -339,8 +338,7 @@ public class CommandLineController {
 
         Thesis thesis = new Thesis(null, title, author, status, publishDate, university, department, advisor, null);
         library.addLibraryItem(thesis);
-        logger.info("Successfully added new thesis - Title: '{}', Author: '{}', University: '{}', Status: {}",
-                title, author, university, status);
+        logger.info("Successfully added new thesis - Title: '{}', Author: '{}', University: '{}', Status: {}", title, author, university, status);
         System.out.println("✅ Thesis added successfully!");
     }
 
@@ -395,8 +393,7 @@ public class CommandLineController {
 
             if (itemToRemove != null) {
                 if (itemToRemove.getStatus() == LibraryItemStatus.BORROWED) {
-                    logger.warn("Attempt to remove borrowed item - Type: {}, Title: '{}', ID: {}",
-                            itemToRemove.getClass().getSimpleName(), itemToRemove.getTitle(), itemToRemove.getId());
+                    logger.warn("Attempt to remove borrowed item - Type: {}, Title: '{}', ID: {}", itemToRemove.getClass().getSimpleName(), itemToRemove.getTitle(), itemToRemove.getId());
                     System.out.println("❌ Cannot remove borrowed item!");
                     System.out.println("📖 Item is currently borrowed. Please ensure it's returned first.");
                     return;
@@ -411,9 +408,7 @@ public class CommandLineController {
                 }
 
                 library.removeLibraryItem(itemToRemove);
-                logger.info("Successfully removed library item - Type: {}, Title: '{}', ID: {}, Status: {}",
-                        itemToRemove.getClass().getSimpleName(), itemToRemove.getTitle(),
-                        itemToRemove.getId(), itemToRemove.getStatus());
+                logger.info("Successfully removed library item - Type: {}, Title: '{}', ID: {}, Status: {}", itemToRemove.getClass().getSimpleName(), itemToRemove.getTitle(), itemToRemove.getId(), itemToRemove.getStatus());
                 System.out.println("✅ Item removed successfully!");
             }
         } catch (NumberFormatException e) {
@@ -513,7 +508,7 @@ public class CommandLineController {
                     String statusInput = scanner.nextLine().trim().toUpperCase();
                     try {
                         newStatus = LibraryItemStatus.valueOf(statusInput);
-                        if(newStatus == LibraryItemStatus.BORROWED){
+                        if (newStatus == LibraryItemStatus.BORROWED) {
                             newStatus = null;
                             System.out.println("You can not change status to BORROWED!\nPlease select menu option 7");
                             logger.warn("User can not change status of library item to BORROWED directly");
@@ -525,8 +520,7 @@ public class CommandLineController {
                 }
 
                 itemToUpdate.setStatus(newStatus);
-                logger.info("Successfully updated item status - Item: '{}' (ID: {}), Old Status: {}, New Status: {}",
-                        itemToUpdate.getTitle(), itemToUpdate.getId(), oldStatus, newStatus);
+                logger.info("Successfully updated item status - Item: '{}' (ID: {}), Old Status: {}, New Status: {}", itemToUpdate.getTitle(), itemToUpdate.getId(), oldStatus, newStatus);
                 System.out.println("✅ Item status updated successfully!");
             }
         } catch (NumberFormatException e) {
@@ -600,8 +594,7 @@ public class CommandLineController {
             LocalDate returnDate = LocalDate.now().plusDays(14);
             boolean success = library.borrowItem(itemToBorrow.getId(), returnDate);
             if (success) {
-                logger.info("Successfully borrowed item - Title: '{}', ID: {}, Expected Return: {}",
-                        itemToBorrow.getTitle(), itemToBorrow.getId(), returnDate);
+                logger.info("Successfully borrowed item - Title: '{}', ID: {}, Expected Return: {}", itemToBorrow.getTitle(), itemToBorrow.getId(), returnDate);
                 System.out.println("✅ Item borrowed successfully!");
                 System.out.println("📅 Expected return date: " + returnDate);
             } else {
@@ -661,8 +654,7 @@ public class CommandLineController {
             boolean success = library.returnItem(itemId);
             if (success) {
                 LibraryItem returnedItem = library.getLibraryItemById(itemId);
-                logger.info("Successfully returned item - Title: '{}', ID: {}",
-                        returnedItem.getTitle(), returnedItem.getId());
+                logger.info("Successfully returned item - Title: '{}', ID: {}", returnedItem.getTitle(), returnedItem.getId());
                 System.out.println("✅ Item returned successfully!");
                 if (expectedReturn != null && expectedReturn.isBefore(LocalDate.now())) {
                     System.out.println("⚠️  Note: This item was returned late.");
@@ -676,6 +668,7 @@ public class CommandLineController {
             System.out.println("❌ Please enter a valid number!");
         }
     }
+
     private void listBorrowedItems() {
         logger.info("Listing borrowed items");
         System.out.println("\n📋 === BORROWED LIBRARY ITEMS ===");
@@ -716,7 +709,9 @@ public class CommandLineController {
 
         for (LibraryItem item : library.getLibraryItems()) {
             switch (item.getStatus()) {
-                case EXIST: existCount++; break;
+                case EXIST:
+                    existCount++;
+                    break;
                 case BORROWED:
                     borrowedCount++;
                     LocalDate expectedReturn = item.getReturnDate();
@@ -724,12 +719,13 @@ public class CommandLineController {
                         overdueCount++;
                     }
                     break;
-                case BANNED: bannedCount++; break;
+                case BANNED:
+                    bannedCount++;
+                    break;
             }
         }
 
-        logger.info("Statistics - Total: {}, Available: {}, Borrowed: {}, Banned: {}, Overdue: {}",
-                totalItems, existCount, borrowedCount, bannedCount, overdueCount);
+        logger.info("Statistics - Total: {}, Available: {}, Borrowed: {}, Banned: {}, Overdue: {}", totalItems, existCount, borrowedCount, bannedCount, overdueCount);
 
         System.out.println("Total Items: " + totalItems);
         System.out.println("Available (EXIST): " + existCount);

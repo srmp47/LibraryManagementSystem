@@ -21,7 +21,7 @@ public class Thesis extends LibraryItem {
                   @JsonProperty("university") String university,
                   @JsonProperty("department") String department,
                   @JsonProperty("advisor") String advisor,
-                  @JsonProperty("returnDate")LocalDate returnDate) {
+                  @JsonProperty("returnDate") LocalDate returnDate) {
         super(id, title, author, status, publishDate, LibraryItemType.THESIS, returnDate);
         this.university = university;
         this.department = department;
@@ -41,7 +41,15 @@ public class Thesis extends LibraryItem {
         System.out.println("------------------------");
     }
 
-    public String getUniversity() { return university; }
-    public String getDepartment() { return department; }
-    public String getAdvisor() { return advisor; }
+    public String getUniversity() {
+        return university;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public String getAdvisor() {
+        return advisor;
+    }
 }

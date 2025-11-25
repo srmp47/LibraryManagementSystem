@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package library.models;
+
+option java_package = "library.models";
+option java_outer_classname = "LibraryItemProtos";
+
+import "google/protobuf/timestamp.proto";
+
+message LibraryItemCollection {
+  repeated LibraryItemProto items = 1;
+  int32 max_id = 2;
+}
+
+message LibraryItemProto {
+  oneof item_type {
+    BookProto book = 1;
+    MagazineProto magazine = 2;
+    ReferenceProto reference = 3;
+    ThesisProto thesis = 4;
+  }
+}
+
+message BookProto {
+  int32 id = 1;
+  string title = 2;
+  string author = 3;
+  LibraryItemStatus status = 4;
+  google.protobuf.Timestamp publish_date = 5;
+  string isbn = 6;
+  string genre = 7;
+  int32 page_count = 8;
+  google.protobuf.Timestamp return_date = 9;
+}
+
+message MagazineProto {
+  int32 id = 1;
+  string title = 2;
+  string author = 3;
+  LibraryItemStatus status = 4;
+  google.protobuf.Timestamp publish_date = 5;
+  string issue_number = 6;
+  string publisher = 7;
+  string category = 8;
+  google.protobuf.Timestamp return_date = 9;
+}
+
+message ReferenceProto {
+  int32 id = 1;
+  string title = 2;
+  string author = 3;
+  LibraryItemStatus status = 4;
+  google.protobuf.Timestamp publish_date = 5;
+  string reference_type = 6;
+  string edition = 7;
+  string subject = 8;
+  google.protobuf.Timestamp return_date = 9;
+}
+
+message ThesisProto {
+  int32 id = 1;
+  string title = 2;
+  string author = 3;
+  LibraryItemStatus status = 4;
+  google.protobuf.Timestamp publish_date = 5;
+  string university = 6;
+  string department = 7;
+  string advisor = 8;
+  google.protobuf.Timestamp return_date = 9;
+}
+
+enum LibraryItemStatus {
+  EXIST = 0;
+  BORROWED = 1;
+  BANNED = 2;
+}

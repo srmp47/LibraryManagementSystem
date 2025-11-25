@@ -50,7 +50,7 @@ public abstract class LibraryItem {
                        @JsonProperty("status") LibraryItemStatus status,
                        @JsonProperty("publishDate") LocalDate publishDate,
                        @JsonProperty("type") LibraryItemType type,
-                       @JsonProperty("returnDate")LocalDate returnDate) {
+                       @JsonProperty("returnDate") LocalDate returnDate) {
         this.title = title;
         this.author = author;
         this.status = status;
@@ -70,11 +70,29 @@ public abstract class LibraryItem {
     }
 
     public abstract void display();
-    public String getTitle() { return title; }
-    public String getAuthor() { return author; }
-    public LocalDate getPublishDate() { return publishDate; }
-    public LibraryItemStatus getStatus(){ return status; }
-    public int getId() { return id; }
-    public static void setCounter(int value) {numberOfItems.set(value);}
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public LocalDate getPublishDate() {
+        return publishDate;
+    }
+
+    public LibraryItemStatus getStatus() {
+        return status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public static void setCounter(int value) {
+        numberOfItems.set(value);
+    }
 
 }

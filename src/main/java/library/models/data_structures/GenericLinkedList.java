@@ -191,6 +191,7 @@ public class GenericLinkedList<T> implements Iterable<T> {
 
         return array;
     }
+
     public List<T> toList() {
         List<T> list = new ArrayList<>();
         Node<T> current = head;
