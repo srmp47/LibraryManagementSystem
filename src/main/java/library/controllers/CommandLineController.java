@@ -1,7 +1,7 @@
 package library.controllers;
 
 import library.models.*;
-import library.models.data_structures.GenericLinkedList;
+import library.models.structures.GenericLinkedList;
 import library.models.enums.LibraryItemStatus;
 
 import java.time.LocalDate;

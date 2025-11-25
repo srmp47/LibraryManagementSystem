@@ -1,9 +1,8 @@
 package library.models;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import library.models.data_structures.GenericLinkedList;
+import library.models.structures.GenericLinkedList;
 import library.models.enums.LibraryItemStatus;
 
 import java.io.File;
@@ -13,7 +12,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 
 public class Library {
     private final GenericLinkedList<LibraryItem> libraryItems;

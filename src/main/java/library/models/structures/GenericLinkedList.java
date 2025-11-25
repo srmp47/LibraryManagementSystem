@@ -1,9 +1,7 @@
-package library.models.data_structures;
+package library.models.structures;
 
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 public class GenericLinkedList<T> implements Iterable<T> {
     private Node<T> head;

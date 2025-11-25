@@ -1,4 +1,4 @@
-package library.models.data_structures;
+package library.models.structures;
 
 public class Node<T> {
     private T data;
