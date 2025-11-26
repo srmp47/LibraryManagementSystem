@@ -25,3 +25,211 @@
 2025-11-25 16:09:24 [main] INFO  l.controllers.CommandLineController - User initiated program exit
 2025-11-25 16:09:24 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
 2025-11-25 16:09:24 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-25 17:03:47 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with new Library
+2025-11-25 17:03:47 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-25 17:03:47 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-25 17:04:18 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with new Library
+2025-11-25 17:06:54 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with new Library
+2025-11-25 17:07:36 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with new Library
+2025-11-25 17:08:56 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with new Library
+2025-11-25 17:08:58 [Thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-25 17:08:58 [Thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-25 17:08:58 [Thread-1] INFO  l.controllers.CommandLineController - Displaying all 1 library items
+2025-11-25 17:09:06 [Thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-25 17:09:06 [Thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-25 17:09:06 [Thread-1] INFO  l.controllers.CommandLineController - Displaying all 1 library items
+2025-11-25 17:09:08 [Thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-25 17:09:08 [Thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-25 17:09:08 [Thread-1] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-25 17:09:08 [Thread-1] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-25 17:13:51 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with new Library
+2025-11-25 17:39:38 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with new Library
+2025-11-25 17:40:03 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with new Library
+2025-11-25 17:40:18 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with new Library
+2025-11-25 17:41:07 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with new Library
+2025-11-25 17:41:08 [Thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-25 17:41:08 [Thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-25 17:41:08 [Thread-1] INFO  l.controllers.CommandLineController - Displaying all 1 library items
+2025-11-25 17:41:30 [Thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 1
+2025-11-25 17:41:30 [Thread-1] INFO  l.controllers.CommandLineController - Starting addLibraryItem process
+2025-11-26 12:33:40 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-26 12:33:50 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: ۴
+2025-11-26 12:33:50 [Thread-0] WARN  l.controllers.CommandLineController - Invalid menu choice entered: ۴
+2025-11-26 12:33:53 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-26 12:33:53 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-26 12:33:53 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 1 library items
+2025-11-26 12:34:17 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 1
+2025-11-26 12:34:17 [Thread-0] INFO  l.controllers.CommandLineController - Starting addLibraryItem process
+2025-11-26 12:34:20 [Thread-0] INFO  l.controllers.CommandLineController - User selected item type: 3
+2025-11-26 12:34:20 [Thread-0] INFO  l.controllers.CommandLineController - Start creating addReference request
+2025-11-26 12:34:29 [Thread-0] WARN  l.controllers.CommandLineController - Invalid date format provided for publish date 'qewqe': 2014-23-23
+2025-11-26 12:34:40 [Thread-0] DEBUG l.controllers.CommandLineController - Parsed publish date for 'qewqe': 2019-09-09
+2025-11-26 12:34:55 [Thread-0] INFO  l.controllers.CommandLineController - Created reference request - Title: 'qewqe', Author: 'eqe'
+2025-11-26 12:35:22 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 10
+2025-11-26 12:35:22 [Thread-0] INFO  l.controllers.CommandLineController - Displaying library statistics
+2025-11-26 12:35:22 [Thread-0] INFO  l.controllers.CommandLineController - Statistics - Total: 2, Available: 2, Borrowed: 0, Banned: 0, Overdue: 0
+2025-11-26 12:35:49 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 43
+2025-11-26 12:35:49 [Thread-0] WARN  l.controllers.CommandLineController - Invalid menu choice entered: 43
+2025-11-26 12:35:52 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-26 12:35:52 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-26 12:35:52 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-26 12:36:04 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-26 12:36:04 [Thread-0] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-26 12:36:04 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-26 12:36:04 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-26 12:42:52 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-26 12:42:54 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-26 12:42:54 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-26 12:42:54 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-26 12:43:01 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-26 12:43:01 [Thread-0] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-26 12:43:01 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-26 12:43:01 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-26 12:48:06 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-26 12:48:09 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 7
+2025-11-26 12:48:09 [Thread-0] INFO  l.controllers.CommandLineController - Starting borrowLibraryItem process
+2025-11-26 12:48:13 [Thread-0] INFO  l.controllers.CommandLineController - User searching for item to borrow with title: 'qe'
+2025-11-26 12:48:13 [Thread-0] INFO  l.controllers.CommandLineController - Found 1 available items matching title 'qe'
+2025-11-26 12:48:18 [Thread-0] INFO  l.controllers.CommandLineController - Created borrow request - Item ID: 2, Return Date: 2025-12-10
+2025-11-26 12:48:22 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-26 12:48:22 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-26 12:48:22 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-26 12:48:25 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-26 12:48:25 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-26 12:48:25 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-26 12:48:27 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-26 12:48:27 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-26 12:48:27 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-26 12:48:30 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-26 12:48:30 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-26 12:48:30 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-26 12:48:46 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-26 12:48:46 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-26 12:48:46 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-26 12:48:57 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-26 12:48:57 [Thread-0] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-26 12:48:57 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-26 12:48:57 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-26 12:55:27 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-26 12:55:35 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-11-26 12:55:35 [Thread-0] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-11-26 12:55:40 [Thread-0] INFO  l.controllers.CommandLineController - Created return request - Item ID: 2
+2025-11-26 12:55:50 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-26 12:55:50 [Thread-0] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-26 12:55:51 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-26 12:55:51 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-26 12:56:23 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-26 12:56:25 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-26 12:56:25 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-26 12:56:25 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-26 12:56:31 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 7
+2025-11-26 12:56:31 [Thread-0] INFO  l.controllers.CommandLineController - Starting borrowLibraryItem process
+2025-11-26 12:56:35 [Thread-0] INFO  l.controllers.CommandLineController - User searching for item to borrow with title: 'qe'
+2025-11-26 12:56:35 [Thread-0] INFO  l.controllers.CommandLineController - Found 1 available items matching title 'qe'
+2025-11-26 12:56:38 [Thread-0] INFO  l.controllers.CommandLineController - Created borrow request - Item ID: 2, Return Date: 2025-12-10
+2025-11-26 12:57:18 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-26 12:57:18 [Thread-0] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-26 12:57:18 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-26 12:57:18 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-26 13:00:10 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-26 13:00:15 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-26 13:00:15 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-26 13:00:15 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-26 13:00:22 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-11-26 13:00:22 [Thread-0] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-11-26 13:00:24 [Thread-0] INFO  l.controllers.CommandLineController - Created return request - Item ID: 2
+2025-11-26 13:00:52 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-11-26 13:00:52 [Thread-0] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-11-26 13:00:52 [Thread-0] WARN  l.controllers.CommandLineController - Return operation failed: No borrowed items
+2025-11-26 13:01:01 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 7
+2025-11-26 13:01:01 [Thread-0] INFO  l.controllers.CommandLineController - Starting borrowLibraryItem process
+2025-11-26 13:01:04 [Thread-0] INFO  l.controllers.CommandLineController - User searching for item to borrow with title: 'qe'
+2025-11-26 13:01:04 [Thread-0] INFO  l.controllers.CommandLineController - Found 1 available items matching title 'qe'
+2025-11-26 13:01:17 [Thread-0] INFO  l.controllers.CommandLineController - Created borrow request - Item ID: 2, Return Date: 2025-12-10
+2025-11-26 13:01:24 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-26 13:01:24 [Thread-0] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-26 13:01:24 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-26 13:01:24 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-26 13:57:57 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-26 13:58:02 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-26 13:58:02 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-26 13:58:02 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-26 13:58:15 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 6
+2025-11-26 13:58:15 [Thread-0] INFO  l.controllers.CommandLineController - Starting updateLibraryItemStatus process
+2025-11-26 13:58:21 [Thread-0] INFO  l.controllers.CommandLineController - User searching for item to update with title: 'fsdfsdfa'
+2025-11-26 13:58:21 [Thread-0] WARN  l.controllers.CommandLineController - No items found for status update with title containing: 'fsdfsdfa'
+2025-11-26 13:58:24 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-26 13:58:24 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-26 13:58:24 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-26 13:58:29 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 9
+2025-11-26 13:58:29 [Thread-0] INFO  l.controllers.CommandLineController - Listing borrowed items
+2025-11-26 13:58:37 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-26 13:58:37 [Thread-0] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-26 13:58:37 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-26 13:58:37 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-26 15:19:31 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-26 15:19:35 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 7
+2025-11-26 15:19:35 [Thread-0] INFO  l.controllers.CommandLineController - Starting borrowLibraryItem process
+2025-11-26 15:19:39 [Thread-0] INFO  l.controllers.CommandLineController - User searching for item to borrow with title: 'ds'
+2025-11-26 15:19:39 [Thread-0] WARN  l.controllers.CommandLineController - No items found for borrowing with title containing: 'ds'
+2025-11-26 15:19:42 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-26 15:19:42 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-26 15:19:42 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-26 15:19:48 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 7
+2025-11-26 15:19:48 [Thread-0] INFO  l.controllers.CommandLineController - Starting borrowLibraryItem process
+2025-11-26 15:19:51 [Thread-0] INFO  l.controllers.CommandLineController - User searching for item to borrow with title: 'b'
+2025-11-26 15:19:51 [Thread-0] INFO  l.controllers.CommandLineController - Found 1 available items matching title 'b'
+2025-11-26 15:19:53 [Thread-0] INFO  l.controllers.CommandLineController - Created borrow request - Item ID: 1, Return Date: 2025-12-10
+2025-11-26 15:19:58 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-26 15:19:58 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-26 15:19:58 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-26 15:20:07 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-11-26 15:20:07 [Thread-0] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-11-26 15:20:17 [Thread-0] ERROR l.controllers.CommandLineController - Number format exception during return operation
+java.lang.NumberFormatException: For input string: "b"
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+	at java.base/java.lang.Integer.parseInt(Integer.java:662)
+	at java.base/java.lang.Integer.parseInt(Integer.java:778)
+	at library.controllers.CommandLineController.returnLibraryItem(CommandLineController.java:609)
+	at library.controllers.CommandLineController.handleChoice(CommandLineController.java:68)
+	at library.Main.lambda$createRequestHandlerThread$0(Main.java:43)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-11-26 15:21:04 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-26 15:21:04 [Thread-0] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-26 15:21:04 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-26 15:21:04 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-26 15:21:12 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-26 15:21:13 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-26 15:21:13 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-26 15:21:13 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-26 15:21:16 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-26 15:21:16 [Thread-0] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-26 15:21:16 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-26 15:21:16 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-26 15:22:43 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-26 15:22:45 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-11-26 15:22:45 [Thread-0] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-11-26 15:22:47 [Thread-0] WARN  l.controllers.CommandLineController - Invalid choice for return: 5 (valid range: 1-2)
+2025-11-26 15:22:51 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-11-26 15:22:51 [Thread-0] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-11-26 15:22:53 [Thread-0] ERROR l.controllers.CommandLineController - Number format exception during return operation
+java.lang.NumberFormatException: For input string: "rew"
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+	at java.base/java.lang.Integer.parseInt(Integer.java:662)
+	at java.base/java.lang.Integer.parseInt(Integer.java:778)
+	at library.controllers.CommandLineController.returnLibraryItem(CommandLineController.java:609)
+	at library.controllers.CommandLineController.handleChoice(CommandLineController.java:68)
+	at library.Main.lambda$createRequestHandlerThread$0(Main.java:43)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-11-26 15:28:15 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-26 15:28:20 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-11-26 15:28:20 [Thread-0] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-11-26 15:28:23 [Thread-0] ERROR l.controllers.CommandLineController - Number format exception during return operation
+java.lang.NumberFormatException: For input string: "r"
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+	at java.base/java.lang.Integer.parseInt(Integer.java:662)
+	at java.base/java.lang.Integer.parseInt(Integer.java:778)
+	at library.controllers.CommandLineController.returnLibraryItem(CommandLineController.java:609)
+	at library.controllers.CommandLineController.handleChoice(CommandLineController.java:68)
+	at library.Main.lambda$createRequestHandlerThread$0(Main.java:43)
+	at java.base/java.lang.Thread.run(Thread.java:1583)

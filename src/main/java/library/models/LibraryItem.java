@@ -67,6 +67,7 @@ public abstract class LibraryItem {
 
     public void setStatus(LibraryItemStatus status) {
         this.status = status;
+        this.returnDate = null;
     }
 
     public abstract void display();

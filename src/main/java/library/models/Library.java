@@ -9,9 +9,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class Library {
     private final GenericLinkedList<LibraryItem> libraryItems;
@@ -69,40 +72,33 @@ public class Library {
         return libraryItemHashMap.get(id);
     }
 
-    public boolean borrowItem(int itemId, LocalDate expectedReturnDate) {
+    public boolean borrowItem(int itemId, LocalDate expectedReturnDate) throws InterruptedException {
         LibraryItem item = libraryItemHashMap.get(itemId);
         if (item == null) {
-            System.out.println("❌ Item not found with ID: " + itemId);
             return false;
         }
 
         if (item.getStatus() != LibraryItemStatus.EXIST) {
-            System.out.println("❌ Item is not available for borrowing. Current status: " + item.getStatus());
             return false;
         }
-
         item.setStatus(LibraryItemStatus.BORROWED);
         item.setReturnDate(expectedReturnDate);
-        System.out.println("✅ Item borrowed successfully: " + item.getTitle());
         return true;
     }
 
     public boolean returnItem(int itemId) {
         LibraryItem item = libraryItemHashMap.get(itemId);
         if (item == null) {
-            System.out.println("❌ Item not found with ID: " + itemId);
             return false;
         }
 
         if (item.getStatus() != LibraryItemStatus.BORROWED) {
-            System.out.println("❌ Item is not currently borrowed. Current status: " + item.getStatus());
             return false;
         }
 
         item.setStatus(LibraryItemStatus.EXIST);
         item.setReturnDate(null);
 
-        System.out.println("✅ Item returned successfully: " + item.getTitle());
         return true;
     }
 
@@ -121,7 +117,6 @@ public class Library {
         try {
             File file = new File(dataFile);
             if (!file.exists()) {
-                System.out.println("Protobuf data file not found. Starting with empty library.");
                 return new GenericLinkedList<>();
             }
 
@@ -143,11 +138,9 @@ public class Library {
             }
 
             LibraryItem.setCounter(maxId);
-            System.out.println("Library items loaded successfully from " + dataFile);
             return loadedLibraryItems;
 
         } catch (IOException e) {
-            System.out.println("Error loading data from protobuf file: " + e.getMessage());
             return new GenericLinkedList<>();
         }
     }
@@ -174,7 +167,6 @@ public class Library {
 
             LibraryItemProtos.LibraryItemCollection collection = collectionBuilder.build();
             collection.writeTo(new FileOutputStream(dataFile));
-            System.out.println("Library items saved successfully to " + dataFile);
 
         } catch (IOException e) {
             System.out.println("Error saving data to protobuf file: " + e.getMessage());
