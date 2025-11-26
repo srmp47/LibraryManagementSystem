@@ -233,3 +233,20 @@ java.lang.NumberFormatException: For input string: "r"
 	at library.controllers.CommandLineController.handleChoice(CommandLineController.java:68)
 	at library.Main.lambda$createRequestHandlerThread$0(Main.java:43)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-11-26 15:42:26 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-26 15:42:33 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 5
+2025-11-26 15:42:33 [Thread-0] INFO  l.controllers.CommandLineController - Starting sortLibraryItems process
+2025-11-26 15:42:33 [Thread-0] INFO  l.controllers.CommandLineController - Sorting completed: 2 items sorted by publication date
+2025-11-26 15:42:37 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-26 15:42:37 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-26 15:42:37 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-26 15:42:41 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-11-26 15:42:41 [Thread-0] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-11-26 15:42:44 [Thread-0] INFO  l.controllers.CommandLineController - Created return request - Item ID: 2
+2025-11-26 15:42:53 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-26 15:42:53 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-26 15:42:53 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-26 15:42:55 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-26 15:42:55 [Thread-0] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-26 15:42:55 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-26 15:42:55 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully

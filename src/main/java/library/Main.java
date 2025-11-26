@@ -3,13 +3,15 @@ package library;
 import library.controllers.CommandLineController;
 import library.models.*;
 import library.models.enums.RequestType;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     private static volatile boolean running = true;
-    private static final Queue<LibraryRequest> requestQueue = new LinkedList<>();
-    private static final Queue<LibraryResult> resultQueue = new LinkedList<>();
+    private static final BlockingQueue<LibraryRequest> requestQueue = new LinkedBlockingQueue<>();
+    private static final BlockingQueue<LibraryResult> resultQueue = new LinkedBlockingQueue<>();
 
     public static void main(String[] args) {
         Library library = new Library();
@@ -30,14 +32,16 @@ public class Main {
 
         cli.exitProgram();
     }
+
     private static Thread createRequestHandlerThread(CommandLineController cli) {
         return new Thread(() -> {
             while (running) {
                 try {
-                    for (LibraryResult result : resultQueue) {
+                    List<LibraryResult> results = new ArrayList<>();
+                    resultQueue.drainTo(results);
+                    for (LibraryResult result : results) {
                         System.out.println(result);
                     }
-                    resultQueue.clear();
                     cli.printMenu();
                     String choice = cli.getUserInput();
                     LibraryRequest request = cli.handleChoice(choice);
@@ -49,7 +53,6 @@ public class Main {
                         }
                         requestQueue.add(request);
                         System.out.println("✅ Request submitted to queue!");
-
                     }
 
                     Thread.sleep(100);
@@ -62,6 +65,7 @@ public class Main {
             }
         });
     }
+
     private static Thread createResultHandlerThread(CommandLineController cli, Library library) {
         return new Thread(() -> {
             while (running || !requestQueue.isEmpty()) {
