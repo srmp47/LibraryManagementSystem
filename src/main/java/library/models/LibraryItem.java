@@ -65,7 +65,7 @@ public abstract class LibraryItem {
         }
     }
 
-    public void setStatus(LibraryItemStatus status) {
+    public synchronized void setStatus(LibraryItemStatus status) {
         this.status = status;
         this.returnDate = null;
     }

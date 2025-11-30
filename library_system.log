@@ -250,3 +250,255 @@ java.lang.NumberFormatException: For input string: "r"
 2025-11-26 15:42:55 [Thread-0] INFO  l.controllers.CommandLineController - User initiated program exit
 2025-11-26 15:42:55 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
 2025-11-26 15:42:55 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-27 10:20:38 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-27 10:20:41 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: ۲
+2025-11-27 10:20:41 [Thread-0] WARN  l.controllers.CommandLineController - Invalid menu choice entered: ۲
+2025-11-27 10:20:47 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 2
+2025-11-27 10:20:47 [Thread-0] INFO  l.controllers.CommandLineController - Starting removeLibraryItem process
+2025-11-27 10:20:52 [Thread-0] INFO  l.controllers.CommandLineController - User searching for item to remove with title: 'book'
+2025-11-27 10:20:52 [Thread-0] INFO  l.controllers.CommandLineController - Found 1 items matching title 'book'
+2025-11-27 10:20:53 [Thread-0] WARN  l.controllers.CommandLineController - Attempt to remove borrowed item - Type: Book, Title: 'book1', ID: 1
+2025-11-27 10:21:02 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-27 10:21:02 [Thread-0] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-27 10:21:02 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-27 10:21:02 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-27 10:22:24 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-27 10:22:30 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-11-27 10:22:30 [Thread-0] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-11-27 10:22:33 [Thread-0] INFO  l.controllers.CommandLineController - Created return request - Item ID: 1
+2025-11-27 10:22:42 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 10
+2025-11-27 10:22:42 [Thread-0] INFO  l.controllers.CommandLineController - Displaying library statistics
+2025-11-27 10:22:42 [Thread-0] INFO  l.controllers.CommandLineController - Statistics - Total: 2, Available: 1, Borrowed: 1, Banned: 0, Overdue: 0
+2025-11-27 10:22:53 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-27 10:22:53 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-27 10:22:53 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-27 10:23:14 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-27 10:23:14 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-27 10:23:14 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-27 10:23:21 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-27 10:23:21 [Thread-0] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-27 10:23:21 [Thread-0] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-27 10:23:54 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-27 10:23:54 [Thread-0] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-27 10:23:54 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-27 10:23:54 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-27 10:25:45 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-27 10:25:51 [Thread-0] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-27 10:25:51 [Thread-0] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-27 10:25:51 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-27 10:25:51 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-27 11:36:27 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-27 12:55:22 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-27 12:56:11 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-27 12:57:59 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 3
+2025-11-27 12:57:59 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting searchLibraryItems process
+2025-11-27 12:58:02 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching with keyword: 'book'
+2025-11-27 12:58:02 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Search completed for 'book': found 1 results
+2025-11-27 12:58:11 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 7
+2025-11-27 12:58:11 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting borrowLibraryItem process
+2025-11-27 12:58:13 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to borrow with title: 'book'
+2025-11-27 12:58:13 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Found 1 available items matching title 'book'
+2025-11-27 12:58:16 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created borrow request - Item ID: 1, Return Date: 2025-12-11
+2025-11-27 12:58:19 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 9
+2025-11-27 12:58:19 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing borrowed items
+2025-11-27 12:58:37 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-27 12:58:37 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-27 12:58:37 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-27 12:58:37 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-27 13:03:37 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-27 13:03:42 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-27 13:03:42 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-27 13:03:42 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-27 13:03:42 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-27 13:04:49 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-27 13:04:50 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-27 13:04:50 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-27 13:04:50 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-27 13:04:54 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-27 13:04:54 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-27 13:04:54 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-27 13:04:54 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-27 13:09:17 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-27 13:09:24 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-11-27 13:09:24 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-11-27 13:09:27 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created return request - Item ID: 1
+2025-11-27 13:09:30 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-27 13:09:30 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-27 13:09:30 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-27 13:09:52 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 9
+2025-11-27 13:09:52 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing borrowed items
+2025-11-27 13:10:04 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-27 13:10:04 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-27 13:10:04 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-27 13:10:35 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 7
+2025-11-27 13:10:35 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting borrowLibraryItem process
+2025-11-27 13:10:37 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to borrow with title: 'book1'
+2025-11-27 13:10:37 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Found 1 available items matching title 'book1'
+2025-11-27 13:10:39 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created borrow request - Item ID: 1, Return Date: 2025-12-11
+2025-11-27 13:10:43 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-27 13:10:43 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-27 13:10:43 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-27 13:11:07 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-27 13:11:07 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-27 13:11:07 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-27 13:11:07 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-27 13:15:15 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-27 13:15:27 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-11-27 13:15:27 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-11-27 13:15:32 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created return request - Item ID: 1
+2025-11-27 13:15:39 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-27 13:15:39 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-27 13:16:02 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-27 13:16:02 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-27 13:42:14 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-27 13:42:17 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: ۴
+2025-11-27 13:42:17 [pool-1-thread-1] WARN  l.controllers.CommandLineController - Invalid menu choice entered: ۴
+2025-11-27 13:42:21 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-27 13:42:21 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-27 13:42:21 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-27 13:42:31 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 5
+2025-11-27 13:42:31 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting sortLibraryItems process
+2025-11-27 13:42:31 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Sorting completed: 2 items sorted by publication date
+2025-11-27 13:42:38 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 10
+2025-11-27 13:42:38 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying library statistics
+2025-11-27 13:42:38 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Statistics - Total: 2, Available: 2, Borrowed: 0, Banned: 0, Overdue: 0
+2025-11-27 13:42:43 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 7
+2025-11-27 13:42:43 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting borrowLibraryItem process
+2025-11-27 13:42:45 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to borrow with title: 'asdf'
+2025-11-27 13:42:45 [pool-1-thread-1] WARN  l.controllers.CommandLineController - No items found for borrowing with title containing: 'asdf'
+2025-11-27 13:42:48 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 7
+2025-11-27 13:42:48 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting borrowLibraryItem process
+2025-11-27 13:42:50 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to borrow with title: 'book'
+2025-11-27 13:42:50 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Found 1 available items matching title 'book'
+2025-11-27 13:42:57 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created borrow request - Item ID: 1, Return Date: 2025-12-11
+2025-11-27 13:43:02 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-27 13:43:02 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-27 13:43:02 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-27 13:43:05 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-27 13:43:05 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-27 13:43:05 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-27 13:43:05 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-27 13:43:08 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-27 13:43:09 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-27 13:43:09 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-27 13:43:09 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-27 13:43:15 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-27 13:43:15 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-27 13:43:15 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-27 13:43:15 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-30 13:35:51 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-30 13:35:53 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-30 13:35:56 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-30 13:35:56 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-30 13:35:56 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-30 13:39:42 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-30 13:39:42 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-30 13:39:42 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-30 13:39:53 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 7
+2025-11-30 13:39:53 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting borrowLibraryItem process
+2025-11-30 13:39:56 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to borrow with title: 'bo'
+2025-11-30 13:39:56 [pool-1-thread-1] WARN  l.controllers.CommandLineController - No available items found for borrowing with title: 'bo'
+2025-11-30 13:40:02 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 9
+2025-11-30 13:40:02 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing borrowed items
+2025-11-30 13:40:11 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-30 13:40:11 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-30 13:40:11 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-30 13:40:16 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 7
+2025-11-30 13:40:16 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting borrowLibraryItem process
+2025-11-30 13:40:19 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to borrow with title: 'qe'
+2025-11-30 13:40:19 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Found 1 available items matching title 'qe'
+2025-11-30 13:40:25 [pool-1-thread-1] WARN  l.controllers.CommandLineController - Invalid choice for borrowing: 2 (valid range: 1-1)
+2025-11-30 13:40:29 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 1
+2025-11-30 13:40:29 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting addLibraryItem process
+2025-11-30 13:40:34 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected item type: 0
+2025-11-30 13:40:34 [pool-1-thread-1] WARN  l.controllers.CommandLineController - Invalid item type selected: 0
+2025-11-30 13:40:39 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 7
+2025-11-30 13:40:39 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting borrowLibraryItem process
+2025-11-30 13:40:41 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to borrow with title: 'q'
+2025-11-30 13:40:41 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Found 1 available items matching title 'q'
+2025-11-30 13:40:43 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created borrow request - Item ID: 2, Return Date: 2025-12-14
+2025-11-30 13:40:48 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-30 13:40:48 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-30 13:40:48 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-30 13:41:11 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-30 13:41:11 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-30 13:41:11 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-30 13:41:20 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 9
+2025-11-30 13:41:20 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing borrowed items
+2025-11-30 13:41:31 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-11-30 13:41:31 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-11-30 13:41:36 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created return request - Item ID: 1
+2025-11-30 13:41:43 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-30 13:41:43 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-30 13:41:43 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-30 13:41:47 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-30 13:41:47 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-30 13:41:48 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-30 13:41:48 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-30 13:53:45 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-30 13:55:05 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-30 13:55:05 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-30 13:55:05 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-30 13:55:09 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 1
+2025-11-30 13:55:09 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting addLibraryItem process
+2025-11-30 13:55:13 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected item type: 1
+2025-11-30 13:55:13 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Start creating addBook request
+2025-11-30 13:55:24 [pool-1-thread-1] WARN  l.controllers.CommandLineController - Invalid date format provided for publish date 'd': 2
+2025-11-30 13:55:31 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 1
+2025-11-30 13:55:31 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting addLibraryItem process
+2025-11-30 13:55:33 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected item type: 3
+2025-11-30 13:55:33 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Start creating addReference request
+2025-11-30 13:55:42 [pool-1-thread-1] WARN  l.controllers.CommandLineController - Invalid date format provided for publish date 'reference': 2
+2025-11-30 13:55:45 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-30 13:55:45 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-30 13:55:45 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 2 library items
+2025-11-30 13:55:51 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 1
+2025-11-30 13:55:51 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting addLibraryItem process
+2025-11-30 13:55:52 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected item type: 2
+2025-11-30 13:55:52 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Start creating addMagazine request
+2025-11-30 13:56:04 [pool-1-thread-1] DEBUG l.controllers.CommandLineController - Parsed publish date for 'magazine1': 2020-09-12
+2025-11-30 13:56:12 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created magazine request - Title: 'magazine1', Editor: 'reza'
+2025-11-30 13:56:14 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-11-30 13:56:14 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-11-30 13:56:14 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 3 library items
+2025-11-30 13:56:39 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 9
+2025-11-30 13:56:39 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing borrowed items
+2025-11-30 13:56:50 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 6
+2025-11-30 13:56:50 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting updateLibraryItemStatus process
+2025-11-30 13:56:52 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to update with title: 'ma'
+2025-11-30 13:56:52 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Found 1 items for status update matching title 'ma'
+2025-11-30 13:56:56 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created status update request - Item ID: 3, New Status: BANNED
+2025-11-30 13:57:04 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 5
+2025-11-30 13:57:04 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting sortLibraryItems process
+2025-11-30 13:57:04 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Sorting completed: 3 items sorted by publication date
+2025-11-30 13:57:57 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 5
+2025-11-30 13:57:57 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting sortLibraryItems process
+2025-11-30 13:57:57 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Sorting completed: 3 items sorted by publication date
+2025-11-30 13:58:05 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-30 13:58:05 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-30 13:58:05 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-30 13:58:05 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-30 13:58:09 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-30 13:58:15 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 5
+2025-11-30 13:58:15 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting sortLibraryItems process
+2025-11-30 13:58:15 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Sorting completed: 3 items sorted by publication date
+2025-11-30 13:58:20 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-30 13:58:20 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-30 13:58:20 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-30 13:58:20 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-30 14:02:42 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-30 14:02:51 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 5
+2025-11-30 14:02:51 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting sortLibraryItems process
+2025-11-30 14:02:51 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Sorting completed: 3 items sorted by publication date
+2025-11-30 14:03:06 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-30 14:03:06 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-30 14:03:06 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-30 14:03:06 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-11-30 14:03:34 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-11-30 14:03:38 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 5
+2025-11-30 14:03:38 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting sortLibraryItems process
+2025-11-30 14:03:38 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Sorting completed: 3 items sorted by publication date
+2025-11-30 14:03:43 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-11-30 14:03:43 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-11-30 14:03:43 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-11-30 14:03:43 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully

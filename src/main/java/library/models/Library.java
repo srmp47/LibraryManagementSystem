@@ -14,11 +14,14 @@ import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class Library {
-    private final GenericLinkedList<LibraryItem> libraryItems;
-    private final HashMap<Integer, LibraryItem> libraryItemHashMap;
+    private final Vector<LibraryItem> libraryItems;
+    private final ConcurrentHashMap<Integer, LibraryItem> libraryItemHashMap;
     private final String dataFile;
     private final ObjectMapper objectMapper;
 
@@ -26,7 +29,7 @@ public class Library {
         this.objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         this.dataFile = "library_data.pb";
-        this.libraryItemHashMap = new HashMap<>();
+        this.libraryItemHashMap = new ConcurrentHashMap<>();
         this.libraryItems = readFromFile(this.dataFile);
     }
 
@@ -34,11 +37,11 @@ public class Library {
         this.dataFile = dataFile;
         this.objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
-        this.libraryItemHashMap = new HashMap<>();
+        this.libraryItemHashMap = new ConcurrentHashMap<>();
         this.libraryItems = readFromFile(dataFile);
     }
 
-    public GenericLinkedList<LibraryItem> getLibraryItems() {
+    public Vector<LibraryItem> getLibraryItems() {
         return libraryItems;
     }
 
@@ -52,33 +55,32 @@ public class Library {
         libraryItemHashMap.remove(libraryItem.getId());
     }
 
-    public GenericLinkedList<LibraryItem> sortLibraryItems() {
-        GenericLinkedList<LibraryItem> libraryItemsCopy = new GenericLinkedList<>();
-        for (LibraryItem item : libraryItems) {
-            libraryItemsCopy.add(item);
-        }
-        libraryItemsCopy.sort(Comparator.comparing(LibraryItem::getPublishDate).reversed());
-        return libraryItemsCopy;
+    public Vector<LibraryItem> sortLibraryItems() {
+        libraryItems.sort(Comparator.comparing(LibraryItem::getPublishDate).reversed());
+        return libraryItems;
     }
 
-    public GenericLinkedList<LibraryItem> search(String keyword) {
-        return libraryItems.filter(libraryItem ->
-                libraryItem.getTitle().toLowerCase().contains(keyword.toLowerCase()) ||
-                        libraryItem.getAuthor().toLowerCase().contains(keyword.toLowerCase())
-        );
+    public Vector<LibraryItem> search(String keyword) {
+        Vector<LibraryItem> results = new Vector<>();
+        String lowerKeyword = keyword.toLowerCase();
+        synchronized (libraryItems) {
+            for (LibraryItem item : libraryItems) {
+                if (item.getTitle().toLowerCase().contains(lowerKeyword) ||
+                        item.getAuthor().toLowerCase().contains(lowerKeyword)) {
+                    results.add(item);
+                }
+            }
+        }
+        return results;
     }
 
     public LibraryItem getLibraryItemById(int id) {
         return libraryItemHashMap.get(id);
     }
 
-    public boolean borrowItem(int itemId, LocalDate expectedReturnDate) throws InterruptedException {
+    public synchronized boolean borrowItem(int itemId, LocalDate expectedReturnDate) {
         LibraryItem item = libraryItemHashMap.get(itemId);
-        if (item == null) {
-            return false;
-        }
-
-        if (item.getStatus() != LibraryItemStatus.EXIST) {
+        if (item == null || item.getStatus() != LibraryItemStatus.EXIST) {
             return false;
         }
         item.setStatus(LibraryItemStatus.BORROWED);
@@ -86,44 +88,40 @@ public class Library {
         return true;
     }
 
-    public boolean returnItem(int itemId) {
+    public synchronized boolean returnItem(int itemId)  {
         LibraryItem item = libraryItemHashMap.get(itemId);
-        if (item == null) {
+        if (item == null || item.getStatus() != LibraryItemStatus.BORROWED) {
             return false;
         }
-
-        if (item.getStatus() != LibraryItemStatus.BORROWED) {
-            return false;
-        }
-
         item.setStatus(LibraryItemStatus.EXIST);
         item.setReturnDate(null);
-
         return true;
     }
 
-    public GenericLinkedList<LibraryItem> getBorrowedItems() {
-        GenericLinkedList<LibraryItem> borrowedItems = new GenericLinkedList<>();
-        for (LibraryItem item : libraryItems) {
-            if (item.getStatus() == LibraryItemStatus.BORROWED) {
-                borrowedItems.add(item);
+    public Vector<LibraryItem> getBorrowedItems() {
+        Vector<LibraryItem> borrowedItems = new Vector<>();
+        synchronized (libraryItems) {
+            for (LibraryItem item : libraryItems) {
+                if (item.getStatus() == LibraryItemStatus.BORROWED) {
+                    borrowedItems.add(item);
+                }
             }
         }
         return borrowedItems;
     }
 
 
-    private GenericLinkedList<LibraryItem> readFromFile(String dataFile) {
+    private Vector<LibraryItem> readFromFile(String dataFile) {
         try {
             File file = new File(dataFile);
             if (!file.exists()) {
-                return new GenericLinkedList<>();
+                return new Vector<>();
             }
 
             LibraryItemProtos.LibraryItemCollection collection =
                     LibraryItemProtos.LibraryItemCollection.parseFrom(new FileInputStream(file));
 
-            GenericLinkedList<LibraryItem> loadedLibraryItems = new GenericLinkedList<>();
+            Vector<LibraryItem> loadedLibraryItems = new Vector<>();
             int maxId = 0;
 
             for (LibraryItemProtos.LibraryItemProto itemProto : collection.getItemsList()) {
@@ -141,7 +139,7 @@ public class Library {
             return loadedLibraryItems;
 
         } catch (IOException e) {
-            return new GenericLinkedList<>();
+            return new Vector<>();
         }
     }
 

@@ -3,8 +3,8 @@ package library;
 import library.controllers.CommandLineController;
 import library.models.*;
 import library.models.enums.RequestType;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+
+import java.util.concurrent.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,27 +13,30 @@ public class Main {
     private static final BlockingQueue<LibraryRequest> requestQueue = new LinkedBlockingQueue<>();
     private static final BlockingQueue<LibraryResult> resultQueue = new LinkedBlockingQueue<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         Library library = new Library();
         CommandLineController cli = new CommandLineController(library);
+        CountDownLatch countDownLatch = new CountDownLatch(3);
 
         System.out.println("=== Library Management System ===");
-        Thread requestThread = createRequestHandlerThread(cli);
-        Thread handlerThread = createResultHandlerThread(cli, library);
-
-        requestThread.start();
-        handlerThread.start();
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        executorService.execute(createRequestHandlerThread(cli, countDownLatch));
+        executorService.execute(createResultHandlerThread(cli, library, countDownLatch));
+        executorService.execute(createResultHandlerThread(cli, library, countDownLatch));
         try {
-            requestThread.join();
-            handlerThread.join();
+            countDownLatch.await();
         } catch (InterruptedException e) {
             System.err.println("Main thread interrupted");
+        } finally {
+            executorService.shutdownNow();
         }
+
+
 
         cli.exitProgram();
     }
 
-    private static Thread createRequestHandlerThread(CommandLineController cli) {
+    private static Thread createRequestHandlerThread(CommandLineController cli, CountDownLatch countDownLatch) {
         return new Thread(() -> {
             while (running) {
                 try {
@@ -63,18 +66,15 @@ public class Main {
                     System.err.println("❌ Error in request thread: " + e.getMessage());
                 }
             }
+            countDownLatch.countDown();
         });
     }
 
-    private static Thread createResultHandlerThread(CommandLineController cli, Library library) {
+    private static Thread createResultHandlerThread(CommandLineController cli, Library library, CountDownLatch countDownLatch) {
         return new Thread(() -> {
             while (running || !requestQueue.isEmpty()) {
                 try {
-                    LibraryRequest request = null;
-                    if (!requestQueue.isEmpty()) {
-                        request = requestQueue.poll();
-                    }
-
+                    LibraryRequest request = requestQueue.poll();
                     if (request != null) {
                         LibraryResult result = cli.processRequest(request, library);
                         resultQueue.add(result);
@@ -90,6 +90,7 @@ public class Main {
                     resultQueue.add(errorResult);
                 }
             }
+            countDownLatch.countDown();
         });
     }
 }

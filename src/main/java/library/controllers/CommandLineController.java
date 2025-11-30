@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Vector;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -331,14 +332,14 @@ public class CommandLineController {
         String title = scanner.nextLine().trim();
         logger.info("User searching for item to remove with title: '{}'", title);
 
-        GenericLinkedList<LibraryItem> foundItems = library.search(title);
+        Vector<LibraryItem> foundItems = library.search(title);
         if (foundItems.isEmpty()) {
             logger.warn("No items found for removal with title containing: '{}'", title);
             System.out.println("❌ No items found with title containing: " + title);
             return null;
         }
 
-        logger.info("Found {} items matching title '{}'", foundItems.getSize(), title);
+        logger.info("Found {} items matching title '{}'", foundItems.size(), title);
         System.out.println("\n📚 Found Items:");
         HashMap<Integer, Integer> idByIndex = new HashMap<>();
         int index = 1;
@@ -357,8 +358,8 @@ public class CommandLineController {
                 return null;
             }
 
-            if (choice < 1 || choice > foundItems.getSize()) {
-                logger.warn("Invalid choice for removal: {} (valid range: 1-{})", choice, foundItems.getSize());
+            if (choice < 1 || choice > foundItems.size()) {
+                logger.warn("Invalid choice for removal: {} (valid range: 1-{})", choice, foundItems.size());
                 System.out.println("❌ Invalid choice!");
                 return null;
             }
@@ -407,15 +408,15 @@ public class CommandLineController {
             return;
         }
 
-        GenericLinkedList<LibraryItem> results = library.search(keyword);
-        logger.info("Search completed for '{}': found {} results", keyword, results.getSize());
+        Vector<LibraryItem> results = library.search(keyword);
+        logger.info("Search completed for '{}': found {} results", keyword, results.size());
         displayLibraryItems(results, "Search Results for: '" + keyword + "'");
     }
 
     private void listAllLibraryItems() {
         logger.info("Listing all library items");
         System.out.println("\n📖 === ALL LIBRARY ITEMS ===");
-        int itemCount = library.getLibraryItems().getSize();
+        int itemCount = library.getLibraryItems().size();
         logger.info("Displaying all {} library items", itemCount);
         displayLibraryItems(library.getLibraryItems(), "All Items in Library");
     }
@@ -423,8 +424,8 @@ public class CommandLineController {
     private void sortLibraryItems() {
         logger.info("Starting sortLibraryItems process");
         System.out.println("\n📅 === SORTED LIBRARY ITEMS ===");
-        GenericLinkedList<LibraryItem> sortedItems = library.sortLibraryItems();
-        logger.info("Sorting completed: {} items sorted by publication date", sortedItems.getSize());
+        Vector<LibraryItem> sortedItems = library.sortLibraryItems();
+        logger.info("Sorting completed: {} items sorted by publication date", sortedItems.size());
         displayLibraryItems(sortedItems, "Items Sorted by Publication Date (Newest First)");
     }
 
@@ -442,14 +443,14 @@ public class CommandLineController {
         String title = scanner.nextLine().trim();
         logger.info("User searching for item to update with title: '{}'", title);
 
-        GenericLinkedList<LibraryItem> foundItems = library.search(title);
+        Vector<LibraryItem> foundItems = library.search(title);
         if (foundItems.isEmpty()) {
             logger.warn("No items found for status update with title containing: '{}'", title);
             System.out.println("❌ No items found with title containing: " + title);
             return null;
         }
 
-        logger.info("Found {} items for status update matching title '{}'", foundItems.getSize(), title);
+        logger.info("Found {} items for status update matching title '{}'", foundItems.size(), title);
         System.out.println("\n📚 Found Items:");
         HashMap<Integer, Integer> idByIndex = new HashMap<>();
         int index = 1;
@@ -468,8 +469,8 @@ public class CommandLineController {
                 return null;
             }
 
-            if (choice < 1 || choice > foundItems.getSize()) {
-                logger.warn("Invalid choice for status update: {} (valid range: 1-{})", choice, foundItems.getSize());
+            if (choice < 1 || choice > foundItems.size()) {
+                logger.warn("Invalid choice for status update: {} (valid range: 1-{})", choice, foundItems.size());
                 System.out.println("❌ Invalid choice!");
                 return null;
             }
@@ -519,14 +520,14 @@ public class CommandLineController {
         String title = scanner.nextLine().trim();
         logger.info("User searching for item to borrow with title: '{}'", title);
 
-        GenericLinkedList<LibraryItem> foundItems = library.search(title);
+        Vector<LibraryItem> foundItems = library.search(title);
         if (foundItems.isEmpty()) {
             logger.warn("No items found for borrowing with title containing: '{}'", title);
             System.out.println("❌ No items found with title containing: " + title);
             return null;
         }
 
-        GenericLinkedList<LibraryItem> availableItems = new GenericLinkedList<>();
+        Vector<LibraryItem> availableItems = new Vector<>();
         for (LibraryItem item : foundItems) {
             if (item.getStatus() == LibraryItemStatus.EXIST) {
                 availableItems.add(item);
@@ -540,7 +541,7 @@ public class CommandLineController {
             return null;
         }
 
-        logger.info("Found {} available items matching title '{}'", availableItems.getSize(), title);
+        logger.info("Found {} available items matching title '{}'", availableItems.size(), title);
         System.out.println("\n📚 Available Items for Borrowing:");
         HashMap<Integer, Integer> idByIndex = new HashMap<>();
         int index = 1;
@@ -559,8 +560,8 @@ public class CommandLineController {
                 return null;
             }
 
-            if (choice < 1 || choice > availableItems.getSize()) {
-                logger.warn("Invalid choice for borrowing: {} (valid range: 1-{})", choice, availableItems.getSize());
+            if (choice < 1 || choice > availableItems.size()) {
+                logger.warn("Invalid choice for borrowing: {} (valid range: 1-{})", choice, availableItems.size());
                 System.out.println("❌ Invalid choice!");
                 return null;
             }
@@ -581,7 +582,7 @@ public class CommandLineController {
         logger.info("Starting returnLibraryItem process");
         System.out.println("\n📤 === RETURN LIBRARY ITEM ===");
 
-        GenericLinkedList<LibraryItem> borrowedItems = library.getBorrowedItems();
+        Vector<LibraryItem> borrowedItems = library.getBorrowedItems();
         if (borrowedItems.isEmpty()) {
             logger.warn("Return operation failed: No borrowed items");
             System.out.println("❌ No borrowed items to return!");
@@ -613,8 +614,8 @@ public class CommandLineController {
                 return null;
             }
 
-            if (choice < 1 || choice > borrowedItems.getSize()) {
-                logger.warn("Invalid choice for return: {} (valid range: 1-{})", choice, borrowedItems.getSize());
+            if (choice < 1 || choice > borrowedItems.size()) {
+                logger.warn("Invalid choice for return: {} (valid range: 1-{})", choice, borrowedItems.size());
                 System.out.println("❌ Invalid choice!");
                 return null;
             }
@@ -633,26 +634,28 @@ public class CommandLineController {
         logger.info("Listing borrowed items");
         System.out.println("\n📋 === BORROWED LIBRARY ITEMS ===");
 
-        GenericLinkedList<LibraryItem> borrowedItems = library.getBorrowedItems();
+        Vector<LibraryItem> borrowedItems = library.getBorrowedItems();
         if (borrowedItems.isEmpty()) {
             System.out.println("No borrowed items found.");
             return;
         }
 
         int count = 0;
-        for (LibraryItem item : borrowedItems) {
-            System.out.print((++count) + ". ");
-            item.display();
-            LocalDate expectedReturn = item.getReturnDate();
-            if (expectedReturn != null) {
-                System.out.println("   Expected Return: " + expectedReturn);
-                if (expectedReturn.isBefore(LocalDate.now())) {
-                    System.out.println("   ⚠️  STATUS: OVERDUE");
-                } else {
-                    System.out.println("   ✅ STATUS: On Time");
+        synchronized (borrowedItems) {
+            for (LibraryItem item : borrowedItems) {
+                System.out.print((++count) + ". ");
+                item.display();
+                LocalDate expectedReturn = item.getReturnDate();
+                if (expectedReturn != null) {
+                    System.out.println("   Expected Return: " + expectedReturn);
+                    if (expectedReturn.isBefore(LocalDate.now())) {
+                        System.out.println("   ⚠️  STATUS: OVERDUE");
+                    } else {
+                        System.out.println("   ✅ STATUS: On Time");
+                    }
                 }
+                System.out.println("------------------------");
             }
-            System.out.println("------------------------");
         }
         System.out.println("--- Total: " + count + " borrowed items ---");
     }
@@ -661,27 +664,29 @@ public class CommandLineController {
         logger.info("Displaying library statistics");
         System.out.println("\n📊 === LIBRARY STATISTICS ===");
 
-        int totalItems = library.getLibraryItems().getSize();
+        int totalItems = library.getLibraryItems().size();
         int existCount = 0;
         int borrowedCount = 0;
         int bannedCount = 0;
         int overdueCount = 0;
-
-        for (LibraryItem item : library.getLibraryItems()) {
-            switch (item.getStatus()) {
-                case EXIST:
-                    existCount++;
-                    break;
-                case BORROWED:
-                    borrowedCount++;
-                    LocalDate expectedReturn = item.getReturnDate();
-                    if (expectedReturn != null && expectedReturn.isBefore(LocalDate.now())) {
-                        overdueCount++;
-                    }
-                    break;
-                case BANNED:
-                    bannedCount++;
-                    break;
+        Vector<LibraryItem> libraryItems = library.getLibraryItems();
+        synchronized (libraryItems) {
+            for (LibraryItem item : libraryItems) {
+                switch (item.getStatus()) {
+                    case EXIST:
+                        existCount++;
+                        break;
+                    case BORROWED:
+                        borrowedCount++;
+                        LocalDate expectedReturn = item.getReturnDate();
+                        if (expectedReturn != null && expectedReturn.isBefore(LocalDate.now())) {
+                            overdueCount++;
+                        }
+                        break;
+                    case BANNED:
+                        bannedCount++;
+                        break;
+                }
             }
         }
 
@@ -707,12 +712,14 @@ public class CommandLineController {
         }
     }
 
-    private void displayLibraryItems(Iterable<LibraryItem> items, String title) {
+    private void displayLibraryItems(Vector<LibraryItem> items, String title) {
         System.out.println("\n=== " + title + " ===");
         int count = 0;
-        for (LibraryItem item : items) {
-            System.out.print((++count) + ". ");
-            item.display();
+        synchronized (items) {
+            for (LibraryItem item : items) {
+                System.out.print((++count) + ". ");
+                item.display();
+            }
         }
 
         if (count == 0) {
