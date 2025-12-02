@@ -2,43 +2,45 @@ package library.models;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import library.models.structures.GenericLinkedList;
+import com.google.protobuf.Timestamp;
+import library.controllers.CommandLineController;
 import library.models.enums.LibraryItemStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Time;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
+
+
 
 public class Library {
+    private static Library library = null;
     private final Vector<LibraryItem> libraryItems;
     private final ConcurrentHashMap<Integer, LibraryItem> libraryItemHashMap;
     private final String dataFile;
     private final ObjectMapper objectMapper;
-
-    public Library() {
+    private static final Logger logger = LoggerFactory.getLogger(CommandLineController.class);
+    private Library() {
         this.objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         this.dataFile = "library_data.pb";
         this.libraryItemHashMap = new ConcurrentHashMap<>();
         this.libraryItems = readFromFile(this.dataFile);
     }
-
-    public Library(String dataFile) {
-        this.dataFile = dataFile;
-        this.objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        this.libraryItemHashMap = new ConcurrentHashMap<>();
-        this.libraryItems = readFromFile(dataFile);
+    public static synchronized Library getInstance(){
+        if(library == null){
+            library = new Library();
+            logger.info("Created new instance of CommandLineController");
+        }
+        return library;
     }
 
     public Vector<LibraryItem> getLibraryItems() {
@@ -88,7 +90,7 @@ public class Library {
         return true;
     }
 
-    public synchronized boolean returnItem(int itemId)  {
+    public synchronized boolean returnItem(int itemId) {
         LibraryItem item = libraryItemHashMap.get(itemId);
         if (item == null || item.getStatus() != LibraryItemStatus.BORROWED) {
             return false;
@@ -306,21 +308,21 @@ public class Library {
         return null;
     }
 
-    private com.google.protobuf.Timestamp convertDateToProto(LocalDate date) {
+    private Timestamp convertDateToProto(LocalDate date) {
         if (date == null) {
-            return com.google.protobuf.Timestamp.getDefaultInstance();
+            return Timestamp.getDefaultInstance();
         }
-        return com.google.protobuf.Timestamp.newBuilder()
-                .setSeconds(date.atStartOfDay(java.time.ZoneOffset.UTC).toEpochSecond())
+        return Timestamp.newBuilder()
+                .setSeconds(date.atStartOfDay(ZoneOffset.UTC).toEpochSecond())
                 .build();
     }
 
-    private LocalDate convertDateFromProto(com.google.protobuf.Timestamp timestamp) {
+    private LocalDate convertDateFromProto(Timestamp timestamp) {
         if (timestamp == null || timestamp.getSeconds() == 0) {
             return null;
         }
-        return java.time.Instant.ofEpochSecond(timestamp.getSeconds())
-                .atZone(java.time.ZoneOffset.UTC)
+        return Instant.ofEpochSecond(timestamp.getSeconds())
+                .atZone(ZoneOffset.UTC)
                 .toLocalDate();
     }
 

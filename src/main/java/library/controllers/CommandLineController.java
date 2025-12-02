@@ -2,7 +2,6 @@ package library.controllers;
 
 import library.models.*;
 import library.models.enums.RequestType;
-import library.models.structures.GenericLinkedList;
 import library.models.enums.LibraryItemStatus;
 
 import java.time.LocalDate;
@@ -15,14 +14,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CommandLineController {
+    private static CommandLineController commandLineController = null;
     private final Library library;
     private final Scanner scanner;
     private static final Logger logger = LoggerFactory.getLogger(CommandLineController.class);
 
-    public CommandLineController(Library library) {
+    private CommandLineController(Library library) {
         logger.info("Initializing CommandLineController with provided Library");
         this.library = library;
         this.scanner = new Scanner(System.in);
+    }
+    public static CommandLineController getInstance(Library library) {
+        if (commandLineController == null) {
+            commandLineController = new CommandLineController(library);
+            logger.info("Created new instance of CommandLineController");
+        }
+        return commandLineController;
     }
 
     public void printMenu() {

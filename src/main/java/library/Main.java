@@ -14,8 +14,8 @@ public class Main {
     private static final BlockingQueue<LibraryResult> resultQueue = new LinkedBlockingQueue<>();
 
     public static void main(String[] args){
-        Library library = new Library();
-        CommandLineController cli = new CommandLineController(library);
+        Library library = Library.getInstance();
+        CommandLineController cli = CommandLineController.getInstance(library);
         CountDownLatch countDownLatch = new CountDownLatch(3);
 
         System.out.println("=== Library Management System ===");
@@ -30,6 +30,7 @@ public class Main {
         } finally {
             executorService.shutdownNow();
         }
+
 
 
 
