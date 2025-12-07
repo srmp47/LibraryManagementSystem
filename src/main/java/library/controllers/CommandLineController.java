@@ -1,8 +1,15 @@
 package library.controllers;
 
 import library.models.*;
+import library.models.enums.EventType;
 import library.models.enums.RequestType;
 import library.models.enums.LibraryItemStatus;
+import library.models.enums.SearchAlgorithm;
+import library.models.factories.BookFactory;
+import library.models.factories.MagazineFactory;
+import library.models.factories.ReferenceFactory;
+import library.models.factories.ThesisFactory;
+import library.strategies.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -82,11 +89,103 @@ public class CommandLineController {
                 return null;
             case "0":
                 logger.info("User initiated program exit");
-                return new LibraryRequest(RequestType.EXIT, -1); // Special exit request
+                return new LibraryRequest(RequestType.EXIT, -1);
             default:
                 logger.warn("Invalid menu choice entered: {}", choice);
                 System.out.println("❌ Invalid choice! Please try again.");
                 return null;
+        }
+    }
+
+    private void searchLibraryItems() {
+        logger.info("Starting searchLibraryItems process");
+        System.out.println("\n🔍 === SEARCH LIBRARY ITEMS ===");
+
+        SearchAlgorithm algorithm = getSearchAlgorithmFromUser();
+        if (algorithm == null) {
+            logger.info("User cancelled search algorithm selection");
+            System.out.println("❌ Search cancelled.");
+            return;
+        }
+
+        System.out.print("Enter search keyword: ");
+        String keyword = scanner.nextLine().trim();
+        logger.info("User searching with keyword: '{}' using algorithm: {}", keyword, algorithm);
+
+        if (keyword.isEmpty()) {
+            logger.warn("Search failed: Empty keyword provided");
+            System.out.println("❌ Search keyword cannot be empty!");
+            return;
+        }
+
+        SearchStrategy strategy = SearchStrategyFactory.createStrategy(algorithm);
+
+        Vector<LibraryItem> results = performSearchWithStrategy(keyword, strategy);
+
+        logger.info("Search completed for '{}' using {}: found {} results",
+                keyword, algorithm, results.size());
+        displaySearchResults(results, keyword, algorithm);
+    }
+
+    private SearchAlgorithm getSearchAlgorithmFromUser() {
+        System.out.println("\n📋 === CHOOSE SEARCH ALGORITHM ===");
+        System.out.println("How would you like to search?");
+
+        int index = 1;
+        SearchAlgorithm[] algorithms = SearchAlgorithm.values();
+
+        for (SearchAlgorithm algorithm : algorithms) {
+            System.out.printf("%d. %s%n", index++, algorithm.getDescription());
+        }
+
+        while (true) {
+            System.out.print("\nEnter your choice (1-" + algorithms.length + " or 0 to cancel): ");
+            String choice = scanner.nextLine().trim();
+
+            if (choice.equals("0")) {
+                return null;
+            }
+
+            try {
+                int choiceNum = Integer.parseInt(choice);
+                if (choiceNum >= 1 && choiceNum <= algorithms.length) {
+                    SearchAlgorithm selected = algorithms[choiceNum - 1];
+                    logger.debug("User selected search algorithm: {}", selected);
+                    return selected;
+                } else {
+                    System.out.println("❌ Please enter a number between 1 and " + algorithms.length);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("❌ Please enter a valid number!");
+            }
+        }
+    }
+
+    private Vector<LibraryItem> performSearchWithStrategy(String keyword, SearchStrategy strategy) {
+        Vector<LibraryItem> results = new Vector<>();
+        Vector<LibraryItem> allItems = library.getLibraryItems();
+
+        synchronized (allItems) {
+            for (LibraryItem item : allItems) {
+                if (strategy.matches(item, keyword)) {
+                    results.add(item);
+                }
+            }
+        }
+
+        return results;
+    }
+
+    private void displaySearchResults(Vector<LibraryItem> results, String keyword, SearchAlgorithm algorithm) {
+        System.out.println("\n📊 === SEARCH RESULTS ===");
+        System.out.println("Search term: '" + keyword + "'");
+        System.out.println("Items found: " + results.size());
+        System.out.println("=" .repeat(40));
+
+        synchronized (results) {
+            for (LibraryItem item : results) {
+                item.display();
+            }
         }
     }
 
@@ -154,7 +253,8 @@ public class CommandLineController {
         int pageCount = getPositiveIntegerFromUser("page count", title);
         if (pageCount <= 0) return null;
 
-        Book book = new Book(null, title, author, status, publishDate, isbn, genre, pageCount, null);
+        Book book = new BookFactory(title, author, status, publishDate, isbn, genre, pageCount)
+                .createLibraryItem();
         logger.info("Created book request - Title: '{}', Author: '{}'", title, author);
         return new LibraryRequest(RequestType.CREATE, book);
     }
@@ -193,7 +293,8 @@ public class CommandLineController {
         System.out.print("Enter category: ");
         String category = scanner.nextLine().trim();
 
-        Magazine magazine = new Magazine(null, title, editor, status, publishDate, issueNumber, publisher, category, null);
+        Magazine magazine = new MagazineFactory(title, editor, publishDate, status, issueNumber, publisher, category)
+                .createLibraryItem();
         logger.info("Created magazine request - Title: '{}', Editor: '{}'", title, editor);
         return new LibraryRequest(RequestType.CREATE, magazine);
     }
@@ -232,7 +333,8 @@ public class CommandLineController {
         System.out.print("Enter subject: ");
         String subject = scanner.nextLine().trim();
 
-        Reference reference = new Reference(null, title, author, status, publishDate, referenceType, edition, subject, null);
+        Reference reference = new ReferenceFactory(title, author, status, publishDate,
+                referenceType, edition, subject).createLibraryItem();
         logger.info("Created reference request - Title: '{}', Author: '{}'", title, author);
         return new LibraryRequest(RequestType.CREATE, reference);
     }
@@ -271,7 +373,8 @@ public class CommandLineController {
         System.out.print("Enter advisor: ");
         String advisor = scanner.nextLine().trim();
 
-        Thesis thesis = new Thesis(null, title, author, status, publishDate, university, department, advisor, null);
+        Thesis thesis = new ThesisFactory(title, author, status, publishDate,
+                university, department, advisor).createLibraryItem();
         logger.info("Created thesis request - Title: '{}', Author: '{}'", title, author);
         return new LibraryRequest(RequestType.CREATE, thesis);
     }
@@ -399,25 +502,6 @@ public class CommandLineController {
             System.out.println("❌ Please enter a valid number!");
         }
         return null;
-    }
-
-    private void searchLibraryItems() {
-        logger.info("Starting searchLibraryItems process");
-        System.out.println("\n🔍 === SEARCH LIBRARY ITEMS ===");
-
-        System.out.print("Enter search keyword (title or author): ");
-        String keyword = scanner.nextLine().trim();
-        logger.info("User searching with keyword: '{}'", keyword);
-
-        if (keyword.isEmpty()) {
-            logger.warn("Search failed: Empty keyword provided");
-            System.out.println("❌ Search keyword cannot be empty!");
-            return;
-        }
-
-        Vector<LibraryItem> results = library.search(keyword);
-        logger.info("Search completed for '{}': found {} results", keyword, results.size());
-        displayLibraryItems(results, "Search Results for: '" + keyword + "'");
     }
 
     private void listAllLibraryItems() {
@@ -741,6 +825,20 @@ public class CommandLineController {
             switch (request.getRequestType()) {
                 case CREATE:
                     library.addLibraryItem(request.getItem());
+                    switch (request.getItem().getType()){
+                        case BOOK:
+                            request.getItem().sendNotification(EventType.ADDED_NEW_BOOK);
+                            break;
+                        case MAGAZINE:
+                            request.getItem().sendNotification(EventType.ADDED_NEW_MAGAZINE);
+                            break;
+                        case REFERENCE:
+                            request.getItem().sendNotification(EventType.ADDED_NEW_REFERENCE);
+                            break;
+                        case THESIS:
+                            request.getItem().sendNotification(EventType.ADDED_NEW_THESIS);
+                            break;
+                    }
                     return new LibraryResult(true,
                             String.format("%s '%s' created successfully",
                                     request.getItem().getClass().getSimpleName(),

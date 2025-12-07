@@ -1,9 +1,11 @@
 package library.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
+import library.models.enums.EventType;
 import library.models.enums.LibraryItemStatus;
 import library.models.enums.LibraryItemType;
+import library.observers.EventManager;
+import library.observers.listeners.PrinterListener;
 
 import java.time.LocalDate;
 
@@ -12,20 +14,20 @@ public class Book extends LibraryItem {
     private final String genre;
     private final int pageCount;
 
-    @JsonCreator
-    public Book(@JsonProperty("id") Integer id,
-                @JsonProperty("title") String title,
-                @JsonProperty("author") String author,
-                @JsonProperty("status") LibraryItemStatus status,
-                @JsonProperty("publishDate") LocalDate publishDate,
-                @JsonProperty("isbn") String isbn,
-                @JsonProperty("genre") String genre,
-                @JsonProperty("pageCount") int pageCount,
-                @JsonProperty("returnDate") LocalDate returnDate) {
+    public Book( Integer id, String title, int pageCount, String author, LibraryItemStatus status, LocalDate publishDate,
+                 String isbn, String genre, LocalDate returnDate) {
         super(id, title, author, status, publishDate, LibraryItemType.BOOK, returnDate);
         this.isbn = isbn;
         this.genre = genre;
         this.pageCount = pageCount;
+    }
+
+    @Override
+    public void setStatus(LibraryItemStatus status) {
+        if(this.status == LibraryItemStatus.BORROWED && status == LibraryItemStatus.EXIST)
+            sendNotification(EventType.RETURNED_BOOK);
+        this.status = status;
+        this.returnDate = null;
     }
 
     @Override
@@ -39,6 +41,14 @@ public class Book extends LibraryItem {
         System.out.println("Status: " + getStatus());
         System.out.println("Published: " + getPublishDate());
         System.out.println("------------------------");
+    }
+
+    @Override
+    protected EventManager createEventManager() {
+        EventManager eventManager = new EventManager(EventType.ADDED_NEW_BOOK, EventType.RETURNED_BOOK);
+        eventManager.subscribe(EventType.ADDED_NEW_BOOK, new PrinterListener());
+        eventManager.subscribe(EventType.RETURNED_BOOK, new PrinterListener());
+        return eventManager;
     }
 
     public String getIsbn() {

@@ -1,9 +1,11 @@
 package library.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
+import library.models.enums.EventType;
 import library.models.enums.LibraryItemStatus;
 import library.models.enums.LibraryItemType;
+import library.observers.EventManager;
+import library.observers.listeners.PrinterListener;
 
 import java.time.LocalDate;
 
@@ -12,20 +14,21 @@ public class Reference extends LibraryItem {
     private final String edition;
     private final String subject;
 
-    @JsonCreator
-    public Reference(@JsonProperty("id") Integer id,
-                     @JsonProperty("title") String title,
-                     @JsonProperty("author") String author,
-                     @JsonProperty("status") LibraryItemStatus status,
-                     @JsonProperty("publishDate") LocalDate publishDate,
-                     @JsonProperty("referenceType") String referenceType,
-                     @JsonProperty("edition") String edition,
-                     @JsonProperty("subject") String subject,
-                     @JsonProperty("returnDate") LocalDate returnDate) {
+
+    public Reference( Integer id, String title, String author, LibraryItemStatus status, LocalDate publishDate,
+                      String referenceType, String edition, String subject, LocalDate returnDate) {
         super(id, title, author, status, publishDate, LibraryItemType.REFERENCE, returnDate);
         this.referenceType = referenceType;
         this.edition = edition;
         this.subject = subject;
+    }
+
+    @Override
+    public void setStatus(LibraryItemStatus status) {
+        if(this.status == LibraryItemStatus.BORROWED && status == LibraryItemStatus.EXIST)
+            sendNotification(EventType.RETURNED_REFERENCE);
+        this.status = status;
+        this.returnDate = null;
     }
 
     @Override
@@ -39,6 +42,14 @@ public class Reference extends LibraryItem {
         System.out.println("Status: " + getStatus());
         System.out.println("Published: " + getPublishDate());
         System.out.println("------------------------");
+    }
+
+    @Override
+    protected EventManager createEventManager() {
+        EventManager eventManager =  new EventManager(EventType.ADDED_NEW_REFERENCE, EventType.RETURNED_REFERENCE);
+        eventManager.subscribe(EventType.ADDED_NEW_REFERENCE, new PrinterListener());
+        eventManager.subscribe(EventType.RETURNED_REFERENCE, new PrinterListener());
+        return eventManager;
     }
 
     public String getReferenceType() {

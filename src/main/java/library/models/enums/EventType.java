@@ -1,0 +1,12 @@
+package library.models.enums;
+
+public enum EventType {
+    ADDED_NEW_BOOK,
+    ADDED_NEW_MAGAZINE,
+    ADDED_NEW_THESIS,
+    ADDED_NEW_REFERENCE,
+    RETURNED_BOOK,
+    RETURNED_MAGAZINE,
+    RETURNED_THESIS,
+    RETURNED_REFERENCE,
+}

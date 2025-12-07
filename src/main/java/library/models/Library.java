@@ -256,14 +256,14 @@ public class Library {
             return new Book(
                     bookProto.getId(),
                     bookProto.getTitle(),
+                    bookProto.getPageCount(),
                     bookProto.getAuthor(),
                     convertStatusFromProto(bookProto.getStatus()),
                     convertDateFromProto(bookProto.getPublishDate()),
                     bookProto.getIsbn(),
                     bookProto.getGenre(),
-                    bookProto.getPageCount(),
                     convertDateFromProto(bookProto.getReturnDate())
-            );
+                        );
         } else if (proto.hasMagazine()) {
             LibraryItemProtos.MagazineProto magazineProto = proto.getMagazine();
             return new Magazine(
