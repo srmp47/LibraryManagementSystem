@@ -1,11 +1,9 @@
 package library.models;
 
 
-import library.models.enums.EventType;
+
 import library.models.enums.LibraryItemStatus;
 import library.models.enums.LibraryItemType;
-import library.observers.EventManager;
-import library.observers.listeners.PrinterListener;
 
 import java.time.LocalDate;
 
@@ -23,13 +21,7 @@ public class Thesis extends LibraryItem {
         this.advisor = advisor;
     }
 
-    @Override
-    public void setStatus(LibraryItemStatus status) {
-        if(this.status == LibraryItemStatus.BORROWED && status == LibraryItemStatus.EXIST)
-            sendNotification(EventType.RETURNED_THESIS);
-        this.status = status;
-        this.returnDate = null;
-    }
+
 
     @Override
     public void display() {
@@ -44,13 +36,7 @@ public class Thesis extends LibraryItem {
         System.out.println("------------------------");
     }
 
-    @Override
-    protected EventManager createEventManager() {
-        EventManager eventManager = new EventManager(EventType.ADDED_NEW_THESIS, EventType.RETURNED_THESIS);
-        eventManager.subscribe(EventType.ADDED_NEW_THESIS, new PrinterListener());
-        eventManager.subscribe(EventType.RETURNED_THESIS, new PrinterListener());
-        return eventManager;
-    }
+
 
     public String getUniversity() {
         return university;

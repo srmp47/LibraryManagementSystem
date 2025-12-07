@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.protobuf.Timestamp;
 import library.controllers.CommandLineController;
+import library.models.enums.EventType;
 import library.models.enums.LibraryItemStatus;
+import library.observers.EventManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,12 +28,14 @@ public class Library {
     private final Vector<LibraryItem> libraryItems;
     private final ConcurrentHashMap<Integer, LibraryItem> libraryItemHashMap;
     private final String dataFile;
+    private final EventManager eventBus;
     private final ObjectMapper objectMapper;
     private static final Logger logger = LoggerFactory.getLogger(CommandLineController.class);
     private Library() {
         this.objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         this.dataFile = "library_data.pb";
+        this.eventBus = EventManager.getEventBus();
         this.libraryItemHashMap = new ConcurrentHashMap<>();
         this.libraryItems = readFromFile(this.dataFile);
     }
@@ -50,6 +54,41 @@ public class Library {
     public void addLibraryItem(LibraryItem libraryItem) {
         this.libraryItems.add(libraryItem);
         this.libraryItemHashMap.put(libraryItem.getId(), libraryItem);
+
+        EventType eventType = getAddEventType(libraryItem);
+        eventBus.publish(eventType, "Added: " + libraryItem.getTitle());
+
+        logger.debug("Published {} event for item: {}", eventType, libraryItem.getTitle());
+    }
+
+    private EventType getAddEventType(LibraryItem item) {
+        switch (item.getType()) {
+            case BOOK:
+                return EventType.ADDED_NEW_BOOK;
+            case MAGAZINE:
+                return EventType.ADDED_NEW_MAGAZINE;
+            case REFERENCE:
+                return EventType.ADDED_NEW_REFERENCE;
+            case THESIS:
+                return EventType.ADDED_NEW_THESIS;
+            default:
+                return null;
+        }
+    }
+
+    private EventType getReturnEventType(LibraryItem item) {
+        switch (item.getType()) {
+            case BOOK:
+                return EventType.RETURNED_BOOK;
+            case MAGAZINE:
+                return EventType.RETURNED_MAGAZINE;
+            case REFERENCE:
+                return EventType.RETURNED_REFERENCE;
+            case THESIS:
+                return EventType.RETURNED_THESIS;
+            default:
+                return null;
+        }
     }
 
     public void removeLibraryItem(LibraryItem libraryItem) {
@@ -97,6 +136,10 @@ public class Library {
         }
         item.setStatus(LibraryItemStatus.EXIST);
         item.setReturnDate(null);
+        LibraryItem libraryItem = getLibraryItemById(itemId);
+        EventType eventType = getReturnEventType(libraryItem);
+        eventBus.publish(eventType, "Returned: " + libraryItem.getTitle());
+        logger.debug("Returned {} event for item: {}", eventType, libraryItem.getTitle());
         return true;
     }
 

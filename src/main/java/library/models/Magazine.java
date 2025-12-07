@@ -1,12 +1,8 @@
 package library.models;
 
 
-import library.models.enums.EventType;
 import library.models.enums.LibraryItemStatus;
 import library.models.enums.LibraryItemType;
-import library.observers.EventManager;
-import library.observers.listeners.PrinterListener;
-
 import java.time.LocalDate;
 
 public class Magazine extends LibraryItem {
@@ -23,8 +19,6 @@ public class Magazine extends LibraryItem {
     }
     @Override
     public void setStatus(LibraryItemStatus status) {
-        if(this.status == LibraryItemStatus.BORROWED && status == LibraryItemStatus.EXIST)
-            sendNotification(EventType.RETURNED_MAGAZINE);
         this.status = status;
         this.returnDate = null;
     }
@@ -42,13 +36,7 @@ public class Magazine extends LibraryItem {
         System.out.println("------------------------");
     }
 
-    @Override
-    protected EventManager createEventManager() {
-        EventManager eventManager =  new EventManager(EventType.ADDED_NEW_MAGAZINE, EventType.RETURNED_MAGAZINE);
-        eventManager.subscribe(EventType.ADDED_NEW_MAGAZINE, new PrinterListener());
-        eventManager.subscribe(EventType.RETURNED_MAGAZINE, new PrinterListener());
-        return eventManager;
-    }
+
 
     public String getIssueNumber() {
         return issueNumber;

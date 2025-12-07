@@ -20,6 +20,7 @@ import java.util.Vector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 public class CommandLineController {
     private static CommandLineController commandLineController = null;
     private final Library library;
@@ -825,20 +826,6 @@ public class CommandLineController {
             switch (request.getRequestType()) {
                 case CREATE:
                     library.addLibraryItem(request.getItem());
-                    switch (request.getItem().getType()){
-                        case BOOK:
-                            request.getItem().sendNotification(EventType.ADDED_NEW_BOOK);
-                            break;
-                        case MAGAZINE:
-                            request.getItem().sendNotification(EventType.ADDED_NEW_MAGAZINE);
-                            break;
-                        case REFERENCE:
-                            request.getItem().sendNotification(EventType.ADDED_NEW_REFERENCE);
-                            break;
-                        case THESIS:
-                            request.getItem().sendNotification(EventType.ADDED_NEW_THESIS);
-                            break;
-                    }
                     return new LibraryResult(true,
                             String.format("%s '%s' created successfully",
                                     request.getItem().getClass().getSimpleName(),
@@ -893,7 +880,6 @@ public class CommandLineController {
             return new LibraryResult(false, "Error processing request: " + e.getMessage());
         }
     }
-
     public void exitProgram() {
         logger.info("Initiating program exit sequence");
         System.out.println("\n💾 Saving data to file...");

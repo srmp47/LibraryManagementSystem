@@ -1,9 +1,7 @@
 package library.models;
 
-import library.models.enums.EventType;
 import library.models.enums.LibraryItemStatus;
 import library.models.enums.LibraryItemType;
-import library.observers.EventManager;
 
 import java.time.LocalDate;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,7 +15,7 @@ public abstract class LibraryItem {
     protected LibraryItemStatus status;
     protected final LibraryItemType type;
     protected LocalDate returnDate;
-    protected final EventManager events ;
+
     public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
     }
@@ -30,7 +28,6 @@ public abstract class LibraryItem {
         return type;
     }
 
-
     public LibraryItem(Integer id, String title, String author, LibraryItemStatus status, LocalDate publishDate,
                        LibraryItemType type, LocalDate returnDate) {
         this.title = title;
@@ -39,7 +36,7 @@ public abstract class LibraryItem {
         this.publishDate = publishDate;
         this.type = type;
         this.returnDate = returnDate;
-        this.events = createEventManager();
+
         if (id != null) {
             this.id = id;
             numberOfItems.updateAndGet(current -> Math.max(current, id));
@@ -48,15 +45,14 @@ public abstract class LibraryItem {
         }
     }
 
-    public abstract void setStatus(LibraryItemStatus status);
-
-
-    public void sendNotification(EventType eventType) {
-        events.notify(eventType, getTitle());
+    public void setStatus(LibraryItemStatus status) {
+        this.status = status;
+        if (status == LibraryItemStatus.EXIST) {
+            this.returnDate = null;
+        }
     }
 
     public abstract void display();
-    protected abstract EventManager createEventManager();
 
     public String getTitle() {
         return title;
@@ -81,5 +77,4 @@ public abstract class LibraryItem {
     public static void setCounter(int value) {
         numberOfItems.set(value);
     }
-
 }

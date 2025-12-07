@@ -804,3 +804,93 @@ java.lang.NumberFormatException: For input string: ""
 2025-12-07 15:25:31 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
 2025-12-07 15:25:31 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
 2025-12-07 15:25:31 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-12-07 15:54:51 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 15:54:51 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-07 15:54:51 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 15:54:57 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 1
+2025-12-07 15:54:57 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting addLibraryItem process
+2025-12-07 15:55:00 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected item type: 4
+2025-12-07 15:55:00 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Start creating addThesis request
+2025-12-07 15:55:23 [pool-1-thread-1] DEBUG l.controllers.CommandLineController - Parsed publish date for 'thesis2': 2012-09-21
+2025-12-07 15:55:45 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created thesis request - Title: 'thesis2', Author: 'kambiz'
+2025-12-07 15:55:45 [pool-1-thread-2] DEBUG l.controllers.CommandLineController - Published ADDED_NEW_THESIS event for item: thesis2
+2025-12-07 15:55:56 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-07 15:55:56 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-07 15:55:57 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-07 15:55:57 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-12-07 16:09:34 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 16:09:34 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-07 16:09:34 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 16:09:57 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-12-07 16:09:57 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-12-07 16:09:57 [pool-1-thread-1] WARN  l.controllers.CommandLineController - Return operation failed: No borrowed items
+2025-12-07 16:10:03 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 7
+2025-12-07 16:10:03 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting borrowLibraryItem process
+2025-12-07 16:10:09 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to borrow with title: 'thesis'
+2025-12-07 16:10:09 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Found 2 available items matching title 'thesis'
+2025-12-07 16:10:11 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created borrow request - Item ID: 8, Return Date: 2025-12-21
+2025-12-07 16:10:16 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-12-07 16:10:16 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-12-07 16:10:17 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created return request - Item ID: 8
+2025-12-07 16:15:51 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-07 16:15:51 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-07 16:15:51 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-07 16:15:51 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-12-07 16:17:58 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 16:17:58 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-07 16:17:58 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 16:18:09 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 7
+2025-12-07 16:18:09 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting borrowLibraryItem process
+2025-12-07 16:18:12 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to borrow with title: 'the'
+2025-12-07 16:18:12 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Found 2 available items matching title 'the'
+2025-12-07 16:18:14 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created borrow request - Item ID: 8, Return Date: 2025-12-21
+2025-12-07 16:18:17 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 7
+2025-12-07 16:18:17 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting borrowLibraryItem process
+2025-12-07 16:18:20 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to borrow with title: 'th'
+2025-12-07 16:18:20 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Found 1 available items matching title 'th'
+2025-12-07 16:18:22 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created borrow request - Item ID: 4, Return Date: 2025-12-21
+2025-12-07 16:18:28 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 1
+2025-12-07 16:18:28 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting addLibraryItem process
+2025-12-07 16:18:31 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected item type: 3
+2025-12-07 16:18:31 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Start creating addReference request
+2025-12-07 16:18:53 [pool-1-thread-1] DEBUG l.controllers.CommandLineController - Parsed publish date for 'reference2': 2019-01-01
+2025-12-07 16:19:03 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created reference request - Title: 'reference2', Author: 'reza'
+2025-12-07 16:19:03 [pool-1-thread-2] DEBUG l.controllers.CommandLineController - Published ADDED_NEW_REFERENCE event for item: reference2
+2025-12-07 16:19:07 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-07 16:19:07 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-07 16:19:07 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-07 16:19:07 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-12-07 16:22:05 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 16:22:05 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-07 16:22:05 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 16:22:08 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-12-07 16:22:08 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-12-07 16:22:15 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created return request - Item ID: 8
+2025-12-07 16:25:26 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 16:25:26 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-07 16:25:26 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 16:25:28 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-12-07 16:25:28 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-12-07 16:25:38 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created return request - Item ID: 8
+2025-12-07 16:25:38 [pool-1-thread-2] DEBUG l.controllers.CommandLineController - Published RETURNED_THESIS event for item: thesis2
+2025-12-07 16:25:44 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-07 16:25:44 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-07 16:25:44 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 9 library items
+2025-12-07 16:26:05 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-12-07 16:26:05 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-12-07 16:26:09 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User cancelled return operation
+2025-12-07 16:26:13 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-07 16:26:13 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-07 16:26:14 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-07 16:26:14 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-12-07 16:32:24 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 16:32:24 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-07 16:32:24 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 16:32:29 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-12-07 16:32:29 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-12-07 16:32:31 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created return request - Item ID: 4
+2025-12-07 16:32:31 [pool-1-thread-2] DEBUG l.controllers.CommandLineController - Returned RETURNED_THESIS event for item: thesis1
+2025-12-07 16:32:38 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-07 16:32:38 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-07 16:32:38 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-07 16:32:38 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully

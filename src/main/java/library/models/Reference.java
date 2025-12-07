@@ -1,11 +1,9 @@
 package library.models;
 
 
-import library.models.enums.EventType;
 import library.models.enums.LibraryItemStatus;
 import library.models.enums.LibraryItemType;
-import library.observers.EventManager;
-import library.observers.listeners.PrinterListener;
+
 
 import java.time.LocalDate;
 
@@ -23,13 +21,6 @@ public class Reference extends LibraryItem {
         this.subject = subject;
     }
 
-    @Override
-    public void setStatus(LibraryItemStatus status) {
-        if(this.status == LibraryItemStatus.BORROWED && status == LibraryItemStatus.EXIST)
-            sendNotification(EventType.RETURNED_REFERENCE);
-        this.status = status;
-        this.returnDate = null;
-    }
 
     @Override
     public void display() {
@@ -44,13 +35,7 @@ public class Reference extends LibraryItem {
         System.out.println("------------------------");
     }
 
-    @Override
-    protected EventManager createEventManager() {
-        EventManager eventManager =  new EventManager(EventType.ADDED_NEW_REFERENCE, EventType.RETURNED_REFERENCE);
-        eventManager.subscribe(EventType.ADDED_NEW_REFERENCE, new PrinterListener());
-        eventManager.subscribe(EventType.RETURNED_REFERENCE, new PrinterListener());
-        return eventManager;
-    }
+
 
     public String getReferenceType() {
         return referenceType;
