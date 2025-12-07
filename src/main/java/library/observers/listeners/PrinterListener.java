@@ -1,7 +1,6 @@
 package library.observers.listeners;
 
 import library.models.enums.EventType;
-import library.observers.listeners.EventListener;
 
 public class PrinterListener implements EventListener {
     @Override

@@ -12,9 +12,9 @@ public class EventManager {
 
     private EventManager() {
         listeners = new EnumMap<>(EventType.class);
-        for (EventType type : EventType.values()) {
-            listeners.put(type, new ArrayList<>());
-        }
+        Arrays.stream(EventType.values())
+                .forEach(type -> listeners.put(type, new ArrayList<>()));
+
         listener = new PrinterListener();
         subscribeToAll(listener);
     }
@@ -27,13 +27,12 @@ public class EventManager {
     }
 
     private void subscribeToAll(EventListener listener) {
-        for (EventType type : EventType.values()) {
-            subscribe(type, listener);
-        }
+        Arrays.stream(EventType.values())
+                .forEach(type -> subscribe(type, listener));
     }
 
     public void subscribe(EventType eventType, EventListener listener) {
-        List<EventListener> eventListeners = listeners.get(eventType);
+        var eventListeners = listeners.get(eventType);
         synchronized (eventListeners) {
             if (!eventListeners.contains(listener)) {
                 eventListeners.add(listener);
@@ -42,21 +41,19 @@ public class EventManager {
     }
 
     public void unsubscribe(EventType eventType, EventListener listener) {
-        List<EventListener> eventListeners = listeners.get(eventType);
+        var eventListeners = listeners.get(eventType);
         synchronized (eventListeners) {
             eventListeners.remove(listener);
         }
     }
 
     public void publish(EventType eventType, String message) {
-        List<EventListener> eventListeners = listeners.get(eventType);
+        var eventListeners = listeners.get(eventType);
         List<EventListener> listenersCopy;
         synchronized (eventListeners) {
             listenersCopy = new ArrayList<>(eventListeners);
         }
 
-        for (EventListener listener : listenersCopy) {
-            listener.update(eventType, message);
-        }
+        listenersCopy.forEach(listener -> listener.update(eventType, message));
     }
 }

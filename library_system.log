@@ -894,3 +894,83 @@ java.lang.NumberFormatException: For input string: ""
 2025-12-07 16:32:38 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
 2025-12-07 16:32:38 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
 2025-12-07 16:32:38 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-12-07 17:56:23 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 17:56:23 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-07 17:56:23 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 17:56:30 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-07 17:56:30 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-07 17:56:30 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 9 library items
+2025-12-07 17:56:49 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-07 17:56:49 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-07 17:56:49 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-07 17:56:49 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-12-07 18:04:22 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 18:04:22 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-07 18:04:22 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 18:04:25 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-07 18:04:25 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-07 18:04:25 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 9 library items
+2025-12-07 18:04:30 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 1
+2025-12-07 18:04:30 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting addLibraryItem process
+2025-12-07 18:04:33 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected item type: 2
+2025-12-07 18:04:33 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Start creating addMagazine request
+2025-12-07 18:04:51 [pool-1-thread-1] DEBUG l.controllers.CommandLineController - Parsed publish date for 'magazine4': 1880-03-23
+2025-12-07 18:04:58 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created magazine request - Title: 'magazine4', Editor: 'ahmad'
+2025-12-07 18:04:58 [pool-1-thread-2] DEBUG l.controllers.CommandLineController - Published ADDED_NEW_MAGAZINE event for item: magazine4
+2025-12-07 18:05:08 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 9
+2025-12-07 18:05:08 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing borrowed items
+2025-12-07 18:05:13 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 7
+2025-12-07 18:05:13 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting borrowLibraryItem process
+2025-12-07 18:05:15 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to borrow with title: 'ma'
+2025-12-07 18:05:15 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Found 2 available items matching title 'ma'
+2025-12-07 18:05:17 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created borrow request - Item ID: 10, Return Date: 2025-12-21
+2025-12-07 18:05:19 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 9
+2025-12-07 18:05:19 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing borrowed items
+2025-12-07 18:05:26 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 10
+2025-12-07 18:05:26 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying library statistics
+2025-12-07 18:05:26 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Statistics - Total: 10, Available: 9, Borrowed: 1, Banned: 0, Overdue: 0
+2025-12-07 18:05:32 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 2
+2025-12-07 18:05:32 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting removeLibraryItem process
+2025-12-07 18:05:36 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to remove with title: '0'
+2025-12-07 18:05:36 [pool-1-thread-1] WARN  l.controllers.CommandLineController - No items found for removal with title containing: '0'
+2025-12-07 18:05:39 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 3
+2025-12-07 18:05:39 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting searchLibraryItems process
+2025-12-07 18:05:42 [pool-1-thread-1] DEBUG l.controllers.CommandLineController - User selected search algorithm: SEARCH_BY_AUTHOR_IGNORE_CASE
+2025-12-07 18:05:46 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching with keyword: 'mo' using algorithm: SEARCH_BY_AUTHOR_IGNORE_CASE
+2025-12-07 18:05:46 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Search completed for 'mo' using SEARCH_BY_AUTHOR_IGNORE_CASE: found 2 results
+2025-12-07 18:05:52 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-07 18:05:52 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-07 18:05:52 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-07 18:05:52 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-12-07 18:10:33 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 18:10:33 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-07 18:10:33 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 18:10:34 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-07 18:10:34 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-07 18:10:34 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 10 library items
+2025-12-07 18:10:41 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-07 18:10:41 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-07 18:10:41 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-07 18:10:41 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-12-07 18:16:28 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 18:16:28 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-07 18:16:28 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-07 18:16:29 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-07 18:16:29 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-07 18:16:29 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 10 library items
+2025-12-07 18:16:35 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 10
+2025-12-07 18:16:35 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying library statistics
+2025-12-07 18:16:35 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Statistics - Total: 10, Available: 9, Borrowed: 1, Banned: 0, Overdue: 0
+2025-12-07 18:16:40 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 7
+2025-12-07 18:16:40 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting borrowLibraryItem process
+2025-12-07 18:16:45 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to borrow with title: '98865753'
+2025-12-07 18:16:45 [pool-1-thread-1] WARN  l.controllers.CommandLineController - No items found for borrowing with title containing: '98865753'
+2025-12-07 18:16:53 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 9
+2025-12-07 18:16:53 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing borrowed items
+2025-12-07 18:17:02 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 5
+2025-12-07 18:17:02 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting sortLibraryItems process
+2025-12-07 18:17:02 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Sorting completed: 10 items sorted by publication date
+2025-12-07 18:17:05 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-07 18:17:05 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-07 18:17:05 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-07 18:17:05 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully

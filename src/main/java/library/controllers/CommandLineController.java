@@ -1,7 +1,6 @@
 package library.controllers;
 
 import library.models.*;
-import library.models.enums.EventType;
 import library.models.enums.RequestType;
 import library.models.enums.LibraryItemStatus;
 import library.models.enums.SearchAlgorithm;
@@ -16,10 +15,14 @@ import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Vector;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
+import java.util.function.BiConsumer;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 public class CommandLineController {
     private static CommandLineController commandLineController = null;
@@ -27,11 +30,24 @@ public class CommandLineController {
     private final Scanner scanner;
     private static final Logger logger = LoggerFactory.getLogger(CommandLineController.class);
 
+    private final Consumer<LibraryItem> printItemDetails = item -> {
+        System.out.print(" - ");
+        item.display();
+    };
+
+    private final BiConsumer<String, Long> printTitleWithCount = (title, count) -> {
+        System.out.printf("📚 Title: %s | Available Copies: %d%n", title, count);
+    };
+
+    private final Predicate<LibraryItem> isAvailableForBorrowing =
+            item -> item.getStatus() == LibraryItemStatus.EXIST;
+
     private CommandLineController(Library library) {
         logger.info("Initializing CommandLineController with provided Library");
         this.library = library;
         this.scanner = new Scanner(System.in);
     }
+
     public static CommandLineController getInstance(Library library) {
         if (commandLineController == null) {
             commandLineController = new CommandLineController(library);
@@ -62,47 +78,50 @@ public class CommandLineController {
 
     public LibraryRequest handleChoice(String choice) {
         logger.info("User selected menu option: {}", choice);
-        switch (choice) {
-            case "1":
-                return addLibraryItem();
-            case "2":
-                return removeLibraryItem();
-            case "3":
+
+        return switch (choice) {
+            case "1" -> addLibraryItem();
+            case "2" -> removeLibraryItem();
+            case "3" -> {
                 searchLibraryItems();
-                return null;
-            case "4":
+                yield null;
+            }
+            case "4" -> {
                 listAllLibraryItems();
-                return null;
-            case "5":
+                yield null;
+            }
+            case "5" -> {
                 sortLibraryItems();
-                return null;
-            case "6":
-                return updateLibraryItemStatus();
-            case "7":
-                return borrowLibraryItem();
-            case "8":
-                return returnLibraryItem();
-            case "9":
+                yield null;
+            }
+            case "6" -> updateLibraryItemStatus();
+            case "7" -> borrowLibraryItem();
+            case "8" -> returnLibraryItem();
+            case "9" -> {
                 listBorrowedItems();
-                return null;
-            case "10":
+                yield null;
+            }
+            case "10" -> {
                 displayStatistics();
-                return null;
-            case "0":
+                yield null;
+            }
+            case "0" -> {
                 logger.info("User initiated program exit");
-                return new LibraryRequest(RequestType.EXIT, -1);
-            default:
+                yield new LibraryRequest(RequestType.EXIT, -1);
+            }
+            default -> {
                 logger.warn("Invalid menu choice entered: {}", choice);
                 System.out.println("❌ Invalid choice! Please try again.");
-                return null;
-        }
+                yield null;
+            }
+        };
     }
 
     private void searchLibraryItems() {
         logger.info("Starting searchLibraryItems process");
         System.out.println("\n🔍 === SEARCH LIBRARY ITEMS ===");
 
-        SearchAlgorithm algorithm = getSearchAlgorithmFromUser();
+        var algorithm = getSearchAlgorithmFromUser();
         if (algorithm == null) {
             logger.info("User cancelled search algorithm selection");
             System.out.println("❌ Search cancelled.");
@@ -110,7 +129,7 @@ public class CommandLineController {
         }
 
         System.out.print("Enter search keyword: ");
-        String keyword = scanner.nextLine().trim();
+        var keyword = scanner.nextLine().trim().toLowerCase();
         logger.info("User searching with keyword: '{}' using algorithm: {}", keyword, algorithm);
 
         if (keyword.isEmpty()) {
@@ -119,9 +138,8 @@ public class CommandLineController {
             return;
         }
 
-        SearchStrategy strategy = SearchStrategyFactory.createStrategy(algorithm);
-
-        Vector<LibraryItem> results = performSearchWithStrategy(keyword, strategy);
+        var strategy = SearchStrategyFactory.createStrategy(algorithm);
+        var results = performSearchWithStrategy(keyword, strategy);
 
         logger.info("Search completed for '{}' using {}: found {} results",
                 keyword, algorithm, results.size());
@@ -163,18 +181,11 @@ public class CommandLineController {
     }
 
     private Vector<LibraryItem> performSearchWithStrategy(String keyword, SearchStrategy strategy) {
-        Vector<LibraryItem> results = new Vector<>();
-        Vector<LibraryItem> allItems = library.getLibraryItems();
+        var allItems = library.getLibraryItems();
 
-        synchronized (allItems) {
-            for (LibraryItem item : allItems) {
-                if (strategy.matches(item, keyword)) {
-                    results.add(item);
-                }
-            }
-        }
-
-        return results;
+        return allItems.parallelStream()
+                .filter(item -> strategy.matches(item, keyword))
+                .collect(Collectors.toCollection(Vector::new));
     }
 
     private void displaySearchResults(Vector<LibraryItem> results, String keyword, SearchAlgorithm algorithm) {
@@ -183,11 +194,7 @@ public class CommandLineController {
         System.out.println("Items found: " + results.size());
         System.out.println("=" .repeat(40));
 
-        synchronized (results) {
-            for (LibraryItem item : results) {
-                item.display();
-            }
-        }
+        results.forEach(printItemDetails);
     }
 
     private LibraryRequest addLibraryItem() {
@@ -201,23 +208,20 @@ public class CommandLineController {
         System.out.println("4. Thesis");
         System.out.print("Enter your choice: ");
 
-        String typeChoice = scanner.nextLine().trim();
+        var typeChoice = scanner.nextLine().trim();
         logger.info("User selected item type: {}", typeChoice);
 
-        switch (typeChoice) {
-            case "1":
-                return createAddBookRequest();
-            case "2":
-                return createAddMagazineRequest();
-            case "3":
-                return createAddReferenceRequest();
-            case "4":
-                return createAddThesisRequest();
-            default:
+        return switch (typeChoice) {
+            case "1" -> createAddBookRequest();
+            case "2" -> createAddMagazineRequest();
+            case "3" -> createAddReferenceRequest();
+            case "4" -> createAddThesisRequest();
+            default -> {
                 logger.warn("Invalid item type selected: {}", typeChoice);
                 System.out.println("❌ Invalid type choice!");
-                return null;
-        }
+                yield null;
+            }
+        };
     }
 
     private LibraryRequest createAddBookRequest() {
@@ -225,7 +229,7 @@ public class CommandLineController {
         System.out.println("\n📘 === ADD NEW BOOK ===");
 
         System.out.print("Enter title: ");
-        String title = scanner.nextLine().trim();
+        var title = scanner.nextLine().trim();
         if (title.isEmpty()) {
             logger.warn("Book creation failed: Empty title provided");
             System.out.println("❌ Title cannot be empty!");
@@ -233,28 +237,28 @@ public class CommandLineController {
         }
 
         System.out.print("Enter author: ");
-        String author = scanner.nextLine().trim();
+        var author = scanner.nextLine().trim();
         if (author.isEmpty()) {
             logger.warn("Book creation failed for title '{}': Empty author provided", title);
             System.out.println("❌ Author cannot be empty!");
             return null;
         }
 
-        LocalDate publishDate = getDateFromUser("publish date", title);
+        var publishDate = getDateFromUser("publish date", title);
         if (publishDate == null) return null;
 
-        LibraryItemStatus status = LibraryItemStatus.EXIST;
+        var status = LibraryItemStatus.EXIST;
 
         System.out.print("Enter ISBN: ");
-        String isbn = scanner.nextLine().trim();
+        var isbn = scanner.nextLine().trim();
 
         System.out.print("Enter genre: ");
-        String genre = scanner.nextLine().trim();
+        var genre = scanner.nextLine().trim();
 
-        int pageCount = getPositiveIntegerFromUser("page count", title);
+        var pageCount = getPositiveIntegerFromUser("page count", title);
         if (pageCount <= 0) return null;
 
-        Book book = new BookFactory(title, author, status, publishDate, isbn, genre, pageCount)
+        var book = new BookFactory(title, author, status, publishDate, isbn, genre, pageCount)
                 .createLibraryItem();
         logger.info("Created book request - Title: '{}', Author: '{}'", title, author);
         return new LibraryRequest(RequestType.CREATE, book);
@@ -265,7 +269,7 @@ public class CommandLineController {
         System.out.println("\n📰 === ADD NEW MAGAZINE ===");
 
         System.out.print("Enter title: ");
-        String title = scanner.nextLine().trim();
+        var title = scanner.nextLine().trim();
         if (title.isEmpty()) {
             logger.warn("Magazine creation failed: Empty title provided");
             System.out.println("❌ Title cannot be empty!");
@@ -273,28 +277,28 @@ public class CommandLineController {
         }
 
         System.out.print("Enter editor: ");
-        String editor = scanner.nextLine().trim();
+        var editor = scanner.nextLine().trim();
         if (editor.isEmpty()) {
             logger.warn("Magazine creation failed for title '{}': Empty editor provided", title);
             System.out.println("❌ Editor cannot be empty!");
             return null;
         }
 
-        LocalDate publishDate = getDateFromUser("publish date", title);
+        var publishDate = getDateFromUser("publish date", title);
         if (publishDate == null) return null;
 
-        LibraryItemStatus status = LibraryItemStatus.EXIST;
+        var status = LibraryItemStatus.EXIST;
 
         System.out.print("Enter issue number: ");
-        String issueNumber = scanner.nextLine().trim();
+        var issueNumber = scanner.nextLine().trim();
 
         System.out.print("Enter publisher: ");
-        String publisher = scanner.nextLine().trim();
+        var publisher = scanner.nextLine().trim();
 
         System.out.print("Enter category: ");
-        String category = scanner.nextLine().trim();
+        var category = scanner.nextLine().trim();
 
-        Magazine magazine = new MagazineFactory(title, editor, publishDate, status, issueNumber, publisher, category)
+        var magazine = new MagazineFactory(title, editor, publishDate, status, issueNumber, publisher, category)
                 .createLibraryItem();
         logger.info("Created magazine request - Title: '{}', Editor: '{}'", title, editor);
         return new LibraryRequest(RequestType.CREATE, magazine);
@@ -305,7 +309,7 @@ public class CommandLineController {
         System.out.println("\n📚 === ADD NEW REFERENCE ===");
 
         System.out.print("Enter title: ");
-        String title = scanner.nextLine().trim();
+        var title = scanner.nextLine().trim();
         if (title.isEmpty()) {
             logger.warn("Reference creation failed: Empty title provided");
             System.out.println("❌ Title cannot be empty!");
@@ -313,28 +317,28 @@ public class CommandLineController {
         }
 
         System.out.print("Enter author: ");
-        String author = scanner.nextLine().trim();
+        var author = scanner.nextLine().trim();
         if (author.isEmpty()) {
             logger.warn("Reference creation failed for title '{}': Empty author provided", title);
             System.out.println("❌ Author cannot be empty!");
             return null;
         }
 
-        LocalDate publishDate = getDateFromUser("publish date", title);
+        var publishDate = getDateFromUser("publish date", title);
         if (publishDate == null) return null;
 
-        LibraryItemStatus status = LibraryItemStatus.EXIST;
+        var status = LibraryItemStatus.EXIST;
 
         System.out.print("Enter reference type (e.g., Dictionary, Encyclopedia): ");
-        String referenceType = scanner.nextLine().trim();
+        var referenceType = scanner.nextLine().trim();
 
         System.out.print("Enter edition: ");
-        String edition = scanner.nextLine().trim();
+        var edition = scanner.nextLine().trim();
 
         System.out.print("Enter subject: ");
-        String subject = scanner.nextLine().trim();
+        var subject = scanner.nextLine().trim();
 
-        Reference reference = new ReferenceFactory(title, author, status, publishDate,
+        var reference = new ReferenceFactory(title, author, status, publishDate,
                 referenceType, edition, subject).createLibraryItem();
         logger.info("Created reference request - Title: '{}', Author: '{}'", title, author);
         return new LibraryRequest(RequestType.CREATE, reference);
@@ -345,7 +349,7 @@ public class CommandLineController {
         System.out.println("\n🎓 === ADD NEW THESIS ===");
 
         System.out.print("Enter title: ");
-        String title = scanner.nextLine().trim();
+        var title = scanner.nextLine().trim();
         if (title.isEmpty()) {
             logger.warn("Thesis creation failed: Empty title provided");
             System.out.println("❌ Title cannot be empty!");
@@ -353,28 +357,28 @@ public class CommandLineController {
         }
 
         System.out.print("Enter author: ");
-        String author = scanner.nextLine().trim();
+        var author = scanner.nextLine().trim();
         if (author.isEmpty()) {
             logger.warn("Thesis creation failed for title '{}': Empty author provided", title);
             System.out.println("❌ Author cannot be empty!");
             return null;
         }
 
-        LocalDate publishDate = getDateFromUser("publish date", title);
+        var publishDate = getDateFromUser("publish date", title);
         if (publishDate == null) return null;
 
-        LibraryItemStatus status = LibraryItemStatus.EXIST;
+        var status = LibraryItemStatus.EXIST;
 
         System.out.print("Enter university: ");
-        String university = scanner.nextLine().trim();
+        var university = scanner.nextLine().trim();
 
         System.out.print("Enter department: ");
-        String department = scanner.nextLine().trim();
+        var department = scanner.nextLine().trim();
 
         System.out.print("Enter advisor: ");
-        String advisor = scanner.nextLine().trim();
+        var advisor = scanner.nextLine().trim();
 
-        Thesis thesis = new ThesisFactory(title, author, status, publishDate,
+        var thesis = new ThesisFactory(title, author, status, publishDate,
                 university, department, advisor).createLibraryItem();
         logger.info("Created thesis request - Title: '{}', Author: '{}'", title, author);
         return new LibraryRequest(RequestType.CREATE, thesis);
@@ -384,7 +388,7 @@ public class CommandLineController {
         LocalDate date = null;
         while (date == null) {
             System.out.print("Enter " + dateType + " (YYYY-MM-DD): ");
-            String dateInput = scanner.nextLine().trim();
+            var dateInput = scanner.nextLine().trim();
             try {
                 date = LocalDate.parse(dateInput);
                 logger.debug("Parsed {} for '{}': {}", dateType, title, date);
@@ -392,7 +396,7 @@ public class CommandLineController {
                 logger.warn("Invalid date format provided for {} '{}': {}", dateType, title, dateInput);
                 System.out.println("❌ Invalid date format! Please use YYYY-MM-DD");
                 System.out.print("Do you want to try again? (y/n): ");
-                String retry = scanner.nextLine().trim().toLowerCase();
+                var retry = scanner.nextLine().trim().toLowerCase();
                 if (!retry.equals("y") && !retry.equals("yes")) {
                     return null;
                 }
@@ -402,7 +406,7 @@ public class CommandLineController {
     }
 
     private int getPositiveIntegerFromUser(String fieldName, String title) {
-        int value = 0;
+        var value = 0;
         while (value <= 0) {
             System.out.print("Enter " + fieldName + " (must be positive): ");
             try {
@@ -411,7 +415,7 @@ public class CommandLineController {
                     logger.warn("Invalid {} for '{}': {}", fieldName, title, value);
                     System.out.println("❌ " + fieldName + " must be positive!");
                     System.out.print("Do you want to try again? (y/n): ");
-                    String retry = scanner.nextLine().trim().toLowerCase();
+                    var retry = scanner.nextLine().trim().toLowerCase();
                     if (!retry.equals("y") && !retry.equals("yes")) {
                         return -1;
                     }
@@ -420,7 +424,7 @@ public class CommandLineController {
                 logger.warn("Invalid number format for {} of '{}'", fieldName, title);
                 System.out.println("❌ Please enter a valid number!");
                 System.out.print("Do you want to try again? (y/n): ");
-                String retry = scanner.nextLine().trim().toLowerCase();
+                var retry = scanner.nextLine().trim().toLowerCase();
                 if (!retry.equals("y") && !retry.equals("yes")) {
                     return -1;
                 }
@@ -433,17 +437,21 @@ public class CommandLineController {
         logger.info("Starting removeLibraryItem process");
         System.out.println("\n🗑️ === REMOVE LIBRARY ITEM ===");
 
-        if (library.getLibraryItems().isEmpty()) {
+        var libraryItems = library.getLibraryItems();
+        if (libraryItems.isEmpty()) {
             logger.warn("Remove operation failed: No items in library");
             System.out.println("❌ No items in library!");
             return null;
         }
 
         System.out.print("Enter item title to remove: ");
-        String title = scanner.nextLine().trim();
+        var title = scanner.nextLine().trim().toLowerCase();
         logger.info("User searching for item to remove with title: '{}'", title);
 
-        Vector<LibraryItem> foundItems = library.search(title);
+        var foundItems = libraryItems.stream()
+                .filter(item -> item.getTitle().toLowerCase().contains(title))
+                .collect(Collectors.toCollection(Vector::new));
+
         if (foundItems.isEmpty()) {
             logger.warn("No items found for removal with title containing: '{}'", title);
             System.out.println("❌ No items found with title containing: " + title);
@@ -452,17 +460,19 @@ public class CommandLineController {
 
         logger.info("Found {} items matching title '{}'", foundItems.size(), title);
         System.out.println("\n📚 Found Items:");
-        HashMap<Integer, Integer> idByIndex = new HashMap<>();
-        int index = 1;
-        for (LibraryItem item : foundItems) {
-            idByIndex.put(index, item.getId());
-            System.out.printf("%d. ", index++);
+
+        var idByIndex = new HashMap<Integer, Integer>();
+        var index = new AtomicInteger(1);
+
+        foundItems.forEach(item -> {
+            idByIndex.put(index.get(), item.getId());
+            System.out.printf("%d. ", index.getAndIncrement());
             item.display();
-        }
+        });
 
         System.out.print("Enter the number of item to remove (0 to cancel): ");
         try {
-            int choice = Integer.parseInt(scanner.nextLine().trim());
+            var choice = Integer.parseInt(scanner.nextLine().trim());
             if (choice == 0) {
                 logger.info("User cancelled remove operation");
                 System.out.println("❌ Operation cancelled.");
@@ -475,8 +485,8 @@ public class CommandLineController {
                 return null;
             }
 
-            int itemId = idByIndex.get(choice);
-            LibraryItem itemToRemove = library.getLibraryItemById(itemId);
+            var itemId = idByIndex.get(choice);
+            var itemToRemove = library.getLibraryItemById(itemId);
 
             if (itemToRemove != null) {
                 if (itemToRemove.getStatus() == LibraryItemStatus.BORROWED) {
@@ -488,7 +498,7 @@ public class CommandLineController {
                 }
 
                 System.out.print("Are you sure you want to remove this item? (y/n): ");
-                String confirmation = scanner.nextLine().trim().toLowerCase();
+                var confirmation = scanner.nextLine().trim().toLowerCase();
                 if (!confirmation.equals("y") && !confirmation.equals("yes")) {
                     logger.info("User cancelled removal after confirmation");
                     System.out.println("❌ Removal cancelled.");
@@ -516,26 +526,36 @@ public class CommandLineController {
     private void sortLibraryItems() {
         logger.info("Starting sortLibraryItems process");
         System.out.println("\n📅 === SORTED LIBRARY ITEMS ===");
-        Vector<LibraryItem> sortedItems = library.sortLibraryItems();
+
+        var sortedItems = library.getLibraryItems().stream()
+                .sorted((a, b) -> b.getPublishDate().compareTo(a.getPublishDate()))
+                .collect(Collectors.toCollection(Vector::new));
+
         logger.info("Sorting completed: {} items sorted by publication date", sortedItems.size());
-        displayLibraryItems(sortedItems, "Items Sorted by Publication Date (Newest First)");
+
+        System.out.println("\n=== Items Sorted by Publication Date (Newest First) ===");
+        sortedItems.forEach(printItemDetails);
     }
 
     private LibraryRequest updateLibraryItemStatus() {
         logger.info("Starting updateLibraryItemStatus process");
         System.out.println("\n✏️ === UPDATE LIBRARY ITEM STATUS ===");
 
-        if (library.getLibraryItems().isEmpty()) {
+        var libraryItems = library.getLibraryItems();
+        if (libraryItems.isEmpty()) {
             logger.warn("Status update failed: No items in library");
             System.out.println("❌ No items in library!");
             return null;
         }
 
         System.out.print("Enter item title to update: ");
-        String title = scanner.nextLine().trim();
+        var title = scanner.nextLine().trim().toLowerCase();
         logger.info("User searching for item to update with title: '{}'", title);
 
-        Vector<LibraryItem> foundItems = library.search(title);
+        var foundItems = libraryItems.stream()
+                .filter(item -> item.getTitle().toLowerCase().contains(title))
+                .collect(Collectors.toCollection(Vector::new));
+
         if (foundItems.isEmpty()) {
             logger.warn("No items found for status update with title containing: '{}'", title);
             System.out.println("❌ No items found with title containing: " + title);
@@ -544,17 +564,19 @@ public class CommandLineController {
 
         logger.info("Found {} items for status update matching title '{}'", foundItems.size(), title);
         System.out.println("\n📚 Found Items:");
-        HashMap<Integer, Integer> idByIndex = new HashMap<>();
-        int index = 1;
-        for (LibraryItem item : foundItems) {
-            idByIndex.put(index, item.getId());
-            System.out.printf("%d. ", index++);
+
+        var idByIndex = new HashMap<Integer, Integer>();
+        var index = new AtomicInteger(1);
+
+        foundItems.forEach(item -> {
+            idByIndex.put(index.get(), item.getId());
+            System.out.printf("%d. ", index.getAndIncrement());
             item.display();
-        }
+        });
 
         System.out.print("Enter the number of item to update (0 to cancel): ");
         try {
-            int choice = Integer.parseInt(scanner.nextLine().trim());
+            var choice = Integer.parseInt(scanner.nextLine().trim());
             if (choice == 0) {
                 logger.info("User cancelled status update operation");
                 System.out.println("❌ Operation cancelled.");
@@ -567,14 +589,14 @@ public class CommandLineController {
                 return null;
             }
 
-            int itemId = idByIndex.get(choice);
-            LibraryItem itemToUpdate = library.getLibraryItemById(itemId);
+            var itemId = idByIndex.get(choice);
+            var itemToUpdate = library.getLibraryItemById(itemId);
 
             if (itemToUpdate != null) {
                 LibraryItemStatus newStatus = null;
                 while (newStatus == null) {
                     System.out.print("Enter new status (EXIST/BANNED): ");
-                    String statusInput = scanner.nextLine().trim().toUpperCase();
+                    var statusInput = scanner.nextLine().trim().toUpperCase();
                     try {
                         newStatus = LibraryItemStatus.valueOf(statusInput);
                         if (newStatus == LibraryItemStatus.BORROWED) {
@@ -602,29 +624,30 @@ public class CommandLineController {
         logger.info("Starting borrowLibraryItem process");
         System.out.println("\n📥 === BORROW LIBRARY ITEM ===");
 
-        if (library.getLibraryItems().isEmpty()) {
+        var libraryItems = library.getLibraryItems();
+        if (libraryItems.isEmpty()) {
             logger.warn("Borrow operation failed: No items in library");
             System.out.println("❌ No items in library!");
             return null;
         }
 
         System.out.print("Enter item title to borrow: ");
-        String title = scanner.nextLine().trim();
+        var title = scanner.nextLine().trim().toLowerCase();
         logger.info("User searching for item to borrow with title: '{}'", title);
 
-        Vector<LibraryItem> foundItems = library.search(title);
+        var foundItems = libraryItems.stream()
+                .filter(item -> item.getTitle().toLowerCase().contains(title))
+                .collect(Collectors.toCollection(Vector::new));
+
         if (foundItems.isEmpty()) {
             logger.warn("No items found for borrowing with title containing: '{}'", title);
             System.out.println("❌ No items found with title containing: " + title);
             return null;
         }
 
-        Vector<LibraryItem> availableItems = new Vector<>();
-        for (LibraryItem item : foundItems) {
-            if (item.getStatus() == LibraryItemStatus.EXIST) {
-                availableItems.add(item);
-            }
-        }
+        var availableItems = foundItems.stream()
+                .filter(isAvailableForBorrowing)
+                .collect(Collectors.toCollection(Vector::new));
 
         if (availableItems.isEmpty()) {
             logger.warn("No available items found for borrowing with title: '{}'", title);
@@ -635,17 +658,19 @@ public class CommandLineController {
 
         logger.info("Found {} available items matching title '{}'", availableItems.size(), title);
         System.out.println("\n📚 Available Items for Borrowing:");
-        HashMap<Integer, Integer> idByIndex = new HashMap<>();
-        int index = 1;
-        for (LibraryItem item : availableItems) {
-            idByIndex.put(index, item.getId());
-            System.out.printf("%d. ", index++);
+
+        var idByIndex = new HashMap<Integer, Integer>();
+        var index = new AtomicInteger(1);
+
+        availableItems.forEach(item -> {
+            idByIndex.put(index.get(), item.getId());
+            System.out.printf("%d. ", index.getAndIncrement());
             item.display();
-        }
+        });
 
         System.out.print("Enter the number of item to borrow (0 to cancel): ");
         try {
-            int choice = Integer.parseInt(scanner.nextLine().trim());
+            var choice = Integer.parseInt(scanner.nextLine().trim());
             if (choice == 0) {
                 logger.info("User cancelled borrow operation");
                 System.out.println("❌ Operation cancelled.");
@@ -658,8 +683,8 @@ public class CommandLineController {
                 return null;
             }
 
-            int itemId = idByIndex.get(choice);
-            LocalDate returnDate = LocalDate.now().plusDays(14);
+            var itemId = idByIndex.get(choice);
+            var returnDate = LocalDate.now().plusDays(14);
 
             logger.info("Created borrow request - Item ID: {}, Return Date: {}", itemId, returnDate);
             return new LibraryRequest(RequestType.BORROW, itemId, returnDate);
@@ -674,7 +699,10 @@ public class CommandLineController {
         logger.info("Starting returnLibraryItem process");
         System.out.println("\n📤 === RETURN LIBRARY ITEM ===");
 
-        Vector<LibraryItem> borrowedItems = library.getBorrowedItems();
+        var borrowedItems = library.getLibraryItems().stream()
+                .filter(item -> item.getStatus() == LibraryItemStatus.BORROWED)
+                .collect(Collectors.toCollection(Vector::new));
+
         if (borrowedItems.isEmpty()) {
             logger.warn("Return operation failed: No borrowed items");
             System.out.println("❌ No borrowed items to return!");
@@ -682,24 +710,25 @@ public class CommandLineController {
         }
 
         System.out.println("\n📚 Borrowed Items:");
-        HashMap<Integer, Integer> idByIndex = new HashMap<>();
-        int index = 1;
-        for (LibraryItem item : borrowedItems) {
-            idByIndex.put(index, item.getId());
-            System.out.printf("%d. ", index++);
+        var idByIndex = new HashMap<Integer, Integer>();
+        var index = new AtomicInteger(1);
+
+        borrowedItems.forEach(item -> {
+            idByIndex.put(index.get(), item.getId());
+            System.out.printf("%d. ", index.getAndIncrement());
             item.display();
-            LocalDate expectedReturn = item.getReturnDate();
+            var expectedReturn = item.getReturnDate();
             if (expectedReturn != null) {
                 System.out.println("   Expected Return: " + expectedReturn);
                 if (expectedReturn.isBefore(LocalDate.now())) {
                     System.out.println("   ⚠️  OVERDUE!");
                 }
             }
-        }
+        });
 
         System.out.print("Enter the number of item to return (0 to cancel): ");
         try {
-            int choice = Integer.parseInt(scanner.nextLine().trim());
+            var choice = Integer.parseInt(scanner.nextLine().trim());
             if (choice == 0) {
                 logger.info("User cancelled return operation");
                 System.out.println("❌ Operation cancelled.");
@@ -712,7 +741,7 @@ public class CommandLineController {
                 return null;
             }
 
-            int itemId = idByIndex.get(choice);
+            var itemId = idByIndex.get(choice);
             logger.info("Created return request - Item ID: {}", itemId);
             return new LibraryRequest(RequestType.RETURN, itemId);
         } catch (NumberFormatException e) {
@@ -726,61 +755,55 @@ public class CommandLineController {
         logger.info("Listing borrowed items");
         System.out.println("\n📋 === BORROWED LIBRARY ITEMS ===");
 
-        Vector<LibraryItem> borrowedItems = library.getBorrowedItems();
+        var borrowedItems = library.getLibraryItems()
+                .parallelStream()
+                .filter(item -> item.getStatus() == LibraryItemStatus.BORROWED)
+                .collect(Collectors.toCollection(Vector::new));
+
         if (borrowedItems.isEmpty()) {
             System.out.println("No borrowed items found.");
             return;
         }
 
-        int count = 0;
-        synchronized (borrowedItems) {
-            for (LibraryItem item : borrowedItems) {
-                System.out.print((++count) + ". ");
-                item.display();
-                LocalDate expectedReturn = item.getReturnDate();
-                if (expectedReturn != null) {
-                    System.out.println("   Expected Return: " + expectedReturn);
-                    if (expectedReturn.isBefore(LocalDate.now())) {
-                        System.out.println("   ⚠️  STATUS: OVERDUE");
-                    } else {
-                        System.out.println("   ✅ STATUS: On Time");
-                    }
+        System.out.println("Found " + borrowedItems.size() + " borrowed items:");
+
+        borrowedItems.forEach(item -> {
+            System.out.print(" - ");
+            item.display();
+            var expectedReturn = item.getReturnDate();
+            if (expectedReturn != null) {
+                System.out.println("   Expected Return: " + expectedReturn);
+                if (expectedReturn.isBefore(LocalDate.now())) {
+                    System.out.println("   ⚠️  STATUS: OVERDUE");
+                } else {
+                    System.out.println("   ✅ STATUS: On Time");
                 }
-                System.out.println("------------------------");
             }
-        }
-        System.out.println("--- Total: " + count + " borrowed items ---");
+            System.out.println("------------------------");
+        });
     }
 
     private void displayStatistics() {
         logger.info("Displaying library statistics");
         System.out.println("\n📊 === LIBRARY STATISTICS ===");
 
-        int totalItems = library.getLibraryItems().size();
-        int existCount = 0;
-        int borrowedCount = 0;
-        int bannedCount = 0;
-        int overdueCount = 0;
-        Vector<LibraryItem> libraryItems = library.getLibraryItems();
-        synchronized (libraryItems) {
-            for (LibraryItem item : libraryItems) {
-                switch (item.getStatus()) {
-                    case EXIST:
-                        existCount++;
-                        break;
-                    case BORROWED:
-                        borrowedCount++;
-                        LocalDate expectedReturn = item.getReturnDate();
-                        if (expectedReturn != null && expectedReturn.isBefore(LocalDate.now())) {
-                            overdueCount++;
-                        }
-                        break;
-                    case BANNED:
-                        bannedCount++;
-                        break;
-                }
-            }
-        }
+        var libraryItems = library.getLibraryItems();
+
+        var stats = libraryItems.parallelStream()
+                .collect(Collectors.groupingByConcurrent(
+                        LibraryItem::getStatus,
+                        Collectors.counting()
+                ));
+
+        var totalItems = libraryItems.size();
+        var existCount = stats.getOrDefault(LibraryItemStatus.EXIST, 0L);
+        var borrowedCount = stats.getOrDefault(LibraryItemStatus.BORROWED, 0L);
+        var bannedCount = stats.getOrDefault(LibraryItemStatus.BANNED, 0L);
+
+        var overdueCount = libraryItems.parallelStream()
+                .filter(item -> item.getStatus() == LibraryItemStatus.BORROWED)
+                .filter(item -> item.getReturnDate() != null && item.getReturnDate().isBefore(LocalDate.now()))
+                .count();
 
         logger.info("Statistics - Total: {}, Available: {}, Borrowed: {}, Banned: {}, Overdue: {}",
                 totalItems, existCount, borrowedCount, bannedCount, overdueCount);
@@ -793,9 +816,9 @@ public class CommandLineController {
         System.out.println("Banned: " + bannedCount);
 
         if (totalItems > 0) {
-            double availablePercentage = (existCount * 100.0) / totalItems;
-            double borrowedPercentage = (borrowedCount * 100.0) / totalItems;
-            double bannedPercentage = (bannedCount * 100.0) / totalItems;
+            var availablePercentage = (existCount * 100.0) / totalItems;
+            var borrowedPercentage = (borrowedCount * 100.0) / totalItems;
+            var bannedPercentage = (bannedCount * 100.0) / totalItems;
 
             System.out.println("\n📈 Percentages:");
             System.out.printf("Available: %.1f%%\n", availablePercentage);
@@ -806,15 +829,15 @@ public class CommandLineController {
 
     private void displayLibraryItems(Vector<LibraryItem> items, String title) {
         System.out.println("\n=== " + title + " ===");
-        int count = 0;
+        AtomicInteger count = new AtomicInteger();
         synchronized (items) {
-            for (LibraryItem item : items) {
-                System.out.print((++count) + ". ");
+            items.forEach(item -> {
+                System.out.print((count.incrementAndGet()) + ". ");
                 item.display();
-            }
+            });
         }
 
-        if (count == 0) {
+        if (count.get() == 0) {
             System.out.println("No items found.");
         } else {
             System.out.println("--- Total: " + count + " items ---");
@@ -823,63 +846,63 @@ public class CommandLineController {
 
     public LibraryResult processRequest(LibraryRequest request, Library library) {
         try {
-            switch (request.getRequestType()) {
-                case CREATE:
+            return switch (request.getRequestType()) {
+                case CREATE -> {
                     library.addLibraryItem(request.getItem());
-                    return new LibraryResult(true,
+                    yield new LibraryResult(true,
                             String.format("%s '%s' created successfully",
                                     request.getItem().getClass().getSimpleName(),
                                     request.getItem().getTitle()));
-
-                case DELETE:
-                    LibraryItem itemToDelete = library.getLibraryItemById(request.getItemId());
+                }
+                case DELETE -> {
+                    var itemToDelete = library.getLibraryItemById(request.getItemId());
                     if (itemToDelete != null) {
                         library.removeLibraryItem(itemToDelete);
-                        return new LibraryResult(true,
+                        yield new LibraryResult(true,
                                 String.format("Item '%s' deleted successfully", itemToDelete.getTitle()));
                     }
-                    return new LibraryResult(false, "Item not found");
-
-                case BORROW:
-                    boolean borrowSuccess = library.borrowItem(request.getItemId(), request.getReturnDate());
-                    LibraryItem borrowedItem = library.getLibraryItemById(request.getItemId());
+                    yield new LibraryResult(false, "Item not found");
+                }
+                case BORROW -> {
+                    var borrowSuccess = library.borrowItem(request.getItemId(), request.getReturnDate());
+                    var borrowedItem = library.getLibraryItemById(request.getItemId());
                     if (borrowSuccess) {
-                        return new LibraryResult(true,
+                        yield new LibraryResult(true,
                                 String.format("Item '%s' borrowed successfully. Due: %s",
                                         borrowedItem.getTitle(), request.getReturnDate()));
                     }
-                    return new LibraryResult(false,
+                    yield new LibraryResult(false,
                             String.format("Failed to borrow item '%s'", borrowedItem.getTitle()));
-
-                case RETURN:
-                    boolean returnSuccess = library.returnItem(request.getItemId());
-                    LibraryItem returnedItem = library.getLibraryItemById(request.getItemId());
+                }
+                case RETURN -> {
+                    var returnSuccess = library.returnItem(request.getItemId());
+                    var returnedItem = library.getLibraryItemById(request.getItemId());
                     if (returnSuccess) {
-                        return new LibraryResult(true,
+                        yield new LibraryResult(true,
                                 String.format("Item '%s' returned successfully", returnedItem.getTitle()));
                     }
-                    return new LibraryResult(false,
+                    yield new LibraryResult(false,
                             String.format("Failed to return item '%s'", returnedItem.getTitle()));
-
-                case UPDATE_STATUS:
-                    LibraryItem itemToUpdate = library.getLibraryItemById(request.getItemId());
+                }
+                case UPDATE_STATUS -> {
+                    var itemToUpdate = library.getLibraryItemById(request.getItemId());
                     if (itemToUpdate != null) {
-                        LibraryItemStatus newStatus = LibraryItemStatus.valueOf(request.getNewStatus());
-                        LibraryItemStatus oldStatus = itemToUpdate.getStatus();
+                        var newStatus = LibraryItemStatus.valueOf(request.getNewStatus());
+                        var oldStatus = itemToUpdate.getStatus();
                         itemToUpdate.setStatus(newStatus);
-                        return new LibraryResult(true,
+                        yield new LibraryResult(true,
                                 String.format("Item '%s' status changed from %s to %s",
                                         itemToUpdate.getTitle(), oldStatus, newStatus));
                     }
-                    return new LibraryResult(false, "Item not found");
-
-                default:
-                    return new LibraryResult(false, "Unknown request type");
-            }
+                    yield new LibraryResult(false, "Item not found");
+                }
+                default -> new LibraryResult(false, "Unknown request type");
+            };
         } catch (Exception e) {
             return new LibraryResult(false, "Error processing request: " + e.getMessage());
         }
     }
+
     public void exitProgram() {
         logger.info("Initiating program exit sequence");
         System.out.println("\n💾 Saving data to file...");

@@ -20,8 +20,8 @@ import java.time.ZoneOffset;
 import java.util.Comparator;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
-
-
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Library {
     private static Library library = null;
@@ -31,6 +31,10 @@ public class Library {
     private final EventManager eventBus;
     private final ObjectMapper objectMapper;
     private static final Logger logger = LoggerFactory.getLogger(CommandLineController.class);
+
+    public static final Predicate<LibraryItem> IS_AVAILABLE_FOR_BORROWING =
+            item -> item.getStatus() == LibraryItemStatus.EXIST;
+
     private Library() {
         this.objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
@@ -39,6 +43,7 @@ public class Library {
         this.libraryItemHashMap = new ConcurrentHashMap<>();
         this.libraryItems = readFromFile(this.dataFile);
     }
+
     public static synchronized Library getInstance(){
         if(library == null){
             library = new Library();
@@ -55,40 +60,28 @@ public class Library {
         this.libraryItems.add(libraryItem);
         this.libraryItemHashMap.put(libraryItem.getId(), libraryItem);
 
-        EventType eventType = getAddEventType(libraryItem);
+        var eventType = getAddEventType(libraryItem);
         eventBus.publish(eventType, "Added: " + libraryItem.getTitle());
 
         logger.debug("Published {} event for item: {}", eventType, libraryItem.getTitle());
     }
 
     private EventType getAddEventType(LibraryItem item) {
-        switch (item.getType()) {
-            case BOOK:
-                return EventType.ADDED_NEW_BOOK;
-            case MAGAZINE:
-                return EventType.ADDED_NEW_MAGAZINE;
-            case REFERENCE:
-                return EventType.ADDED_NEW_REFERENCE;
-            case THESIS:
-                return EventType.ADDED_NEW_THESIS;
-            default:
-                return null;
-        }
+        return switch (item.getType()) {
+            case BOOK -> EventType.ADDED_NEW_BOOK;
+            case MAGAZINE -> EventType.ADDED_NEW_MAGAZINE;
+            case REFERENCE -> EventType.ADDED_NEW_REFERENCE;
+            case THESIS -> EventType.ADDED_NEW_THESIS;
+        };
     }
 
     private EventType getReturnEventType(LibraryItem item) {
-        switch (item.getType()) {
-            case BOOK:
-                return EventType.RETURNED_BOOK;
-            case MAGAZINE:
-                return EventType.RETURNED_MAGAZINE;
-            case REFERENCE:
-                return EventType.RETURNED_REFERENCE;
-            case THESIS:
-                return EventType.RETURNED_THESIS;
-            default:
-                return null;
-        }
+        return switch (item.getType()) {
+            case BOOK -> EventType.RETURNED_BOOK;
+            case MAGAZINE -> EventType.RETURNED_MAGAZINE;
+            case REFERENCE -> EventType.RETURNED_REFERENCE;
+            case THESIS -> EventType.RETURNED_THESIS;
+        };
     }
 
     public void removeLibraryItem(LibraryItem libraryItem) {
@@ -97,22 +90,19 @@ public class Library {
     }
 
     public Vector<LibraryItem> sortLibraryItems() {
-        libraryItems.sort(Comparator.comparing(LibraryItem::getPublishDate).reversed());
-        return libraryItems;
+        return libraryItems.stream()
+                .sorted(Comparator.comparing(LibraryItem::getPublishDate).reversed())
+                .collect(Collectors.toCollection(Vector::new));
     }
 
     public Vector<LibraryItem> search(String keyword) {
-        Vector<LibraryItem> results = new Vector<>();
-        String lowerKeyword = keyword.toLowerCase();
-        synchronized (libraryItems) {
-            for (LibraryItem item : libraryItems) {
-                if (item.getTitle().toLowerCase().contains(lowerKeyword) ||
-                        item.getAuthor().toLowerCase().contains(lowerKeyword)) {
-                    results.add(item);
-                }
-            }
-        }
-        return results;
+        var lowerKeyword = keyword.toLowerCase();
+
+        return libraryItems.parallelStream()
+                .filter(item ->
+                        item.getTitle().toLowerCase().contains(lowerKeyword) ||
+                                item.getAuthor().toLowerCase().contains(lowerKeyword))
+                .collect(Collectors.toCollection(Vector::new));
     }
 
     public LibraryItem getLibraryItemById(int id) {
@@ -120,7 +110,7 @@ public class Library {
     }
 
     public synchronized boolean borrowItem(int itemId, LocalDate expectedReturnDate) {
-        LibraryItem item = libraryItemHashMap.get(itemId);
+        var item = libraryItemHashMap.get(itemId);
         if (item == null || item.getStatus() != LibraryItemStatus.EXIST) {
             return false;
         }
@@ -130,47 +120,40 @@ public class Library {
     }
 
     public synchronized boolean returnItem(int itemId) {
-        LibraryItem item = libraryItemHashMap.get(itemId);
+        var item = libraryItemHashMap.get(itemId);
         if (item == null || item.getStatus() != LibraryItemStatus.BORROWED) {
             return false;
         }
         item.setStatus(LibraryItemStatus.EXIST);
         item.setReturnDate(null);
-        LibraryItem libraryItem = getLibraryItemById(itemId);
-        EventType eventType = getReturnEventType(libraryItem);
+        var libraryItem = getLibraryItemById(itemId);
+        var eventType = getReturnEventType(libraryItem);
         eventBus.publish(eventType, "Returned: " + libraryItem.getTitle());
         logger.debug("Returned {} event for item: {}", eventType, libraryItem.getTitle());
         return true;
     }
 
     public Vector<LibraryItem> getBorrowedItems() {
-        Vector<LibraryItem> borrowedItems = new Vector<>();
-        synchronized (libraryItems) {
-            for (LibraryItem item : libraryItems) {
-                if (item.getStatus() == LibraryItemStatus.BORROWED) {
-                    borrowedItems.add(item);
-                }
-            }
-        }
-        return borrowedItems;
+        return libraryItems.stream()
+                .filter(item -> item.getStatus() == LibraryItemStatus.BORROWED)
+                .collect(Collectors.toCollection(Vector::new));
     }
-
 
     private Vector<LibraryItem> readFromFile(String dataFile) {
         try {
-            File file = new File(dataFile);
+            var file = new File(dataFile);
             if (!file.exists()) {
                 return new Vector<>();
             }
 
-            LibraryItemProtos.LibraryItemCollection collection =
-                    LibraryItemProtos.LibraryItemCollection.parseFrom(new FileInputStream(file));
+            var collection = LibraryItemProtos.LibraryItemCollection
+                    .parseFrom(new FileInputStream(file));
 
-            Vector<LibraryItem> loadedLibraryItems = new Vector<>();
-            int maxId = 0;
+            var loadedLibraryItems = new Vector<LibraryItem>();
+            var maxId = 0;
 
-            for (LibraryItemProtos.LibraryItemProto itemProto : collection.getItemsList()) {
-                LibraryItem libraryItem = convertFromProto(itemProto);
+            for (var itemProto : collection.getItemsList()) {
+                var libraryItem = convertFromProto(itemProto);
                 if (libraryItem != null) {
                     loadedLibraryItems.add(libraryItem);
                     if (libraryItem.getId() > maxId) {
@@ -190,25 +173,23 @@ public class Library {
 
     public void writeToFile() {
         try {
-            LibraryItemProtos.LibraryItemCollection.Builder collectionBuilder =
-                    LibraryItemProtos.LibraryItemCollection.newBuilder();
+            var collectionBuilder = LibraryItemProtos.LibraryItemCollection.newBuilder();
 
-            for (LibraryItem item : libraryItems) {
-                LibraryItemProtos.LibraryItemProto itemProto = convertToProto(item);
+            libraryItems.forEach(item -> {
+                var itemProto = convertToProto(item);
                 if (itemProto != null) {
                     collectionBuilder.addItems(itemProto);
                 }
-            }
+            });
 
-            int maxId = 0;
-            for (LibraryItem item : libraryItems) {
-                if (item.getId() > maxId) {
-                    maxId = item.getId();
-                }
-            }
+            var maxId = libraryItems.stream()
+                    .mapToInt(LibraryItem::getId)
+                    .max()
+                    .orElse(0);
+
             collectionBuilder.setMaxId(maxId);
 
-            LibraryItemProtos.LibraryItemCollection collection = collectionBuilder.build();
+            var collection = collectionBuilder.build();
             collection.writeTo(new FileOutputStream(dataFile));
 
         } catch (IOException e) {
@@ -217,9 +198,8 @@ public class Library {
     }
 
     private LibraryItemProtos.LibraryItemProto convertToProto(LibraryItem item) {
-        if (item instanceof Book) {
-            Book book = (Book) item;
-            LibraryItemProtos.BookProto bookProto = LibraryItemProtos.BookProto.newBuilder()
+        if (item instanceof Book book) {
+            var bookProto = LibraryItemProtos.BookProto.newBuilder()
                     .setId(book.getId())
                     .setTitle(book.getTitle())
                     .setAuthor(book.getAuthor())
@@ -235,9 +215,8 @@ public class Library {
                     .setBook(bookProto)
                     .build();
 
-        } else if (item instanceof Magazine) {
-            Magazine magazine = (Magazine) item;
-            LibraryItemProtos.MagazineProto magazineProto = LibraryItemProtos.MagazineProto.newBuilder()
+        } else if (item instanceof Magazine magazine) {
+            var magazineProto = LibraryItemProtos.MagazineProto.newBuilder()
                     .setId(magazine.getId())
                     .setTitle(magazine.getTitle())
                     .setAuthor(magazine.getAuthor())
@@ -253,9 +232,8 @@ public class Library {
                     .setMagazine(magazineProto)
                     .build();
 
-        } else if (item instanceof Reference) {
-            Reference reference = (Reference) item;
-            LibraryItemProtos.ReferenceProto referenceProto = LibraryItemProtos.ReferenceProto.newBuilder()
+        } else if (item instanceof Reference reference) {
+            var referenceProto = LibraryItemProtos.ReferenceProto.newBuilder()
                     .setId(reference.getId())
                     .setTitle(reference.getTitle())
                     .setAuthor(reference.getAuthor())
@@ -271,9 +249,8 @@ public class Library {
                     .setReference(referenceProto)
                     .build();
 
-        } else if (item instanceof Thesis) {
-            Thesis thesis = (Thesis) item;
-            LibraryItemProtos.ThesisProto thesisProto = LibraryItemProtos.ThesisProto.newBuilder()
+        } else if (item instanceof Thesis thesis) {
+            var thesisProto = LibraryItemProtos.ThesisProto.newBuilder()
                     .setId(thesis.getId())
                     .setTitle(thesis.getTitle())
                     .setAuthor(thesis.getAuthor())
@@ -295,7 +272,7 @@ public class Library {
 
     private LibraryItem convertFromProto(LibraryItemProtos.LibraryItemProto proto) {
         if (proto.hasBook()) {
-            LibraryItemProtos.BookProto bookProto = proto.getBook();
+            var bookProto = proto.getBook();
             return new Book(
                     bookProto.getId(),
                     bookProto.getTitle(),
@@ -306,9 +283,9 @@ public class Library {
                     bookProto.getIsbn(),
                     bookProto.getGenre(),
                     convertDateFromProto(bookProto.getReturnDate())
-                        );
+            );
         } else if (proto.hasMagazine()) {
-            LibraryItemProtos.MagazineProto magazineProto = proto.getMagazine();
+            var magazineProto = proto.getMagazine();
             return new Magazine(
                     magazineProto.getId(),
                     magazineProto.getTitle(),
@@ -321,7 +298,7 @@ public class Library {
                     convertDateFromProto(magazineProto.getReturnDate())
             );
         } else if (proto.hasReference()) {
-            LibraryItemProtos.ReferenceProto referenceProto = proto.getReference();
+            var referenceProto = proto.getReference();
             return new Reference(
                     referenceProto.getId(),
                     referenceProto.getTitle(),
@@ -334,7 +311,7 @@ public class Library {
                     convertDateFromProto(referenceProto.getReturnDate())
             );
         } else if (proto.hasThesis()) {
-            LibraryItemProtos.ThesisProto thesisProto = proto.getThesis();
+            var thesisProto = proto.getThesis();
             return new Thesis(
                     thesisProto.getId(),
                     thesisProto.getTitle(),
@@ -370,28 +347,19 @@ public class Library {
     }
 
     private LibraryItemProtos.LibraryItemStatus convertStatusToProto(LibraryItemStatus status) {
-        switch (status) {
-            case EXIST:
-                return LibraryItemProtos.LibraryItemStatus.EXIST;
-            case BORROWED:
-                return LibraryItemProtos.LibraryItemStatus.BORROWED;
-            case BANNED:
-                return LibraryItemProtos.LibraryItemStatus.BANNED;
-            default:
-                return LibraryItemProtos.LibraryItemStatus.EXIST;
-        }
+        return switch (status) {
+            case EXIST -> LibraryItemProtos.LibraryItemStatus.EXIST;
+            case BORROWED -> LibraryItemProtos.LibraryItemStatus.BORROWED;
+            case BANNED -> LibraryItemProtos.LibraryItemStatus.BANNED;
+        };
     }
 
     private LibraryItemStatus convertStatusFromProto(LibraryItemProtos.LibraryItemStatus status) {
-        switch (status) {
-            case EXIST:
-                return LibraryItemStatus.EXIST;
-            case BORROWED:
-                return LibraryItemStatus.BORROWED;
-            case BANNED:
-                return LibraryItemStatus.BANNED;
-            default:
-                return LibraryItemStatus.EXIST;
-        }
+        return switch (status) {
+            case EXIST -> LibraryItemStatus.EXIST;
+            case BORROWED -> LibraryItemStatus.BORROWED;
+            case BANNED -> LibraryItemStatus.BANNED;
+            default -> LibraryItemStatus.EXIST;
+        };
     }
 }
