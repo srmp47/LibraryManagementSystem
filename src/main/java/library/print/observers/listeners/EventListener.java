@@ -1,4 +1,4 @@
-package library.observers.listeners;
+package library.print.observers.listeners;
 
 import library.models.enums.EventType;
 

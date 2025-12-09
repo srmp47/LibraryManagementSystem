@@ -1,8 +1,8 @@
-package library.observers;
+package library.print.observers;
 
 import library.models.enums.EventType;
-import library.observers.listeners.EventListener;
-import library.observers.listeners.PrinterListener;
+import library.print.observers.listeners.EventListener;
+import library.print.observers.listeners.PrinterListener;
 import java.util.*;
 
 public class EventManager {

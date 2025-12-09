@@ -1,14 +1,12 @@
 package library.controllers;
 
 import library.models.*;
+import library.models.builders.*;
 import library.models.enums.RequestType;
 import library.models.enums.LibraryItemStatus;
 import library.models.enums.SearchAlgorithm;
-import library.models.factories.BookFactory;
-import library.models.factories.MagazineFactory;
-import library.models.factories.ReferenceFactory;
-import library.models.factories.ThesisFactory;
-import library.strategies.*;
+import library.search.strategies.SearchStrategy;
+import library.search.strategies.SearchStrategyFactory;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -247,8 +245,6 @@ public class CommandLineController {
         var publishDate = getDateFromUser("publish date", title);
         if (publishDate == null) return null;
 
-        var status = LibraryItemStatus.EXIST;
-
         System.out.print("Enter ISBN: ");
         var isbn = scanner.nextLine().trim();
 
@@ -258,10 +254,21 @@ public class CommandLineController {
         var pageCount = getPositiveIntegerFromUser("page count", title);
         if (pageCount <= 0) return null;
 
-        var book = new BookFactory(title, author, status, publishDate, isbn, genre, pageCount)
-                .createLibraryItem();
-        logger.info("Created book request - Title: '{}', Author: '{}'", title, author);
-        return new LibraryRequest(RequestType.CREATE, book);
+        try {
+            LibraryItemDirector director = new LibraryItemDirector();
+            BookBuilder builder = new BookBuilder();
+
+            director.constructStandardBook(builder, title, author, publishDate, isbn, genre, pageCount);
+            Book book = builder.getResult();
+
+            logger.info("Created book using Builder/Director - Title: '{}', Author: '{}'", title, author);
+            return new LibraryRequest(RequestType.CREATE, book);
+
+        } catch (Exception e) {
+            logger.error("Error creating book: {}", e.getMessage());
+            System.out.println("❌ Error creating book: " + e.getMessage());
+            return null;
+        }
     }
 
     private LibraryRequest createAddMagazineRequest() {
@@ -287,8 +294,6 @@ public class CommandLineController {
         var publishDate = getDateFromUser("publish date", title);
         if (publishDate == null) return null;
 
-        var status = LibraryItemStatus.EXIST;
-
         System.out.print("Enter issue number: ");
         var issueNumber = scanner.nextLine().trim();
 
@@ -298,10 +303,22 @@ public class CommandLineController {
         System.out.print("Enter category: ");
         var category = scanner.nextLine().trim();
 
-        var magazine = new MagazineFactory(title, editor, publishDate, status, issueNumber, publisher, category)
-                .createLibraryItem();
-        logger.info("Created magazine request - Title: '{}', Editor: '{}'", title, editor);
-        return new LibraryRequest(RequestType.CREATE, magazine);
+        try {
+            LibraryItemDirector director = new LibraryItemDirector();
+            MagazineBuilder builder = new MagazineBuilder();
+
+            director.constructStandardMagazine(builder, title, editor, publishDate,
+                    issueNumber, publisher, category);
+            Magazine magazine = builder.getResult();
+
+            logger.info("Created magazine using Builder/Director - Title: '{}', Editor: '{}'", title, editor);
+            return new LibraryRequest(RequestType.CREATE, magazine);
+
+        } catch (Exception e) {
+            logger.error("Error creating magazine: {}", e.getMessage());
+            System.out.println("❌ Error creating magazine: " + e.getMessage());
+            return null;
+        }
     }
 
     private LibraryRequest createAddReferenceRequest() {
@@ -327,8 +344,6 @@ public class CommandLineController {
         var publishDate = getDateFromUser("publish date", title);
         if (publishDate == null) return null;
 
-        var status = LibraryItemStatus.EXIST;
-
         System.out.print("Enter reference type (e.g., Dictionary, Encyclopedia): ");
         var referenceType = scanner.nextLine().trim();
 
@@ -338,10 +353,22 @@ public class CommandLineController {
         System.out.print("Enter subject: ");
         var subject = scanner.nextLine().trim();
 
-        var reference = new ReferenceFactory(title, author, status, publishDate,
-                referenceType, edition, subject).createLibraryItem();
-        logger.info("Created reference request - Title: '{}', Author: '{}'", title, author);
-        return new LibraryRequest(RequestType.CREATE, reference);
+        try {
+            LibraryItemDirector director = new LibraryItemDirector();
+            ReferenceBuilder builder = new ReferenceBuilder();
+
+            director.constructStandardReference(builder, title, author, publishDate,
+                    referenceType, edition, subject);
+            Reference reference = builder.getResult();
+
+            logger.info("Created reference using Builder/Director - Title: '{}', Author: '{}'", title, author);
+            return new LibraryRequest(RequestType.CREATE, reference);
+
+        } catch (Exception e) {
+            logger.error("Error creating reference: {}", e.getMessage());
+            System.out.println("❌ Error creating reference: " + e.getMessage());
+            return null;
+        }
     }
 
     private LibraryRequest createAddThesisRequest() {
@@ -367,8 +394,6 @@ public class CommandLineController {
         var publishDate = getDateFromUser("publish date", title);
         if (publishDate == null) return null;
 
-        var status = LibraryItemStatus.EXIST;
-
         System.out.print("Enter university: ");
         var university = scanner.nextLine().trim();
 
@@ -378,10 +403,22 @@ public class CommandLineController {
         System.out.print("Enter advisor: ");
         var advisor = scanner.nextLine().trim();
 
-        var thesis = new ThesisFactory(title, author, status, publishDate,
-                university, department, advisor).createLibraryItem();
-        logger.info("Created thesis request - Title: '{}', Author: '{}'", title, author);
-        return new LibraryRequest(RequestType.CREATE, thesis);
+        try {
+            LibraryItemDirector director = new LibraryItemDirector();
+            ThesisBuilder builder = new ThesisBuilder();
+
+            director.constructStandardThesis(builder, title, author, publishDate,
+                    university, department, advisor);
+            Thesis thesis = builder.getResult();
+
+            logger.info("Created thesis using Builder/Director - Title: '{}', Author: '{}'", title, author);
+            return new LibraryRequest(RequestType.CREATE, thesis);
+
+        } catch (Exception e) {
+            logger.error("Error creating thesis: {}", e.getMessage());
+            System.out.println("❌ Error creating thesis: " + e.getMessage());
+            return null;
+        }
     }
 
     private LocalDate getDateFromUser(String dateType, String title) {

@@ -1,7 +1,7 @@
-package library.strategies.impl;
+package library.search.strategies.impl;
 
 import library.models.LibraryItem;
-import library.strategies.SearchStrategy;
+import library.search.strategies.SearchStrategy;
 
 public class AuthorExactSearch implements SearchStrategy {
     @Override

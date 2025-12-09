@@ -1,10 +1,10 @@
-package library.strategies;
+package library.search.strategies;
 
 import library.models.enums.SearchAlgorithm;
-import library.strategies.impl.AuthorExactSearch;
-import library.strategies.impl.AuthorIgnoreCaseSearch;
-import library.strategies.impl.TitleExactSearch;
-import library.strategies.impl.TitleIgnoreCaseSearch;
+import library.search.strategies.impl.AuthorExactSearch;
+import library.search.strategies.impl.AuthorIgnoreCaseSearch;
+import library.search.strategies.impl.TitleExactSearch;
+import library.search.strategies.impl.TitleIgnoreCaseSearch;
 
 public class SearchStrategyFactory {
 

@@ -6,7 +6,7 @@ import com.google.protobuf.Timestamp;
 import library.controllers.CommandLineController;
 import library.models.enums.EventType;
 import library.models.enums.LibraryItemStatus;
-import library.observers.EventManager;
+import library.print.observers.EventManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

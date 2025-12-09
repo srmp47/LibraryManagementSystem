@@ -974,3 +974,104 @@ java.lang.NumberFormatException: For input string: ""
 2025-12-07 18:17:05 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
 2025-12-07 18:17:05 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
 2025-12-07 18:17:05 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-12-09 16:39:17 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-09 16:39:17 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-09 16:39:17 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-09 16:39:17 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-09 16:39:17 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-09 16:39:17 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-09 16:39:28 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-09 16:39:28 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-09 16:39:29 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-09 16:39:29 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-12-09 16:39:39 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-09 16:39:39 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-09 16:39:39 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-09 16:39:51 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 3
+2025-12-09 16:39:51 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting searchLibraryItems process
+2025-12-09 16:39:55 [pool-1-thread-1] DEBUG l.controllers.CommandLineController - User selected search algorithm: SEARCH_BY_TITLE_EXACT
+2025-12-09 16:40:01 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching with keyword: 'bool' using algorithm: SEARCH_BY_TITLE_EXACT
+2025-12-09 16:40:01 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Search completed for 'bool' using SEARCH_BY_TITLE_EXACT: found 0 results
+2025-12-09 16:40:07 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-09 16:40:07 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-09 16:40:07 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 10 library items
+2025-12-09 16:40:18 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 9
+2025-12-09 16:40:18 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing borrowed items
+2025-12-09 16:40:27 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 5
+2025-12-09 16:40:27 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting sortLibraryItems process
+2025-12-09 16:40:27 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Sorting completed: 10 items sorted by publication date
+2025-12-09 16:41:04 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-12-09 16:41:04 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-12-09 16:41:08 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created return request - Item ID: 10
+2025-12-09 16:41:08 [pool-1-thread-2] DEBUG l.controllers.CommandLineController - Returned RETURNED_MAGAZINE event for item: magazine4
+2025-12-09 16:41:13 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-09 16:41:13 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-09 16:41:13 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-09 16:41:13 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-12-09 16:41:19 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-09 16:41:19 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-09 16:41:19 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-09 16:41:30 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-09 16:41:30 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-09 16:41:30 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-09 16:41:33 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-09 16:41:33 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-09 16:41:33 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-09 16:41:33 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-12-09 17:08:13 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-09 17:08:13 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-09 17:08:13 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-09 17:08:18 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-09 17:08:18 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-09 17:08:18 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-09 17:08:18 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-12-09 17:09:37 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-09 17:09:37 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-09 17:09:37 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-09 17:09:40 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-09 17:09:40 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-09 17:09:40 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 10 library items
+2025-12-09 17:09:44 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 3
+2025-12-09 17:09:44 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting searchLibraryItems process
+2025-12-09 17:09:49 [pool-1-thread-1] DEBUG l.controllers.CommandLineController - User selected search algorithm: SEARCH_BY_TITLE_IGNORE_CASE
+2025-12-09 17:09:57 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching with keyword: 'maga' using algorithm: SEARCH_BY_TITLE_IGNORE_CASE
+2025-12-09 17:09:57 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Search completed for 'maga' using SEARCH_BY_TITLE_IGNORE_CASE: found 2 results
+2025-12-09 17:10:05 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 6
+2025-12-09 17:10:05 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting updateLibraryItemStatus process
+2025-12-09 17:10:08 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to update with title: 'book4'
+2025-12-09 17:10:08 [pool-1-thread-1] WARN  l.controllers.CommandLineController - No items found for status update with title containing: 'book4'
+2025-12-09 17:10:18 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 6
+2025-12-09 17:10:18 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting updateLibraryItemStatus process
+2025-12-09 17:10:25 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to update with title: 'book'
+2025-12-09 17:10:25 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Found 3 items for status update matching title 'book'
+2025-12-09 17:10:31 [pool-1-thread-1] WARN  l.controllers.CommandLineController - Invalid status provided for update: BANNNED
+2025-12-09 17:10:38 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created status update request - Item ID: 6, New Status: BANNED
+2025-12-09 17:10:40 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-09 17:10:40 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-09 17:10:40 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 10 library items
+2025-12-09 17:10:51 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-09 17:10:51 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-09 17:10:51 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-09 17:10:51 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully
+2025-12-09 17:46:01 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-09 17:46:01 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-09 17:46:01 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-09 17:46:23 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 6
+2025-12-09 17:46:23 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting updateLibraryItemStatus process
+2025-12-09 17:46:27 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to update with title: 'book'
+2025-12-09 17:46:27 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Found 3 items for status update matching title 'book'
+2025-12-09 17:46:33 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created status update request - Item ID: 6, New Status: EXIST
+2025-12-09 17:46:39 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 10
+2025-12-09 17:46:39 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying library statistics
+2025-12-09 17:46:39 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Statistics - Total: 10, Available: 10, Borrowed: 0, Banned: 0, Overdue: 0
+2025-12-09 17:46:44 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 2
+2025-12-09 17:46:44 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting removeLibraryItem process
+2025-12-09 17:46:47 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to remove with title: '34rfsda'
+2025-12-09 17:46:47 [pool-1-thread-1] WARN  l.controllers.CommandLineController - No items found for removal with title containing: '34rfsda'
+2025-12-09 17:46:51 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-09 17:46:51 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-09 17:46:51 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 10 library items
+2025-12-09 17:47:01 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-09 17:47:01 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-09 17:47:02 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-09 17:47:02 [main] INFO  l.controllers.CommandLineController - Program exit completed successfully

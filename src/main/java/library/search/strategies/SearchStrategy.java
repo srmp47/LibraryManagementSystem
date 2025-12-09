@@ -1,4 +1,4 @@
-package library.strategies;
+package library.search.strategies;
 
 import library.models.LibraryItem;
 
