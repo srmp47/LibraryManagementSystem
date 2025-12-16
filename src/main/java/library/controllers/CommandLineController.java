@@ -11,6 +11,7 @@ import library.search.strategies.SearchStrategyFactory;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -557,7 +558,7 @@ public class CommandLineController {
         System.out.println("\n📖 === ALL LIBRARY ITEMS ===");
         int itemCount = library.getLibraryItems().size();
         logger.info("Displaying all {} library items", itemCount);
-        displayLibraryItems(library.getLibraryItems(), "All Items in Library");
+        displayLibraryItems( library.getLibraryItems(), "All Items in Library");
     }
 
     private void sortLibraryItems() {
@@ -864,7 +865,7 @@ public class CommandLineController {
         }
     }
 
-    private void displayLibraryItems(Vector<LibraryItem> items, String title) {
+    private void displayLibraryItems(List<LibraryItem> items, String title) {
         System.out.println("\n=== " + title + " ===");
         AtomicInteger count = new AtomicInteger();
         synchronized (items) {
@@ -909,7 +910,8 @@ public class CommandLineController {
                                         borrowedItem.getTitle(), request.getReturnDate()));
                     }
                     yield new LibraryResult(false,
-                            String.format("Failed to borrow item '%s'", borrowedItem.getTitle()));
+                            String.format("Failed to borrow item '%s'. It may not be available.",
+                                    borrowedItem != null ? borrowedItem.getTitle() : "Unknown"));
                 }
                 case RETURN -> {
                     var returnSuccess = library.returnItem(request.getItemId());
@@ -919,19 +921,19 @@ public class CommandLineController {
                                 String.format("Item '%s' returned successfully", returnedItem.getTitle()));
                     }
                     yield new LibraryResult(false,
-                            String.format("Failed to return item '%s'", returnedItem.getTitle()));
+                            String.format("Failed to return item '%s'. It may not be borrowed.",
+                                    returnedItem != null ? returnedItem.getTitle() : "Unknown"));
                 }
                 case UPDATE_STATUS -> {
-                    var itemToUpdate = library.getLibraryItemById(request.getItemId());
-                    if (itemToUpdate != null) {
-                        var newStatus = LibraryItemStatus.valueOf(request.getNewStatus());
-                        var oldStatus = itemToUpdate.getStatus();
-                        itemToUpdate.setStatus(newStatus);
+                    var newStatus = LibraryItemStatus.valueOf(request.getNewStatus());
+                    var success = library.updateItemStatus(request.getItemId(), newStatus);
+                    var updatedItem = library.getLibraryItemById(request.getItemId());
+                    if (success) {
                         yield new LibraryResult(true,
-                                String.format("Item '%s' status changed from %s to %s",
-                                        itemToUpdate.getTitle(), oldStatus, newStatus));
+                                String.format("Item '%s' status changed to %s",
+                                        updatedItem.getTitle(), newStatus));
                     }
-                    yield new LibraryResult(false, "Item not found");
+                    yield new LibraryResult(false, "Item not found or status update failed");
                 }
                 default -> new LibraryResult(false, "Unknown request type");
             };
@@ -942,9 +944,9 @@ public class CommandLineController {
 
     public void exitProgram() {
         logger.info("Initiating program exit sequence");
-        System.out.println("\n💾 Saving data to file...");
-        library.writeToFile();
-        logger.info("Program exit completed successfully");
+        System.out.println("\n💾 All data is automatically saved to database");
         System.out.println("👋 Thank you for using Library Management System!");
     }
+
+
 }
