@@ -1,6 +1,6 @@
 package library.database.dao.impl;
 
-import library.database.dao.BookDAO;
+import library.database.dao.LibraryItemDetailDAO;
 import library.database.util.DBUtil;
 import library.models.Book;
 import library.models.enums.LibraryItemStatus;
@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class BookDAOImpl extends BaseDAO implements BookDAO {
+public class BookDAOImpl extends BaseDAO implements LibraryItemDetailDAO<Book> {
     private static final String INSERT_BOOK = """
         INSERT INTO book (item_id, isbn, genre, page_count)
         VALUES (?, ?, ?, ?)

@@ -1,6 +1,6 @@
 package library.database.dao.impl;
 
-import library.database.dao.ThesisDAO;
+import library.database.dao.LibraryItemDetailDAO;
 import library.database.util.DBUtil;
 import library.models.Thesis;
 import library.models.enums.LibraryItemStatus;
@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class ThesisDAOImpl extends BaseDAO implements ThesisDAO {
+public class ThesisDAOImpl extends BaseDAO implements LibraryItemDetailDAO<Thesis> {
     private static final String INSERT_THESIS = """
         INSERT INTO thesis (item_id, university, department, advisor)
         VALUES (?, ?, ?, ?)

@@ -48,10 +48,10 @@ public class LibraryItemDAOImpl extends BaseDAO implements LibraryItemDAO {
         WHERE status = 'BORROWED' AND return_date < CURDATE()
     """;
 
-    private final BookDAO bookDAO;
-    private final MagazineDAO magazineDAO;
-    private final ReferenceDAO referenceDAO;
-    private final ThesisDAO thesisDAO;
+    private final LibraryItemDetailDAO<Book> bookDAO;
+    private final LibraryItemDetailDAO<Magazine> magazineDAO;
+    private final LibraryItemDetailDAO<Reference> referenceDAO;
+    private final LibraryItemDetailDAO<Thesis> thesisDAO;
 
     public LibraryItemDAOImpl() {
         this.bookDAO = new BookDAOImpl();

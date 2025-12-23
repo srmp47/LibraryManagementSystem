@@ -1,6 +1,6 @@
 package library.database.dao.impl;
 
-import library.database.dao.ReferenceDAO;
+import library.database.dao.LibraryItemDetailDAO;
 import library.database.util.DBUtil;
 import library.models.Reference;
 import library.models.enums.LibraryItemStatus;
@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class ReferenceDAOImpl extends BaseDAO implements ReferenceDAO {
+public class ReferenceDAOImpl extends BaseDAO implements LibraryItemDetailDAO<Reference> {
     private static final String INSERT_REFERENCE = """
         INSERT INTO reference (item_id, reference_type, edition, subject)
         VALUES (?, ?, ?, ?)

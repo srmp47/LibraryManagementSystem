@@ -1375,3 +1375,38 @@ Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost'
 2025-12-23 16:02:15 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
 2025-12-23 16:02:15 [main] INFO  library.database.DatabaseConnection - Database connection pool shutdown successfully
 2025-12-23 16:02:15 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-23 18:25:41 [main] INFO  library.database.DatabaseConnection - Database connection pool initialized successfully
+2025-12-23 18:25:41 [main] INFO  library.database.DatabaseConnection - Test connection successful
+2025-12-23 18:25:41 [main] INFO  library.models.Library - Library instance created with JDBC database connection
+2025-12-23 18:25:41 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-23 18:25:41 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-23 18:25:43 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-23 18:25:43 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-23 18:25:43 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 8 library items
+2025-12-23 18:25:46 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-23 18:25:46 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-23 18:25:46 [main] INFO  library.database.DatabaseConnection - Database connection pool shutdown successfully
+2025-12-23 18:25:46 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-23 18:27:47 [main] INFO  library.database.DatabaseConnection - Database connection pool initialized successfully
+2025-12-23 18:27:48 [main] INFO  library.database.DatabaseConnection - Test connection successful
+2025-12-23 18:27:48 [main] INFO  library.models.Library - Library instance created with JDBC database connection
+2025-12-23 18:27:48 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-23 18:27:48 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-23 18:27:53 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-23 18:27:53 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-23 18:27:53 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 8 library items
+2025-12-23 18:27:56 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 1
+2025-12-23 18:27:56 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting addLibraryItem process
+2025-12-23 18:27:57 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected item type: 3
+2025-12-23 18:27:57 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Start creating addReference request
+2025-12-23 18:28:05 [pool-1-thread-1] DEBUG l.controllers.CommandLineController - Parsed publish date for 'fsuof': 2020-09-01
+2025-12-23 18:28:08 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created reference using Builder/Director - Title: 'fsuof', Author: 'ifuof'
+2025-12-23 18:28:08 [pool-1-thread-3] INFO  l.d.dao.impl.LibraryItemDAOImpl - Saved Reference with ID: 9
+2025-12-23 18:28:08 [pool-1-thread-3] INFO  library.models.Library - Added new Reference with ID: 9
+2025-12-23 18:28:12 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-23 18:28:12 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-23 18:28:12 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 9 library items
+2025-12-23 18:28:17 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-23 18:28:17 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-23 18:28:17 [main] INFO  library.database.DatabaseConnection - Database connection pool shutdown successfully
+2025-12-23 18:28:17 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence

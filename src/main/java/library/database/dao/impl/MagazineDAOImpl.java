@@ -1,6 +1,6 @@
 package library.database.dao.impl;
 
-import library.database.dao.MagazineDAO;
+import library.database.dao.LibraryItemDetailDAO;
 import library.database.util.DBUtil;
 import library.models.Magazine;
 import library.models.enums.LibraryItemStatus;
@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class MagazineDAOImpl extends BaseDAO implements MagazineDAO {
+public class MagazineDAOImpl extends BaseDAO implements LibraryItemDetailDAO<Magazine> {
     private static final String INSERT_MAGAZINE = """
         INSERT INTO magazine (item_id, issue_number, publisher, category)
         VALUES (?, ?, ?, ?)
