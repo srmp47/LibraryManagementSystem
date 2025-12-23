@@ -1,17 +1,17 @@
 package library.database.dao.impl;
 
-import library.database.DatabaseConnection;
+import library.database.dao.MagazineDAO;
+import library.database.util.DBUtil;
 import library.models.Magazine;
 import library.models.enums.LibraryItemStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class MagazineDAOImpl {
-    private static final Logger logger = LoggerFactory.getLogger(MagazineDAOImpl.class);
-
+public class MagazineDAOImpl extends BaseDAO implements MagazineDAO {
     private static final String INSERT_MAGAZINE = """
         INSERT INTO magazine (item_id, issue_number, publisher, category)
         VALUES (?, ?, ?, ?)
@@ -30,48 +30,21 @@ public class MagazineDAOImpl {
         WHERE li.id = ?
     """;
 
+    @Override
     public void save(int itemId, Magazine magazine, Connection connection) throws SQLException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_MAGAZINE)) {
-            preparedStatement.setInt(1, itemId);
-            preparedStatement.setString(2, magazine.getIssueNumber());
-            preparedStatement.setString(3, magazine.getPublisher());
-            preparedStatement.setString(4, magazine.getCategory());
-            preparedStatement.executeUpdate();
-        }
+        DBUtil.executeUpdate(connection, INSERT_MAGAZINE,
+                itemId, magazine.getIssueNumber(), magazine.getPublisher(), magazine.getCategory());
     }
 
+    @Override
     public void update(Magazine magazine, Connection connection) throws SQLException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_MAGAZINE)) {
-            preparedStatement.setString(1, magazine.getIssueNumber());
-            preparedStatement.setString(2, magazine.getPublisher());
-            preparedStatement.setString(3, magazine.getCategory());
-            preparedStatement.setInt(4, magazine.getId());
-            preparedStatement.executeUpdate();
-        }
+        DBUtil.executeUpdate(connection, UPDATE_MAGAZINE,
+                magazine.getIssueNumber(), magazine.getPublisher(), magazine.getCategory(), magazine.getId());
     }
 
+    @Override
     public Magazine findById(int id) throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet rs = null;
-
-        try {
-            connection = DatabaseConnection.getConnection();
-            preparedStatement = connection.prepareStatement(FIND_MAGAZINE_BY_ID);
-            preparedStatement.setInt(1, id);
-            rs = preparedStatement.executeQuery();
-
-            if (rs.next()) {
-                return extractMagazineFromResultSet(rs);
-            }
-
-            return null;
-
-        } finally {
-            if (rs != null) rs.close();
-            if (preparedStatement != null) preparedStatement.close();
-            DatabaseConnection.closeConnection(connection);
-        }
+        return DBUtil.executeQueryAndMap(FIND_MAGAZINE_BY_ID, this::extractMagazineFromResultSet, id);
     }
 
     private Magazine extractMagazineFromResultSet(ResultSet resultSet) throws SQLException {

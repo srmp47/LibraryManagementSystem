@@ -1,17 +1,17 @@
 package library.database.dao.impl;
 
-import library.database.DatabaseConnection;
+import library.database.dao.BookDAO;
+import library.database.util.DBUtil;
 import library.models.Book;
 import library.models.enums.LibraryItemStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class BookDAOImpl {
-    private static final Logger logger = LoggerFactory.getLogger(BookDAOImpl.class);
-
+public class BookDAOImpl extends BaseDAO implements BookDAO {
     private static final String INSERT_BOOK = """
         INSERT INTO book (item_id, isbn, genre, page_count)
         VALUES (?, ?, ?, ?)
@@ -30,48 +30,21 @@ public class BookDAOImpl {
         WHERE li.id = ?
     """;
 
+    @Override
     public void save(int itemId, Book book, Connection connection) throws SQLException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_BOOK)) {
-            preparedStatement.setInt(1, itemId);
-            preparedStatement.setString(2, book.getIsbn());
-            preparedStatement.setString(3, book.getGenre());
-            preparedStatement.setInt(4, book.getPageCount());
-            preparedStatement.executeUpdate();
-        }
+        DBUtil.executeUpdate(connection, INSERT_BOOK,
+                itemId, book.getIsbn(), book.getGenre(), book.getPageCount());
     }
 
+    @Override
     public void update(Book book, Connection connection) throws SQLException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_BOOK)) {
-            preparedStatement.setString(1, book.getIsbn());
-            preparedStatement.setString(2, book.getGenre());
-            preparedStatement.setInt(3, book.getPageCount());
-            preparedStatement.setInt(4, book.getId());
-            preparedStatement.executeUpdate();
-        }
+        DBUtil.executeUpdate(connection, UPDATE_BOOK,
+                book.getIsbn(), book.getGenre(), book.getPageCount(), book.getId());
     }
 
+    @Override
     public Book findById(int id) throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet rs = null;
-
-        try {
-            connection = DatabaseConnection.getConnection();
-            preparedStatement = connection.prepareStatement(FIND_BOOK_BY_ID);
-            preparedStatement.setInt(1, id);
-            rs = preparedStatement.executeQuery();
-
-            if (rs.next()) {
-                return extractBookFromResultSet(rs);
-            }
-
-            return null;
-
-        } finally {
-            if (rs != null) rs.close();
-            if (preparedStatement != null) preparedStatement.close();
-            DatabaseConnection.closeConnection(connection);
-        }
+        return DBUtil.executeQueryAndMap(FIND_BOOK_BY_ID, this::extractBookFromResultSet, id);
     }
 
     private Book extractBookFromResultSet(ResultSet resultSet) throws SQLException {

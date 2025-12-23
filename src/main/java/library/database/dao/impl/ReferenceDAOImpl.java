@@ -1,17 +1,17 @@
 package library.database.dao.impl;
 
-import library.database.DatabaseConnection;
+import library.database.dao.ReferenceDAO;
+import library.database.util.DBUtil;
 import library.models.Reference;
 import library.models.enums.LibraryItemStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class ReferenceDAOImpl {
-    private static final Logger logger = LoggerFactory.getLogger(ReferenceDAOImpl.class);
-
+public class ReferenceDAOImpl extends BaseDAO implements ReferenceDAO {
     private static final String INSERT_REFERENCE = """
         INSERT INTO reference (item_id, reference_type, edition, subject)
         VALUES (?, ?, ?, ?)
@@ -30,51 +30,23 @@ public class ReferenceDAOImpl {
         WHERE li.id = ?
     """;
 
+    @Override
     public void save(int itemId, Reference reference, Connection connection) throws SQLException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_REFERENCE)) {
-            preparedStatement.setInt(1, itemId);
-            preparedStatement.setString(2, reference.getReferenceType());
-            preparedStatement.setString(3, reference.getEdition());
-            preparedStatement.setString(4, reference.getSubject());
-            preparedStatement.executeUpdate();
-            logger.debug("Saved reference with item_id: {}", itemId);
-        }
+        DBUtil.executeUpdate(connection, INSERT_REFERENCE,
+                itemId, reference.getReferenceType(), reference.getEdition(), reference.getSubject());
+        logger.debug("Saved reference with item_id: {}", itemId);
     }
 
+    @Override
     public void update(Reference reference, Connection connection) throws SQLException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_REFERENCE)) {
-            preparedStatement.setString(1, reference.getReferenceType());
-            preparedStatement.setString(2, reference.getEdition());
-            preparedStatement.setString(3, reference.getSubject());
-            preparedStatement.setInt(4, reference.getId());
-            preparedStatement.executeUpdate();
-            logger.debug("Updated reference with id: {}", reference.getId());
-        }
+        DBUtil.executeUpdate(connection, UPDATE_REFERENCE,
+                reference.getReferenceType(), reference.getEdition(), reference.getSubject(), reference.getId());
+        logger.debug("Updated reference with id: {}", reference.getId());
     }
 
+    @Override
     public Reference findById(int id) throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet rs = null;
-
-        try {
-            connection = DatabaseConnection.getConnection();
-            preparedStatement = connection.prepareStatement(FIND_REFERENCE_BY_ID);
-            preparedStatement.setInt(1, id);
-            rs = preparedStatement.executeQuery();
-
-            if (rs.next()) {
-                return extractReferenceFromResultSet(rs);
-            }
-
-            logger.warn("Reference not found with id: {}", id);
-            return null;
-
-        } finally {
-            if (rs != null) rs.close();
-            if (preparedStatement != null) preparedStatement.close();
-            DatabaseConnection.closeConnection(connection);
-        }
+        return DBUtil.executeQueryAndMap(FIND_REFERENCE_BY_ID, this::extractReferenceFromResultSet, id);
     }
 
     private Reference extractReferenceFromResultSet(ResultSet resultSet) throws SQLException {

@@ -1199,3 +1199,179 @@ java.lang.NumberFormatException: For input string: ""
 2025-12-16 16:23:35 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
 2025-12-16 16:23:35 [main] INFO  library.database.DatabaseConnection - Database connection pool shutdown successfully
 2025-12-16 16:23:35 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-23 14:59:52 [main] INFO  library.database.DatabaseConnection - Database connection pool initialized successfully
+2025-12-23 14:59:53 [main] INFO  library.models.Library - Library instance created with JDBC database connection
+2025-12-23 14:59:53 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-23 14:59:53 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-23 14:59:55 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-23 14:59:55 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-23 14:59:56 [pool-1-thread-1] ERROR library.models.Library - Error getting all library items: Unknown column 't.item_id' in 'on clause'
+2025-12-23 15:00:18 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-23 15:00:18 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-23 15:00:18 [main] INFO  library.database.DatabaseConnection - Database connection pool shutdown successfully
+2025-12-23 15:00:18 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-23 15:05:31 [main] INFO  library.database.DatabaseConnection - Database connection pool initialized successfully
+2025-12-23 15:05:31 [main] INFO  library.models.Library - Library instance created with JDBC database connection
+2025-12-23 15:05:31 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-23 15:05:31 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-23 15:05:34 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-23 15:05:34 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-23 15:05:34 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 0 library items
+2025-12-23 15:05:42 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 1
+2025-12-23 15:05:42 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting addLibraryItem process
+2025-12-23 15:05:48 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected item type: 1
+2025-12-23 15:05:48 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Start creating addBook request
+2025-12-23 15:05:53 [pool-1-thread-1] WARN  l.controllers.CommandLineController - Invalid date format provided for publish date 'fsodif': asdijfo
+2025-12-23 15:06:00 [pool-1-thread-1] DEBUG l.controllers.CommandLineController - Parsed publish date for 'fsodif': 1990-09-21
+2025-12-23 15:06:04 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created book using Builder/Director - Title: 'fsodif', Author: 'fsodifu'
+2025-12-23 15:06:04 [pool-1-thread-3] ERROR l.d.dao.impl.LibraryItemDAOImpl - Error saving library item: Cannot add or update a child row: a foreign key constraint fails (`Library_temp`.`library_item`, CONSTRAINT `library_item_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL)
+2025-12-23 15:06:04 [pool-1-thread-3] ERROR library.models.Library - Error adding library item: Cannot add or update a child row: a foreign key constraint fails (`Library_temp`.`library_item`, CONSTRAINT `library_item_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL)
+2025-12-23 15:06:06 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-23 15:06:06 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-23 15:06:06 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 0 library items
+2025-12-23 15:08:18 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 
+2025-12-23 15:08:18 [pool-1-thread-1] WARN  l.controllers.CommandLineController - Invalid menu choice entered: 
+2025-12-23 15:08:18 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-23 15:08:18 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-23 15:08:18 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 0 library items
+2025-12-23 15:08:38 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-23 15:08:38 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-23 15:08:38 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 0 library items
+2025-12-23 15:08:48 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 10
+2025-12-23 15:08:48 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying library statistics
+2025-12-23 15:08:48 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Statistics - Total: 0, Available: 0, Borrowed: 0, Banned: 0, Overdue: 0
+2025-12-23 15:08:53 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 9
+2025-12-23 15:08:53 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing borrowed items
+2025-12-23 15:08:59 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-12-23 15:08:59 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-12-23 15:08:59 [pool-1-thread-1] WARN  l.controllers.CommandLineController - Return operation failed: No borrowed items
+2025-12-23 15:09:03 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 5
+2025-12-23 15:09:03 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting sortLibraryItems process
+2025-12-23 15:09:03 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Sorting completed: 0 items sorted by publication date
+2025-12-23 15:09:07 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-23 15:09:07 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-23 15:09:07 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 0 library items
+2025-12-23 15:09:10 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 3
+2025-12-23 15:09:10 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting searchLibraryItems process
+2025-12-23 15:09:12 [pool-1-thread-1] DEBUG l.controllers.CommandLineController - User selected search algorithm: SEARCH_BY_TITLE_EXACT
+2025-12-23 15:09:13 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching with keyword: 'fpoisduaf' using algorithm: SEARCH_BY_TITLE_EXACT
+2025-12-23 15:09:13 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Search completed for 'fpoisduaf' using SEARCH_BY_TITLE_EXACT: found 0 results
+2025-12-23 15:09:18 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 2
+2025-12-23 15:09:18 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting removeLibraryItem process
+2025-12-23 15:09:18 [pool-1-thread-1] WARN  l.controllers.CommandLineController - Remove operation failed: No items in library
+2025-12-23 15:09:36 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 1
+2025-12-23 15:09:36 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting addLibraryItem process
+2025-12-23 15:09:39 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected item type: 5
+2025-12-23 15:09:39 [pool-1-thread-1] WARN  l.controllers.CommandLineController - Invalid item type selected: 5
+2025-12-23 15:19:34 [main] INFO  library.database.DatabaseConnection - Database connection pool initialized successfully
+2025-12-23 15:20:04 [main] INFO  library.database.DatabaseConnection - Database connection pool initialized successfully
+2025-12-23 15:21:08 [main] INFO  library.database.DatabaseConnection - Database connection pool initialized successfully
+2025-12-23 15:40:26 [main] INFO  library.database.DatabaseConnection - Database connection pool initialized successfully
+2025-12-23 15:48:28 [main] INFO  library.database.DatabaseConnection - Database connection pool initialized successfully
+2025-12-23 15:48:28 [main] ERROR library.database.DatabaseConnection - Error initializing data source: Cannot create PoolableConnectionFactory (Access denied for user 'root'@'localhost')
+java.sql.SQLException: Cannot create PoolableConnectionFactory (Access denied for user 'root'@'localhost')
+	at org.apache.commons.dbcp2.BasicDataSource.createPoolableConnectionFactory(BasicDataSource.java:653)
+	at org.apache.commons.dbcp2.BasicDataSource.createDataSource(BasicDataSource.java:531)
+	at org.apache.commons.dbcp2.BasicDataSource.getConnection(BasicDataSource.java:731)
+	at library.database.DatabaseConnection.initializeDataSource(DatabaseConnection.java:60)
+	at library.database.DatabaseConnection.<clinit>(DatabaseConnection.java:28)
+	at library.Main.main(Main.java:20)
+Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:130)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:825)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:446)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:239)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:188)
+	at org.apache.commons.dbcp2.DriverConnectionFactory.createConnection(DriverConnectionFactory.java:52)
+	at org.apache.commons.dbcp2.PoolableConnectionFactory.makeObject(PoolableConnectionFactory.java:374)
+	at org.apache.commons.dbcp2.BasicDataSource.validateConnectionFactory(BasicDataSource.java:106)
+	at org.apache.commons.dbcp2.BasicDataSource.createPoolableConnectionFactory(BasicDataSource.java:649)
+	... 5 common frames omitted
+2025-12-23 15:50:54 [main] INFO  library.database.DatabaseConnection - Database connection pool initialized successfully
+2025-12-23 15:50:55 [main] ERROR library.database.DatabaseConnection - Error initializing data source: Cannot create PoolableConnectionFactory (Access denied for user 'root'@'localhost')
+java.sql.SQLException: Cannot create PoolableConnectionFactory (Access denied for user 'root'@'localhost')
+	at org.apache.commons.dbcp2.BasicDataSource.createPoolableConnectionFactory(BasicDataSource.java:653)
+	at org.apache.commons.dbcp2.BasicDataSource.createDataSource(BasicDataSource.java:531)
+	at org.apache.commons.dbcp2.BasicDataSource.getConnection(BasicDataSource.java:731)
+	at library.database.DatabaseConnection.initializeDataSource(DatabaseConnection.java:60)
+	at library.database.DatabaseConnection.<clinit>(DatabaseConnection.java:28)
+	at library.Main.main(Main.java:20)
+Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:130)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:825)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:446)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:239)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:188)
+	at org.apache.commons.dbcp2.DriverConnectionFactory.createConnection(DriverConnectionFactory.java:52)
+	at org.apache.commons.dbcp2.PoolableConnectionFactory.makeObject(PoolableConnectionFactory.java:374)
+	at org.apache.commons.dbcp2.BasicDataSource.validateConnectionFactory(BasicDataSource.java:106)
+	at org.apache.commons.dbcp2.BasicDataSource.createPoolableConnectionFactory(BasicDataSource.java:649)
+	... 5 common frames omitted
+2025-12-23 15:51:29 [main] INFO  library.database.DatabaseConnection - Database connection pool initialized successfully
+2025-12-23 15:51:30 [main] INFO  library.database.DatabaseConnection - Test connection successful
+2025-12-23 15:51:30 [main] INFO  library.models.Library - Library instance created with JDBC database connection
+2025-12-23 15:51:30 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-23 15:51:30 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-23 15:51:32 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-23 15:51:32 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-23 15:51:32 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 6 library items
+2025-12-23 15:51:38 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 3
+2025-12-23 15:51:38 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting searchLibraryItems process
+2025-12-23 15:51:40 [pool-1-thread-1] DEBUG l.controllers.CommandLineController - User selected search algorithm: SEARCH_BY_TITLE_EXACT
+2025-12-23 15:51:41 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching with keyword: 'b' using algorithm: SEARCH_BY_TITLE_EXACT
+2025-12-23 15:51:41 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Search completed for 'b' using SEARCH_BY_TITLE_EXACT: found 2 results
+2025-12-23 15:51:59 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 7
+2025-12-23 15:51:59 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting borrowLibraryItem process
+2025-12-23 15:52:04 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User searching for item to borrow with title: 't'
+2025-12-23 15:52:04 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Found 2 available items matching title 't'
+2025-12-23 15:52:10 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created borrow request - Item ID: 3, Return Date: 2026-01-06
+2025-12-23 15:52:10 [pool-1-thread-2] INFO  l.d.dao.impl.LibraryItemDAOImpl - Item 3 borrowed by user 1
+2025-12-23 15:52:35 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 9
+2025-12-23 15:52:35 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing borrowed items
+2025-12-23 15:52:44 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 8
+2025-12-23 15:52:44 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting returnLibraryItem process
+2025-12-23 15:52:51 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created return request - Item ID: 3
+2025-12-23 15:52:51 [pool-1-thread-3] INFO  l.d.dao.impl.LibraryItemDAOImpl - Item 3 returned
+2025-12-23 15:52:55 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 9
+2025-12-23 15:52:55 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing borrowed items
+2025-12-23 15:53:11 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-23 15:53:11 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-23 15:53:11 [main] INFO  library.database.DatabaseConnection - Database connection pool shutdown successfully
+2025-12-23 15:53:11 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence
+2025-12-23 16:00:52 [main] INFO  library.database.DatabaseConnection - Database connection pool initialized successfully
+2025-12-23 16:00:52 [main] INFO  library.database.DatabaseConnection - Test connection successful
+2025-12-23 16:00:52 [main] INFO  library.models.Library - Library instance created with JDBC database connection
+2025-12-23 16:00:52 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-23 16:00:52 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-23 16:01:05 [main] INFO  library.database.DatabaseConnection - Database connection pool initialized successfully
+2025-12-23 16:01:06 [main] INFO  library.database.DatabaseConnection - Test connection successful
+2025-12-23 16:01:06 [main] INFO  library.models.Library - Library instance created with JDBC database connection
+2025-12-23 16:01:06 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-23 16:01:06 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-23 16:01:28 [main] INFO  library.database.DatabaseConnection - Database connection pool initialized successfully
+2025-12-23 16:01:28 [main] INFO  library.database.DatabaseConnection - Test connection successful
+2025-12-23 16:01:28 [main] INFO  library.models.Library - Library instance created with JDBC database connection
+2025-12-23 16:01:28 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-23 16:01:28 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-23 16:01:44 [main] INFO  library.database.DatabaseConnection - Database connection pool initialized successfully
+2025-12-23 16:01:44 [main] INFO  library.database.DatabaseConnection - Test connection successful
+2025-12-23 16:01:44 [main] INFO  library.models.Library - Library instance created with JDBC database connection
+2025-12-23 16:01:44 [main] INFO  l.controllers.CommandLineController - Initializing CommandLineController with provided Library
+2025-12-23 16:01:44 [main] INFO  l.controllers.CommandLineController - Created new instance of CommandLineController
+2025-12-23 16:01:48 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 1
+2025-12-23 16:01:48 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Starting addLibraryItem process
+2025-12-23 16:01:50 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected item type: 1
+2025-12-23 16:01:50 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Start creating addBook request
+2025-12-23 16:02:01 [pool-1-thread-1] DEBUG l.controllers.CommandLineController - Parsed publish date for 'fposidf': 2019-09-08
+2025-12-23 16:02:05 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Created book using Builder/Director - Title: 'fposidf', Author: 'sdfio'
+2025-12-23 16:02:05 [pool-1-thread-3] INFO  l.d.dao.impl.LibraryItemDAOImpl - Saved Book with ID: 7
+2025-12-23 16:02:05 [pool-1-thread-3] INFO  library.models.Library - Added new Book with ID: 7
+2025-12-23 16:02:10 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 4
+2025-12-23 16:02:10 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Listing all library items
+2025-12-23 16:02:10 [pool-1-thread-1] INFO  l.controllers.CommandLineController - Displaying all 7 library items
+2025-12-23 16:02:15 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User selected menu option: 0
+2025-12-23 16:02:15 [pool-1-thread-1] INFO  l.controllers.CommandLineController - User initiated program exit
+2025-12-23 16:02:15 [main] INFO  library.database.DatabaseConnection - Database connection pool shutdown successfully
+2025-12-23 16:02:15 [main] INFO  l.controllers.CommandLineController - Initiating program exit sequence

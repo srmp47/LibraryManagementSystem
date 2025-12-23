@@ -1,17 +1,17 @@
 package library.database.dao.impl;
 
-import library.database.DatabaseConnection;
+import library.database.dao.ThesisDAO;
+import library.database.util.DBUtil;
 import library.models.Thesis;
 import library.models.enums.LibraryItemStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class ThesisDAOImpl {
-    private static final Logger logger = LoggerFactory.getLogger(ThesisDAOImpl.class);
-
+public class ThesisDAOImpl extends BaseDAO implements ThesisDAO {
     private static final String INSERT_THESIS = """
         INSERT INTO thesis (item_id, university, department, advisor)
         VALUES (?, ?, ?, ?)
@@ -30,51 +30,23 @@ public class ThesisDAOImpl {
         WHERE li.id = ?
     """;
 
+    @Override
     public void save(int itemId, Thesis thesis, Connection connection) throws SQLException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_THESIS)) {
-            preparedStatement.setInt(1, itemId);
-            preparedStatement.setString(2, thesis.getUniversity());
-            preparedStatement.setString(3, thesis.getDepartment());
-            preparedStatement.setString(4, thesis.getAdvisor());
-            preparedStatement.executeUpdate();
-            logger.debug("Saved thesis with item_id: {}", itemId);
-        }
+        DBUtil.executeUpdate(connection, INSERT_THESIS,
+                itemId, thesis.getUniversity(), thesis.getDepartment(), thesis.getAdvisor());
+        logger.debug("Saved thesis with item_id: {}", itemId);
     }
 
+    @Override
     public void update(Thesis thesis, Connection connection) throws SQLException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_THESIS)) {
-            preparedStatement.setString(1, thesis.getUniversity());
-            preparedStatement.setString(2, thesis.getDepartment());
-            preparedStatement.setString(3, thesis.getAdvisor());
-            preparedStatement.setInt(4, thesis.getId());
-            preparedStatement.executeUpdate();
-            logger.debug("Updated thesis with id: {}", thesis.getId());
-        }
+        DBUtil.executeUpdate(connection, UPDATE_THESIS,
+                thesis.getUniversity(), thesis.getDepartment(), thesis.getAdvisor(), thesis.getId());
+        logger.debug("Updated thesis with id: {}", thesis.getId());
     }
 
+    @Override
     public Thesis findById(int id) throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = DatabaseConnection.getConnection();
-            preparedStatement = connection.prepareStatement(FIND_THESIS_BY_ID);
-            preparedStatement.setInt(1, id);
-            resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                return extractThesisFromResultSet(resultSet);
-            }
-
-            logger.warn("Thesis not found with id: {}", id);
-            return null;
-
-        } finally {
-            if (resultSet != null) resultSet.close();
-            if (preparedStatement != null) preparedStatement.close();
-            DatabaseConnection.closeConnection(connection);
-        }
+        return DBUtil.executeQueryAndMap(FIND_THESIS_BY_ID, this::extractThesisFromResultSet, id);
     }
 
     private Thesis extractThesisFromResultSet(ResultSet resultSet) throws SQLException {
